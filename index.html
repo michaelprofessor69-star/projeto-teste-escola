@@ -1,466 +1,5425 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EduOcorrências — Registro de Ocorrências Escolares</title>
-<style>
-  :root{
-    --roxo-900:#2b0b4f;
-    --roxo-800:#3d1268;
-    --roxo-700:#4e1a85;
-    --roxo-600:#6320a8;
-    --roxo-500:#7b2ff2;
-    --roxo-400:#9a5bf5;
-    --roxo-300:#b98ef8;
-    --roxo-100:#ede2fe;
-    --roxo-50:#f7f2ff;
-    --cinza:#5b5470;
-    --branco:#ffffff;
-    --sombra:0 10px 30px rgba(61,18,104,.18);
-    --raio:16px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{
-    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
-    background:linear-gradient(160deg,var(--roxo-50) 0%, #fff 45%, var(--roxo-100) 100%);
-    min-height:100vh;color:#241343;
-  }
-  /* ---------- TOPO ---------- */
-  header{
-    background:linear-gradient(120deg,var(--roxo-900),var(--roxo-600));
-    color:#fff;padding:18px 28px;display:flex;align-items:center;
-    justify-content:space-between;flex-wrap:wrap;gap:12px;
-    box-shadow:var(--sombra);position:sticky;top:0;z-index:50;
-  }
-  .logo{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:700;letter-spacing:.3px;}
-  .logo .icone{
-    width:42px;height:42px;border-radius:12px;
-    background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:22px;
-    border:1px solid rgba(255,255,255,.3);
-  }
-  .usuario{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
-  .badge{
-    background:rgba(255,255,255,.16);padding:7px 14px;border-radius:999px;
-    font-size:13px;border:1px solid rgba(255,255,255,.28);
-  }
-  .badge b{font-weight:600;}
-  .btn-sair{
-    background:#fff;color:var(--roxo-700);border:none;padding:9px 18px;border-radius:999px;
-    font-weight:600;cursor:pointer;font-size:13px;transition:.2s;
-  }
-  .btn-sair:hover{background:var(--roxo-100);transform:translateY(-1px);}
 
-  /* ---------- LOGIN ---------- */
-  #telaLogin{
-    min-height:100vh;display:grid;place-items:center;padding:24px;
-    background:linear-gradient(150deg,var(--roxo-900) 0%,var(--roxo-600) 55%,var(--roxo-400) 100%);
-  }
-  .cartao-login{
-    background:#fff;border-radius:22px;padding:38px 34px;width:100%;max-width:420px;
-    box-shadow:0 24px 60px rgba(20,5,40,.45);
-  }
-  .cartao-login h1{font-size:24px;color:var(--roxo-800);margin-bottom:6px;text-align:center;}
-  .cartao-login p.sub{text-align:center;color:var(--cinza);font-size:14px;margin-bottom:26px;}
-  .campo{margin-bottom:16px;}
-  label{display:block;font-size:13px;font-weight:600;color:var(--roxo-800);margin-bottom:6px;}
-  input,select,textarea{
-    width:100%;padding:12px 14px;border:2px solid var(--roxo-100);border-radius:12px;
-    font-size:14px;font-family:inherit;background:var(--roxo-50);transition:.2s;color:#241343;
-  }
-  input:focus,select:focus,textarea:focus{
-    outline:none;border-color:var(--roxo-500);background:#fff;
-    box-shadow:0 0 0 4px rgba(123,47,242,.12);
-  }
-  textarea{resize:vertical;min-height:90px;}
-  .btn-principal{
-    width:100%;padding:13px;border:none;border-radius:12px;cursor:pointer;
-    background:linear-gradient(120deg,var(--roxo-600),var(--roxo-500));color:#fff;
-    font-size:15px;font-weight:700;letter-spacing:.4px;transition:.2s;
-  }
-  .btn-principal:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(99,32,168,.35);}
-  .dica{
-    margin-top:20px;font-size:12px;color:var(--cinza);text-align:center;
-    background:var(--roxo-50);padding:12px;border-radius:10px;line-height:1.7;
-  }
-  .dica code{background:var(--roxo-100);padding:1px 6px;border-radius:5px;color:var(--roxo-700);font-weight:600;}
+    <meta charset="UTF-8">
 
-  /* ---------- APP ---------- */
-  #app{display:none;padding:26px;max-width:1180px;margin:0 auto;}
-  .abas{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;}
-  .aba{
-    padding:11px 20px;border-radius:999px;border:2px solid var(--roxo-100);
-    background:#fff;color:var(--roxo-700);font-weight:600;font-size:14px;cursor:pointer;transition:.2s;
-  }
-  .aba:hover{border-color:var(--roxo-300);}
-  .aba.ativa{background:linear-gradient(120deg,var(--roxo-600),var(--roxo-500));color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(99,32,168,.3);}
-  .painel{display:none;animation:fade .35s ease;}
-  .painel.ativo{display:block;}
-  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-  .cartao{
-    background:#fff;border-radius:var(--raio);padding:26px;
-    box-shadow:var(--sombra);border:1px solid var(--roxo-100);
-  }
-  .cartao h2{font-size:19px;color:var(--roxo-800);margin-bottom:4px;}
-  .cartao p.desc{font-size:13px;color:var(--cinza);margin-bottom:20px;}
-  .grade{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  @media(max-width:700px){.grade{grid-template-columns:1fr;}}
+    <meta
+        name="description"
+        content="EduOcorrências - Sistema de registro e acompanhamento de ocorrências escolares">
 
-  /* ---------- ESTATÍSTICAS ---------- */
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-bottom:24px;}
-  .stat{
-    background:#fff;border-radius:var(--raio);padding:20px;box-shadow:var(--sombra);
-    border-left:5px solid var(--roxo-500);
-  }
-  .stat .num{font-size:30px;font-weight:800;color:var(--roxo-700);}
-  .stat .rot{font-size:12px;color:var(--cinza);text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-top:4px;}
+    <title>EduOcorrências | Gestão Escolar</title>
 
-  /* ---------- LISTA ---------- */
-  .filtros{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
-  .filtros input,.filtros select{max-width:280px;}
-  .ocorrencia{
-    background:#fff;border-radius:var(--raio);padding:18px 20px;margin-bottom:14px;
-    box-shadow:0 4px 16px rgba(61,18,104,.10);border:1px solid var(--roxo-100);
-    border-left:6px solid var(--roxo-500);transition:.2s;
-  }
-  .ocorrencia:hover{transform:translateX(4px);box-shadow:var(--sombra);}
-  .oc-topo{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;}
-  .oc-nome{font-size:16px;font-weight:700;color:var(--roxo-800);}
-  .oc-turma{
-    background:var(--roxo-100);color:var(--roxo-700);font-size:12px;font-weight:700;
-    padding:4px 12px;border-radius:999px;
-  }
-  .oc-motivo{margin-top:10px;font-size:14px;color:#3a2a5c;line-height:1.6;}
-  .oc-rodape{
-    margin-top:14px;padding-top:12px;border-top:1px dashed var(--roxo-100);
-    display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--cinza);
-  }
-  .oc-rodape b{color:var(--roxo-700);}
-  .vazio{text-align:center;padding:50px 20px;color:var(--cinza);font-size:14px;}
-  .vazio .emoji{font-size:44px;display:block;margin-bottom:12px;}
 
-  .tag-tipo{
-    display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;
-    background:var(--roxo-100);color:var(--roxo-700);margin-top:8px;text-transform:uppercase;letter-spacing:.4px;
-  }
-  .aviso-leitura{
-    background:linear-gradient(120deg,var(--roxo-100),var(--roxo-50));
-    border:1px solid var(--roxo-300);color:var(--roxo-800);
-    padding:14px 18px;border-radius:12px;font-size:13px;margin-bottom:20px;
-    display:flex;gap:10px;align-items:center;
-  }
-  #msgSucesso{
-    display:none;background:#e8f7ee;border:1px solid #7ad39b;color:#1d6b3c;
-    padding:12px 16px;border-radius:12px;font-size:13.5px;font-weight:600;margin-bottom:16px;
-  }
-</style>
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        :root {
+
+            --azul-escuro: #172554;
+            --azul: #2563eb;
+            --azul-claro: #eff6ff;
+
+            --verde: #16a34a;
+            --verde-claro: #dcfce7;
+
+            --amarelo: #d97706;
+            --amarelo-claro: #fef3c7;
+
+            --vermelho: #dc2626;
+            --vermelho-claro: #fee2e2;
+
+            --cinza-900: #0f172a;
+            --cinza-700: #334155;
+            --cinza-600: #475569;
+            --cinza-500: #64748b;
+            --cinza-400: #94a3b8;
+            --cinza-300: #cbd5e1;
+            --cinza-200: #e2e8f0;
+            --cinza-100: #f1f5f9;
+            --cinza-50: #f8fafc;
+
+            --branco: #ffffff;
+
+            --sombra:
+                0 8px 25px rgba(15, 23, 42, 0.08);
+
+            --raio: 14px;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                var(--cinza-100);
+
+            color:
+                var(--cinza-900);
+
+            min-height:
+                100vh;
+        }
+
+
+        button,
+        input,
+        select,
+        textarea {
+
+            font-family:
+                inherit;
+        }
+
+
+        button {
+
+            cursor:
+                pointer;
+        }
+
+
+        /* =====================================================
+           LOGIN
+        ===================================================== */
+
+        #telaLogin {
+
+            min-height:
+                100vh;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #172554 0%,
+                    #1d4ed8 50%,
+                    #2563eb 100%
+                );
+        }
+
+
+        .login-container {
+
+            width:
+                100%;
+
+            max-width:
+                440px;
+        }
+
+
+        .login-card {
+
+            background:
+                var(--branco);
+
+            border-radius:
+                22px;
+
+            padding:
+                35px;
+
+            box-shadow:
+                0 25px 60px rgba(0,0,0,.25);
+        }
+
+
+        .login-logo {
+
+            width:
+                75px;
+
+            height:
+                75px;
+
+            margin:
+                0 auto 20px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            border-radius:
+                20px;
+
+            background:
+                var(--azul-claro);
+
+            font-size:
+                38px;
+        }
+
+
+        .login-card h1 {
+
+            text-align:
+                center;
+
+            color:
+                var(--azul-escuro);
+
+            font-size:
+                28px;
+
+            margin-bottom:
+                8px;
+        }
+
+
+        .login-subtitulo {
+
+            text-align:
+                center;
+
+            color:
+                var(--cinza-500);
+
+            margin-bottom:
+                28px;
+
+            line-height:
+                1.5;
+        }
+
+
+        .campo-login {
+
+            margin-bottom:
+                18px;
+        }
+
+
+        .campo-login label {
+
+            display:
+                block;
+
+            margin-bottom:
+                7px;
+
+            font-size:
+                14px;
+
+            font-weight:
+                bold;
+
+            color:
+                var(--cinza-700);
+        }
+
+
+        .campo-login input {
+
+            width:
+                100%;
+
+            padding:
+                14px;
+
+            border:
+                1px solid var(--cinza-300);
+
+            border-radius:
+                10px;
+
+            outline:
+                none;
+
+            font-size:
+                15px;
+
+            transition:
+                .2s;
+        }
+
+
+        .campo-login input:focus {
+
+            border-color:
+                var(--azul);
+
+            box-shadow:
+                0 0 0 3px rgba(37,99,235,.12);
+        }
+
+
+        .btn-login {
+
+            width:
+                100%;
+
+            padding:
+                14px;
+
+            border:
+                none;
+
+            border-radius:
+                10px;
+
+            background:
+                var(--azul);
+
+            color:
+                white;
+
+            font-size:
+                16px;
+
+            font-weight:
+                bold;
+
+            transition:
+                .2s;
+        }
+
+
+        .btn-login:hover {
+
+            background:
+                #1d4ed8;
+        }
+
+
+        .login-rodape {
+
+            text-align:
+                center;
+
+            margin-top:
+                22px;
+
+            font-size:
+                12px;
+
+            color:
+                var(--cinza-400);
+        }
+
+
+        /* =====================================================
+           APLICATIVO
+        ===================================================== */
+
+        #app {
+
+            display:
+                none;
+
+            min-height:
+                100vh;
+        }
+
+
+        /* =====================================================
+           CABEÇALHO
+        ===================================================== */
+
+        .topo {
+
+            background:
+                var(--branco);
+
+            border-bottom:
+                1px solid var(--cinza-200);
+
+            position:
+                sticky;
+
+            top:
+                0;
+
+            z-index:
+                100;
+
+            box-shadow:
+                0 2px 8px rgba(15,23,42,.05);
+        }
+
+
+        .topo-conteudo {
+
+            max-width:
+                1400px;
+
+            margin:
+                auto;
+
+            padding:
+                14px 22px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                20px;
+        }
+
+
+        .marca {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+        }
+
+
+        .marca-icone {
+
+            width:
+                45px;
+
+            height:
+                45px;
+
+            border-radius:
+                12px;
+
+            background:
+                var(--azul);
+
+            color:
+                white;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                23px;
+        }
+
+
+        .marca h1 {
+
+            font-size:
+                20px;
+
+            color:
+                var(--azul-escuro);
+        }
+
+
+        .marca span {
+
+            display:
+                block;
+
+            color:
+                var(--cinza-500);
+
+            font-size:
+                12px;
+
+            margin-top:
+                2px;
+        }
+
+
+        .usuario-topo {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+        }
+
+
+        .usuario-info {
+
+            text-align:
+                right;
+        }
+
+
+        .usuario-info strong {
+
+            display:
+                block;
+
+            font-size:
+                14px;
+        }
+
+
+        .usuario-info span {
+
+            font-size:
+                12px;
+
+            color:
+                var(--cinza-500);
+        }
+
+
+        .avatar {
+
+            width:
+                40px;
+
+            height:
+                40px;
+
+            border-radius:
+                50%;
+
+            background:
+                var(--azul-claro);
+
+            color:
+                var(--azul);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-weight:
+                bold;
+        }
+
+
+        .btn-sair {
+
+            border:
+                none;
+
+            background:
+                var(--vermelho-claro);
+
+            color:
+                var(--vermelho);
+
+            padding:
+                9px 13px;
+
+            border-radius:
+                8px;
+
+            font-weight:
+                bold;
+        }
+
+
+        /* =====================================================
+           LAYOUT
+        ===================================================== */
+
+        .layout {
+
+            max-width:
+                1400px;
+
+            margin:
+                auto;
+
+            display:
+                flex;
+
+            min-height:
+                calc(100vh - 74px);
+        }
+
+
+        /* =====================================================
+           MENU LATERAL
+        ===================================================== */
+
+        .sidebar {
+
+            width:
+                240px;
+
+            background:
+                var(--branco);
+
+            border-right:
+                1px solid var(--cinza-200);
+
+            padding:
+                22px 14px;
+        }
+
+
+        .menu-titulo {
+
+            font-size:
+                11px;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                .8px;
+
+            color:
+                var(--cinza-400);
+
+            margin:
+                0 10px 10px;
+        }
+
+
+        .menu-item {
+
+            width:
+                100%;
+
+            border:
+                none;
+
+            background:
+                transparent;
+
+            padding:
+                12px;
+
+            border-radius:
+                9px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                11px;
+
+            color:
+                var(--cinza-600);
+
+            font-weight:
+                600;
+
+            margin-bottom:
+                5px;
+
+            text-align:
+                left;
+        }
+
+
+        .menu-item:hover {
+
+            background:
+                var(--cinza-100);
+        }
+
+
+        .menu-item.ativo {
+
+            background:
+                var(--azul-claro);
+
+            color:
+                var(--azul);
+        }
+
+
+        /* =====================================================
+           CONTEÚDO
+        ===================================================== */
+
+        .conteudo {
+
+            flex:
+                1;
+
+            padding:
+                28px;
+        }
+
+
+        .secao {
+
+            display:
+                none;
+        }
+
+
+        .secao.ativa {
+
+            display:
+                block;
+        }
+
+
+        .titulo-secao {
+
+            margin-bottom:
+                22px;
+        }
+
+
+        .titulo-secao h2 {
+
+            font-size:
+                25px;
+
+            color:
+                var(--azul-escuro);
+
+            margin-bottom:
+                5px;
+        }
+
+
+        .titulo-secao p {
+
+            color:
+                var(--cinza-500);
+        }
+
+
+        /* =====================================================
+           DASHBOARD
+        ===================================================== */
+
+        .indicadores {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap:
+                16px;
+
+            margin-bottom:
+                22px;
+        }
+
+
+        .indicador {
+
+            background:
+                white;
+
+            border-radius:
+                var(--raio);
+
+            padding:
+                20px;
+
+            box-shadow:
+                var(--sombra);
+
+            border:
+                1px solid var(--cinza-200);
+        }
+
+
+        .indicador-topo {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            margin-bottom:
+                14px;
+        }
+
+
+        .indicador-icone {
+
+            width:
+                40px;
+
+            height:
+                40px;
+
+            border-radius:
+                10px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                20px;
+        }
+
+
+        .indicador.total .indicador-icone {
+
+            background:
+                var(--azul-claro);
+        }
+
+
+        .indicador.pendente .indicador-icone {
+
+            background:
+                var(--vermelho-claro);
+        }
+
+
+        .indicador.acompanhamento .indicador-icone {
+
+            background:
+                var(--amarelo-claro);
+        }
+
+
+        .indicador.resolvido .indicador-icone {
+
+            background:
+                var(--verde-claro);
+        }
+
+
+        .indicador-numero {
+
+            font-size:
+                30px;
+
+            font-weight:
+                bold;
+
+            color:
+                var(--cinza-900);
+        }
+
+
+        .indicador-texto {
+
+            color:
+                var(--cinza-500);
+
+            font-size:
+                13px;
+        }
+
+
+        /* =====================================================
+           CARDS
+        ===================================================== */
+
+        .card {
+
+            background:
+                var(--branco);
+
+            border:
+                1px solid var(--cinza-200);
+
+            border-radius:
+                var(--raio);
+
+            padding:
+                22px;
+
+            box-shadow:
+                var(--sombra);
+
+            margin-bottom:
+                22px;
+        }
+
+
+        .card-cabecalho {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            margin-bottom:
+                18px;
+
+            gap:
+                10px;
+        }
+
+
+        .card-cabecalho h3 {
+
+            color:
+                var(--azul-escuro);
+
+            font-size:
+                18px;
+        }
+
+
+        /* =====================================================
+           FILTROS
+        ===================================================== */
+
+        .filtros {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap:
+                12px;
+        }
+
+
+        .campo {
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            gap:
+                6px;
+        }
+
+
+        .campo label {
+
+            font-size:
+                13px;
+
+            font-weight:
+                bold;
+
+            color:
+                var(--cinza-700);
+        }
+
+
+        .campo input,
+        .campo select,
+        .campo textarea {
+
+            width:
+                100%;
+
+            padding:
+                11px 12px;
+
+            border:
+                1px solid var(--cinza-300);
+
+            border-radius:
+                8px;
+
+            outline:
+                none;
+
+            font-size:
+                14px;
+
+            background:
+                white;
+        }
+
+
+        .campo input:focus,
+        .campo select:focus,
+        .campo textarea:focus {
+
+            border-color:
+                var(--azul);
+
+            box-shadow:
+                0 0 0 3px rgba(37,99,235,.10);
+        }
+
+
+        .campo textarea {
+
+            min-height:
+                130px;
+
+            resize:
+                vertical;
+        }
+
+
+        .campo-full {
+
+            grid-column:
+                1 / -1;
+        }
+
+
+        .acoes-filtro {
+
+            display:
+                flex;
+
+            gap:
+                8px;
+
+            margin-top:
+                15px;
+
+            flex-wrap:
+                wrap;
+        }
+
+
+        /* =====================================================
+           BOTÕES
+        ===================================================== */
+
+        .btn {
+
+            border:
+                none;
+
+            border-radius:
+                8px;
+
+            padding:
+                11px 16px;
+
+            font-weight:
+                bold;
+
+            font-size:
+                14px;
+        }
+
+
+        .btn-primary {
+
+            background:
+                var(--azul);
+
+            color:
+                white;
+        }
+
+
+        .btn-primary:hover {
+
+            background:
+                #1d4ed8;
+        }
+
+
+        .btn-secondary {
+
+            background:
+                var(--cinza-200);
+
+            color:
+                var(--cinza-700);
+        }
+
+
+        .btn-success {
+
+            background:
+                var(--verde);
+
+            color:
+                white;
+        }
+
+
+        .btn-danger {
+
+            background:
+                var(--vermelho);
+
+            color:
+                white;
+        }
+
+
+        /* =====================================================
+           FORMULÁRIO
+        ===================================================== */
+
+        .form-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap:
+                17px;
+        }
+
+
+        .form-acoes {
+
+            margin-top:
+                20px;
+
+            display:
+                flex;
+
+            gap:
+                10px;
+
+            flex-wrap:
+                wrap;
+        }
+
+
+        /* =====================================================
+           TABELA
+        ===================================================== */
+
+        .tabela-container {
+
+            overflow-x:
+                auto;
+        }
+
+
+        table {
+
+            width:
+                100%;
+
+            border-collapse:
+                collapse;
+
+            min-width:
+                1050px;
+        }
+
+
+        th {
+
+            background:
+                var(--cinza-50);
+
+            color:
+                var(--cinza-600);
+
+            font-size:
+                12px;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                .4px;
+
+            padding:
+                13px;
+
+            text-align:
+                left;
+
+            border-bottom:
+                2px solid var(--cinza-200);
+        }
+
+
+        td {
+
+            padding:
+                13px;
+
+            border-bottom:
+                1px solid var(--cinza-200);
+
+            font-size:
+                13px;
+
+            vertical-align:
+                middle;
+        }
+
+
+        tr:hover td {
+
+            background:
+                var(--cinza-50);
+        }
+
+
+        .descricao-tabela {
+
+            max-width:
+                280px;
+
+            white-space:
+                nowrap;
+
+            overflow:
+                hidden;
+
+            text-overflow:
+                ellipsis;
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .status {
+
+            display:
+                inline-block;
+
+            padding:
+                5px 9px;
+
+            border-radius:
+                20px;
+
+            font-size:
+                11px;
+
+            font-weight:
+                bold;
+
+            white-space:
+                nowrap;
+        }
+
+
+        .status-pendente {
+
+            background:
+                var(--vermelho-claro);
+
+            color:
+                #991b1b;
+        }
+
+
+        .status-acompanhamento {
+
+            background:
+                var(--amarelo-claro);
+
+            color:
+                #92400e;
+        }
+
+
+        .status-resolvido {
+
+            background:
+                var(--verde-claro);
+
+            color:
+                #166534;
+        }
+
+
+        /* =====================================================
+           AÇÕES TABELA
+        ===================================================== */
+
+        .acoes-tabela {
+
+            display:
+                flex;
+
+            gap:
+                5px;
+        }
+
+
+        .btn-mini {
+
+            border:
+                none;
+
+            width:
+                32px;
+
+            height:
+                32px;
+
+            border-radius:
+                7px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+        }
+
+
+        .btn-editar {
+
+            background:
+                var(--azul-claro);
+
+            color:
+                var(--azul);
+        }
+
+
+        .btn-excluir {
+
+            background:
+                var(--vermelho-claro);
+
+            color:
+                var(--vermelho);
+        }
+
+
+        /* =====================================================
+           ESTADO VAZIO
+        ===================================================== */
+
+        .estado-vazio {
+
+            padding:
+                45px 20px;
+
+            text-align:
+                center;
+
+            color:
+                var(--cinza-500);
+        }
+
+
+        .estado-vazio .icone {
+
+            font-size:
+                40px;
+
+            margin-bottom:
+                10px;
+        }
+
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        .modal {
+
+            display:
+                none;
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            background:
+                rgba(15,23,42,.60);
+
+            z-index:
+                500;
+
+            padding:
+                20px;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+        }
+
+
+        .modal.aberto {
+
+            display:
+                flex;
+        }
+
+
+        .modal-conteudo {
+
+            background:
+                white;
+
+            width:
+                100%;
+
+            max-width:
+                650px;
+
+            max-height:
+                90vh;
+
+            overflow-y:
+                auto;
+
+            border-radius:
+                16px;
+
+            padding:
+                25px;
+        }
+
+
+        .modal-cabecalho {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            margin-bottom:
+                20px;
+        }
+
+
+        .modal-cabecalho h3 {
+
+            color:
+                var(--azul-escuro);
+        }
+
+
+        .btn-fechar {
+
+            width:
+                35px;
+
+            height:
+                35px;
+
+            border:
+                none;
+
+            border-radius:
+                50%;
+
+            background:
+                var(--cinza-100);
+
+            font-size:
+                20px;
+        }
+
+
+        /* =====================================================
+           ALERTAS
+        ===================================================== */
+
+        .alerta {
+
+            display:
+                none;
+
+            padding:
+                12px 14px;
+
+            border-radius:
+                8px;
+
+            margin-bottom:
+                15px;
+
+            font-size:
+                14px;
+
+            font-weight:
+                600;
+        }
+
+
+        .alerta.erro {
+
+            display:
+                block;
+
+            background:
+                var(--vermelho-claro);
+
+            color:
+                #991b1b;
+        }
+
+
+        .alerta.sucesso {
+
+            display:
+                block;
+
+            background:
+                var(--verde-claro);
+
+            color:
+                #166534;
+        }
+
+
+        /* =====================================================
+           LOADING
+        ===================================================== */
+
+        .loading {
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            background:
+                rgba(255,255,255,.75);
+
+            display:
+                none;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            z-index:
+                1000;
+        }
+
+
+        .loading.ativo {
+
+            display:
+                flex;
+        }
+
+
+        .loading-caixa {
+
+            background:
+                white;
+
+            padding:
+                25px;
+
+            border-radius:
+                14px;
+
+            box-shadow:
+                var(--sombra);
+
+            text-align:
+                center;
+        }
+
+
+        .spinner {
+
+            width:
+                35px;
+
+            height:
+                35px;
+
+            border:
+                4px solid var(--cinza-200);
+
+            border-top-color:
+                var(--azul);
+
+            border-radius:
+                50%;
+
+            animation:
+                girar 1s linear infinite;
+
+            margin:
+                0 auto 12px;
+        }
+
+
+        @keyframes girar {
+
+            to {
+                transform:
+                    rotate(360deg);
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVIDADE
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .indicadores {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .filtros {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 850px) {
+
+            .sidebar {
+
+                width:
+                    75px;
+
+                padding:
+                    15px 8px;
+            }
+
+
+            .menu-titulo,
+            .menu-texto {
+
+                display:
+                    none;
+            }
+
+
+            .menu-item {
+
+                justify-content:
+                    center;
+            }
+
+
+            .conteudo {
+
+                padding:
+                    18px;
+            }
+
+
+            .form-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .campo-full {
+
+                grid-column:
+                    auto;
+            }
+
+
+            .filtros {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .topo-conteudo {
+
+                padding:
+                    12px;
+            }
+
+
+            .marca h1 {
+
+                font-size:
+                    17px;
+            }
+
+
+            .marca span {
+
+                display:
+                    none;
+            }
+
+
+            .usuario-info {
+
+                display:
+                    none;
+            }
+
+
+            .indicadores {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+                gap:
+                    10px;
+            }
+
+
+            .indicador {
+
+                padding:
+                    15px;
+            }
+
+
+            .indicador-numero {
+
+                font-size:
+                    25px;
+            }
+
+
+            .filtros {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .conteudo {
+
+                padding:
+                    12px;
+            }
+
+
+            .card {
+
+                padding:
+                    16px;
+            }
+
+
+            .titulo-secao h2 {
+
+                font-size:
+                    21px;
+            }
+
+
+            .btn-sair {
+
+                padding:
+                    8px;
+            }
+
+        }
+
+
+    </style>
+
 </head>
+
+
 <body>
 
-<!-- ============ TELA DE LOGIN ============ -->
+
+<!-- =========================================================
+     TELA DE LOGIN
+========================================================= -->
+
 <div id="telaLogin">
-  <div class="cartao-login">
-    <h1>🔐 EduOcorrências</h1>
-    <p class="sub">Sistema de Registro de Ocorrências de Estudantes</p>
-    <div class="campo">
-      <label for="loginUsuario">Usuário</label>
-      <input id="loginUsuario" type="text" placeholder="Digite seu usuário">
+
+    <div class="login-container">
+
+        <div class="login-card">
+
+            <div class="login-logo">
+                📚
+            </div>
+
+
+            <h1>
+                EduOcorrências
+            </h1>
+
+
+            <p class="login-subtitulo">
+
+                Sistema de registro e acompanhamento
+                de ocorrências escolares
+
+            </p>
+
+
+            <div
+                id="alertaLogin"
+                class="alerta">
+            </div>
+
+
+            <form id="formLogin">
+
+                <div class="campo-login">
+
+                    <label for="emailLogin">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="emailLogin"
+                        placeholder="Digite seu e-mail"
+                        required>
+
+                </div>
+
+
+                <div class="campo-login">
+
+                    <label for="senhaLogin">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senhaLogin"
+                        placeholder="Digite sua senha"
+                        required>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn-login">
+
+                    Entrar no sistema
+
+                </button>
+
+            </form>
+
+
+            <div class="login-rodape">
+
+                Acesso restrito a usuários autorizados.
+
+            </div>
+
+        </div>
+
     </div>
-    <div class="campo">
-      <label for="loginSenha">Senha</label>
-      <input id="loginSenha" type="password" placeholder="Digite sua senha">
-    </div>
-    <div class="campo">
-      <label for="loginPerfil">Perfil de acesso</label>
-      <select id="loginPerfil">
-        <option value="professor">Professor</option>
-        <option value="gestao">Gestão</option>
-        <option value="responsavel">Responsável (somente leitura)</option>
-      </select>
-    </div>
-    <button class="btn-principal" onclick="entrar()">Entrar no sistema</button>
-    <div id="erroLogin" style="display:none;color:#c0392b;font-size:13px;text-align:center;margin-top:12px;font-weight:600;"></div>
-    <div class="dica">
-      <b>Acessos de demonstração</b><br>
-      Professor → <code>prof</code> / <code>123</code><br>
-      Gestão → <code>gestao</code> / <code>123</code><br>
-      Responsável → <code>resp</code> / <code>123</code>
-    </div>
-  </div>
+
 </div>
 
-<!-- ============ APLICAÇÃO ============ -->
+
+
+<!-- =========================================================
+     APLICAÇÃO
+========================================================= -->
+
 <div id="app">
-  <header>
-    <div class="logo"><div class="icone">🎓</div> EduOcorrências</div>
-    <div class="usuario">
-      <span class="badge">👤 <b id="nomeUsuarioLogado">—</b></span>
-      <span class="badge" id="badgePerfil">—</span>
-      <button class="btn-sair" onclick="sair()">Sair</button>
-    </div>
-  </header>
 
-  <div class="abas" id="abas"></div>
 
-  <!-- Painel: nova ocorrência (professor/gestão) -->
-  <section class="painel" id="painelNova">
-    <div class="cartao">
-      <h2>📝 Registrar nova ocorrência</h2>
-      <p class="desc">Preencha os dados do estudante, o motivo da ocorrência e seu nome como responsável pelo registro.</p>
-      <div id="msgSucesso">✅ Ocorrência registrada com sucesso!</div>
-      <div class="grade">
-        <div class="campo">
-          <label for="inNome">Nome do estudante *</label>
-          <input id="inNome" type="text" placeholder="Ex.: Maria Oliveira Souza">
-        </div>
-        <div class="campo">
-          <label for="inTurma">Turma *</label>
-          <input id="inTurma" type="text" placeholder="Ex.: 9º Ano B">
-        </div>
-        <div class="campo">
-          <label for="inTipo">Tipo de ocorrência *</label>
-          <select id="inTipo">
-            <option>Disciplinar</option>
-            <option>Pedagógica</option>
-            <option>Frequência</option>
-            <option>Saúde</option>
-            <option>Elogio / Destaque</option>
-            <option>Outro</option>
-          </select>
-        </div>
-        <div class="campo">
-          <label for="inProfessor">Professor que registra *</label>
-          <input id="inProfessor" type="text" placeholder="Seu nome completo">
-        </div>
-        <div class="campo" style="grid-column:1/-1;">
-          <label for="inMotivo">Motivo / descrição da ocorrência *</label>
-          <textarea id="inMotivo" placeholder="Descreva detalhadamente o que aconteceu..."></textarea>
-        </div>
-      </div>
-      <button class="btn-principal" style="max-width:260px;" onclick="salvarOcorrencia()">Salvar ocorrência</button>
-    </div>
-  </section>
+    <!-- TOPO -->
 
-  <!-- Painel: lista -->
-  <section class="painel" id="painelLista">
-    <div class="aviso-leitura" id="avisoLeitura" style="display:none;">
-      <span style="font-size:18px;">👁️</span>
-      <span>Você está no perfil <b>Responsável</b> — acesso somente leitura. É possível consultar as ocorrências, mas não registrar, editar ou excluir.</span>
+    <header class="topo">
+
+        <div class="topo-conteudo">
+
+
+            <div class="marca">
+
+                <div class="marca-icone">
+                    📚
+                </div>
+
+                <div>
+
+                    <h1>
+                        EduOcorrências
+                    </h1>
+
+                    <span>
+                        Gestão de ocorrências escolares
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="usuario-topo">
+
+                <div class="usuario-info">
+
+                    <strong
+                        id="nomeUsuario">
+                        Usuário
+                    </strong>
+
+                    <span
+                        id="emailUsuario">
+                        -
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="avatar"
+                    id="avatarUsuario">
+                    U
+                </div>
+
+
+                <button
+                    class="btn-sair"
+                    id="btnSair">
+
+                    Sair
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </header>
+
+
+
+    <!-- LAYOUT -->
+
+    <div class="layout">
+
+
+        <!-- MENU -->
+
+        <aside class="sidebar">
+
+            <div class="menu-titulo">
+                Menu
+            </div>
+
+
+            <button
+                class="menu-item ativo"
+                data-secao="dashboard">
+
+                📊
+
+                <span class="menu-texto">
+                    Dashboard
+                </span>
+
+            </button>
+
+
+            <button
+                class="menu-item"
+                data-secao="registro">
+
+                📝
+
+                <span class="menu-texto">
+                    Registrar ocorrência
+                </span>
+
+            </button>
+
+
+            <button
+                class="menu-item"
+                data-secao="historico">
+
+                📋
+
+                <span class="menu-texto">
+                    Histórico
+                </span>
+
+            </button>
+
+        </aside>
+
+
+
+        <!-- CONTEÚDO -->
+
+        <main class="conteudo">
+
+
+            <!-- =================================================
+                 DASHBOARD
+            ================================================= -->
+
+            <section
+                id="dashboard"
+                class="secao ativa">
+
+
+                <div class="titulo-secao">
+
+                    <h2>
+                        Panorama geral
+                    </h2>
+
+                    <p>
+                        Acompanhe as ocorrências registradas
+                        no ambiente escolar.
+                    </p>
+
+                </div>
+
+
+                <!-- INDICADORES -->
+
+                <div class="indicadores">
+
+
+                    <div class="indicador total">
+
+                        <div class="indicador-topo">
+
+                            <div>
+
+                                <div
+                                    id="totalOcorrencias"
+                                    class="indicador-numero">
+
+                                    0
+
+                                </div>
+
+                                <div class="indicador-texto">
+
+                                    Total de ocorrências
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="indicador-icone">
+                                📊
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="indicador pendente">
+
+                        <div class="indicador-topo">
+
+                            <div>
+
+                                <div
+                                    id="totalPendentes"
+                                    class="indicador-numero">
+
+                                    0
+
+                                </div>
+
+                                <div class="indicador-texto">
+
+                                    Pendentes
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="indicador-icone">
+                                🔴
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="indicador acompanhamento">
+
+                        <div class="indicador-topo">
+
+                            <div>
+
+                                <div
+                                    id="totalAcompanhamento"
+                                    class="indicador-numero">
+
+                                    0
+
+                                </div>
+
+                                <div class="indicador-texto">
+
+                                    Em acompanhamento
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="indicador-icone">
+                                🟡
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="indicador resolvido">
+
+                        <div class="indicador-topo">
+
+                            <div>
+
+                                <div
+                                    id="totalResolvidos"
+                                    class="indicador-numero">
+
+                                    0
+
+                                </div>
+
+                                <div class="indicador-texto">
+
+                                    Resolvidas
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="indicador-icone">
+                                🟢
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- FILTROS DO DASHBOARD -->
+
+                <div class="card">
+
+                    <div class="card-cabecalho">
+
+                        <h3>
+                            🔎 Filtros
+                        </h3>
+
+                    </div>
+
+
+                    <div class="filtros">
+
+
+                        <div class="campo">
+
+                            <label>
+                                Sala / Turma
+                            </label>
+
+                            <select
+                                id="dashboardSala">
+
+                                <option value="">
+                                    Todas
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label>
+                                Tipo
+                            </label>
+
+                            <select
+                                id="dashboardTipo">
+
+                                <option value="">
+                                    Todos
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label>
+                                Status
+                            </label>
+
+                            <select
+                                id="dashboardStatus">
+
+                                <option value="">
+                                    Todos
+                                </option>
+
+                                <option value="Pendente">
+                                    Pendente
+                                </option>
+
+                                <option value="Em acompanhamento">
+                                    Em acompanhamento
+                                </option>
+
+                                <option value="Resolvido">
+                                    Resolvido
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label>
+                                Data inicial
+                            </label>
+
+                            <input
+                                type="date"
+                                id="dashboardDataInicial">
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label>
+                                Data final
+                            </label>
+
+                            <input
+                                type="date"
+                                id="dashboardDataFinal">
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="acoes-filtro">
+
+                        <button
+                            class="btn btn-primary"
+                            id="btnFiltrarDashboard">
+
+                            🔎 Aplicar filtros
+
+                        </button>
+
+
+                        <button
+                            class="btn btn-secondary"
+                            id="btnLimparDashboard">
+
+                            Limpar filtros
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- RESUMO POR SALA -->
+
+                <div class="card">
+
+                    <div class="card-cabecalho">
+
+                        <h3>
+                            🏫 Ocorrências por sala
+                        </h3>
+
+                    </div>
+
+
+                    <div class="tabela-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Sala / Turma
+                                    </th>
+
+                                    <th>
+                                        Total
+                                    </th>
+
+                                    <th>
+                                        Pendentes
+                                    </th>
+
+                                    <th>
+                                        Em acompanhamento
+                                    </th>
+
+                                    <th>
+                                        Resolvidas
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody
+                                id="tabelaSalas">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 REGISTRO
+            ================================================= -->
+
+            <section
+                id="registro"
+                class="secao">
+
+
+                <div class="titulo-secao">
+
+                    <h2>
+                        📝 Registrar ocorrência
+                    </h2>
+
+                    <p>
+                        Registre uma nova ocorrência
+                        para acompanhamento da equipe.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+
+                    <div
+                        id="alertaRegistro"
+                        class="alerta">
+                    </div>
+
+
+                    <form id="formOcorrencia">
+
+
+                        <div class="form-grid">
+
+
+                            <div class="campo">
+
+                                <label>
+                                    Estudante *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="estudante"
+                                    placeholder="Nome completo do estudante"
+                                    required>
+
+                            </div>
+
+
+                            <div class="campo">
+
+                                <label>
+                                    Sala / Turma *
+                                </label>
+
+                                <select
+                                    id="sala"
+                                    required>
+
+                                    <option value="">
+                                        Selecione
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="campo">
+
+                                <label>
+                                    Tipo de ocorrência *
+                                </label>
+
+                                <select
+                                    id="tipo"
+                                    required>
+
+                                    <option value="">
+                                        Selecione
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="campo">
+
+                                <label>
+                                    Status *
+                                </label>
+
+                                <select
+                                    id="status"
+                                    required>
+
+                                    <option value="Pendente">
+                                        Pendente
+                                    </option>
+
+                                    <option value="Em acompanhamento">
+                                        Em acompanhamento
+                                    </option>
+
+                                    <option value="Resolvido">
+                                        Resolvido
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="campo campo-full">
+
+                                <label>
+                                    Descrição da ocorrência *
+                                </label>
+
+                                <textarea
+                                    id="descricao"
+                                    placeholder="Descreva a ocorrência de forma objetiva e detalhada..."
+                                    required></textarea>
+
+                            </div>
+
+
+                            <div class="campo">
+
+                                <label>
+                                    Observações
+                                </label>
+
+                                <textarea
+                                    id="observacoes"
+                                    placeholder="Informações adicionais, providências tomadas etc."></textarea>
+
+                            </div>
+
+
+                            <div class="campo">
+
+                                <label>
+                                    Providência / encaminhamento
+                                </label>
+
+                                <textarea
+                                    id="providencia"
+                                    placeholder="Informe as providências adotadas, quando houver."></textarea>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="form-acoes">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary">
+
+                                💾 Registrar ocorrência
+
+                            </button>
+
+
+                            <button
+                                type="reset"
+                                class="btn btn-secondary">
+
+                                Limpar formulário
+
+                            </button>
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 HISTÓRICO
+            ================================================= -->
+
+            <section
+                id="historico"
+                class="secao">
+
+
+                <div class="titulo-secao">
+
+                    <h2>
+                        📋 Histórico de ocorrências
+                    </h2>
+
+                    <p>
+                        Consulte todos os registros
+                        armazenados no sistema.
+                    </p>
+
+                </div>
+
+
+
+                <!-- FILTROS -->
+
+                <div class="card">
+
+                    <div class="card-cabecalho">
+
+                        <h3>
+                            🔎 Consultar registros
+                        </h3>
+
+                    </div>
+
+
+                    <div class="filtros">
+
+
+                        <div class="campo">
+
+                            <label>
+                                Estudante
+                            </label>
+
+                            <input
+                                type="text"
+                                id="filtroEstudante"
+                                placeholder="Nome do estudante">
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label>
+                                Sala / Turma
+                            </label>
+
+                            <select
+                                id="filtroSala">
+
+                                <option value="">
+                                    Todas
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label>
+                                Tipo
+                            </label>
+
+                            <select
+                                id="filtroTipo">
+
+                                <option value="">
+                                    Todos
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label>
+                                Status
+                            </label>
+
+                            <select
+                                id="filtroStatus">
+
+                                <option value="">
+                                    Todos
+                                </option>
+
+                                <option value="Pendente">
+                                    Pendente
+                                </option>
+
+                                <option value="Em acompanhamento">
+                                    Em acompanhamento
+                                </option>
+
+                                <option value="Resolvido">
+                                    Resolvido
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label>
+                                Data inicial
+                            </label>
+
+                            <input
+                                type="date"
+                                id="filtroDataInicial">
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label>
+                                Data final
+                            </label>
+
+                            <input
+                                type="date"
+                                id="filtroDataFinal">
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="acoes-filtro">
+
+                        <button
+                            class="btn btn-primary"
+                            id="btnFiltrarHistorico">
+
+                            🔎 Pesquisar
+
+                        </button>
+
+
+                        <button
+                            class="btn btn-secondary"
+                            id="btnLimparHistorico">
+
+                            Limpar
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TABELA -->
+
+                <div class="card">
+
+                    <div class="card-cabecalho">
+
+                        <h3>
+                            Registros encontrados
+                        </h3>
+
+                        <span
+                            id="contadorHistorico">
+                            0 registros
+                        </span>
+
+                    </div>
+
+
+                    <div class="tabela-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Data
+                                    </th>
+
+                                    <th>
+                                        Estudante
+                                    </th>
+
+                                    <th>
+                                        Sala
+                                    </th>
+
+                                    <th>
+                                        Tipo
+                                    </th>
+
+                                    <th>
+                                        Descrição
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Ações
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody
+                                id="tabelaOcorrencias">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
     </div>
-    <div class="stats" id="stats"></div>
-    <div class="filtros">
-      <input id="filtroNome" type="text" placeholder="🔎 Buscar por estudante..." oninput="renderizar()">
-      <input id="filtroTurma" type="text" placeholder="🔎 Buscar por turma..." oninput="renderizar()">
-      <select id="filtroTipo" onchange="renderizar()">
-        <option value="">Todos os tipos</option>
-        <option>Disciplinar</option>
-        <option>Pedagógica</option>
-        <option>Frequência</option>
-        <option>Saúde</option>
-        <option>Elogio / Destaque</option>
-        <option>Outro</option>
-      </select>
-    </div>
-    <div id="lista"></div>
-  </section>
+
 </div>
 
-<script>
-/* ================= DADOS ================= */
-const USUARIOS = {
-  prof:     { senha:'123', perfil:'professor', nome:'Prof. Ana Ribeiro' },
-  gestao:   { senha:'123', perfil:'gestao',    nome:'Direção Escolar' },
-  resp:     { senha:'123', perfil:'responsavel', nome:'Responsável do Aluno' }
-};
 
-const PERFIS = {
-  professor:   { rotulo:'Professor',   podeEditar:true,  podeExcluir:false },
-  gestao:      { rotulo:'Gestão',      podeEditar:true,  podeExcluir:true  },
-  responsavel: { rotulo:'Responsável', podeEditar:false, podeExcluir:false }
-};
 
-let usuarioAtual = null;
-let ocorrencias = [];
+<!-- =========================================================
+     MODAL DE EDIÇÃO
+========================================================= -->
 
-/* ================= PERSISTÊNCIA ================= */
-function carregar(){
-  try{
-    const raw = localStorage.getItem('eduocorrencias');
-    if(raw) ocorrencias = JSON.parse(raw);
-    else ocorrencias = dadosExemplo();
-  }catch(e){ ocorrencias = dadosExemplo(); }
-}
-function salvar(){
-  try{ localStorage.setItem('eduocorrencias', JSON.stringify(ocorrencias)); }catch(e){}
-}
-function dadosExemplo(){
-  return [
-    { id:1, nome:'Maria Oliveira Souza', turma:'9º Ano B', tipo:'Elogio / Destaque',
-      motivo:'Excelente participação na feira de ciências, apresentou o projeto com muita clareza e ajudou os colegas do grupo.',
-      professor:'Prof. Ana Ribeiro', data:'12/03/2025 09:20' },
-    { id:2, nome:'João Pedro Lima', turma:'7º Ano A', tipo:'Disciplinar',
-      motivo:'Conversas constantes durante a aula e uso do celular sem autorização. Já foi advertido verbalmente.',
-      professor:'Prof. Carlos Mendes', data:'11/03/2025 14:05' },
-    { id:3, nome:'Beatriz Almeida', turma:'9º Ano B', tipo:'Frequência',
-      motivo:'Faltas consecutivas nos dias 05, 06 e 07 de março. Responsáveis foram comunicados por telefone.',
-      professor:'Prof. Ana Ribeiro', data:'10/03/2025 08:15' }
-  ];
-}
+<div
+    id="modalEdicao"
+    class="modal">
 
-/* ================= LOGIN ================= */
-function entrar(){
-  const u = document.getElementById('loginUsuario').value.trim();
-  const s = document.getElementById('loginSenha').value;
-  const p = document.getElementById('loginPerfil').value;
-  const erro = document.getElementById('erroLogin');
-  const conta = USUARIOS[u];
 
-  if(!conta || conta.senha !== s){
-    erro.textContent = 'Usuário ou senha inválidos.';
-    erro.style.display='block';
-    return;
-  }
-  if(conta.perfil !== p){
-    erro.textContent = 'O perfil selecionado não corresponde a este usuário.';
-    erro.style.display='block';
-    return;
-  }
-  erro.style.display='none';
-  usuarioAtual = { login:u, ...conta };
-  iniciarApp();
-}
+    <div class="modal-conteudo">
 
-function sair(){
-  usuarioAtual = null;
-  document.getElementById('app').style.display='none';
-  document.getElementById('telaLogin').style.display='grid';
-  document.getElementById('loginUsuario').value='';
-  document.getElementById('loginSenha').value='';
-}
 
-function iniciarApp(){
-  document.getElementById('telaLogin').style.display='none';
-  document.getElementById('app').style.display='block';
-  document.getElementById('nomeUsuarioLogado').textContent = usuarioAtual.nome;
-  document.getElementById('badgePerfil').textContent = '🔑 ' + PERFIS[usuarioAtual.perfil].rotulo;
+        <div class="modal-cabecalho">
 
-  const podeEditar = PERFIS[usuarioAtual.perfil].podeEditar;
-  document.getElementById('avisoLeitura').style.display = podeEditar ? 'none' : 'flex';
+            <h3>
+                ✏️ Editar ocorrência
+            </h3>
 
-  // Abas conforme permissão
-  const abas = document.getElementById('abas');
-  abas.innerHTML = '';
-  if(podeEditar){
-    abas.innerHTML += '<button class="aba" data-painel="painelNova" onclick="mostrarPainel(\'painelNova\')">➕ Nova ocorrência</button>';
-  }
-  abas.innerHTML += '<button class="aba" data-painel="painelLista" onclick="mostrarPainel(\'painelLista\')">📋 Consultar ocorrências</button>';
 
-  carregar();
-  mostrarPainel(podeEditar ? 'painelNova' : 'painelLista');
-}
+            <button
+                class="btn-fechar"
+                id="btnFecharModal">
 
-function mostrarPainel(id){
-  document.querySelectorAll('.painel').forEach(p=>p.classList.toggle('ativo', p.id===id));
-  document.querySelectorAll('.aba').forEach(a=>a.classList.toggle('ativa', a.dataset.painel===id));
-  if(id==='painelLista') renderizar();
-}
+                ×
 
-/* ================= CRUD ================= */
-function salvarOcorrencia(){
-  const nome = document.getElementById('inNome').value.trim();
-  const turma = document.getElementById('inTurma').value.trim();
-  const tipo = document.getElementById('inTipo').value;
-  const professor = document.getElementById('inProfessor').value.trim();
-  const motivo = document.getElementById('inMotivo').value.trim();
+            </button>
 
-  if(!nome || !turma || !professor || !motivo){
-    alert('Por favor, preencha todos os campos obrigatórios (*).');
-    return;
-  }
-  const agora = new Date();
-  const data = agora.toLocaleDateString('pt-BR') + ' ' +
-               agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
-
-  ocorrencias.unshift({ id: Date.now(), nome, turma, tipo, motivo, professor, data });
-  salvar();
-
-  ['inNome','inTurma','inProfessor','inMotivo'].forEach(i=>document.getElementById(i).value='');
-  document.getElementById('inTipo').selectedIndex = 0;
-
-  const msg = document.getElementById('msgSucesso');
-  msg.style.display='block';
-  setTimeout(()=>msg.style.display='none', 3000);
-}
-
-function excluir(id){
-  if(!PERFIS[usuarioAtual.perfil].podeExcluir){
-    alert('Seu perfil não tem permissão para excluir ocorrências.');
-    return;
-  }
-  if(!confirm('Deseja realmente excluir esta ocorrência?')) return;
-  ocorrencias = ocorrencias.filter(o=>o.id!==id);
-  salvar(); renderizar();
-}
-
-/* ================= RENDER ================= */
-function renderizar(){
-  const fNome  = document.getElementById('filtroNome').value.toLowerCase();
-  const fTurma = document.getElementById('filtroTurma').value.toLowerCase();
-  const fTipo  = document.getElementById('filtroTipo').value;
-
-  const listaFiltrada = ocorrencias.filter(o=>
-    o.nome.toLowerCase().includes(fNome) &&
-    o.turma.toLowerCase().includes(fTurma) &&
-    (!fTipo || o.tipo===fTipo)
-  );
-
-  // Estatísticas
-  const total = ocorrencias.length;
-  const alunos = new Set(ocorrencias.map(o=>o.nome)).size;
-  const turmas = new Set(ocorrencias.map(o=>o.turma)).size;
-  const disciplinar = ocorrencias.filter(o=>o.tipo==='Disciplinar').length;
-  document.getElementById('stats').innerHTML = `
-    <div class="stat"><div class="num">${total}</div><div class="rot">Total de ocorrências</div></div>
-    <div class="stat"><div class="num">${alunos}</div><div class="rot">Estudantes envolvidos</div></div>
-    <div class="stat"><div class="num">${turmas}</div><div class="rot">Turmas</div></div>
-    <div class="stat"><div class="num">${disciplinar}</div><div class="rot">Disciplinares</div></div>
-  `;
-
-  const box = document.getElementById('lista');
-  if(!listaFiltrada.length){
-    box.innerHTML = `<div class="vazio"><span class="emoji">📭</span>Nenhuma ocorrência encontrada.</div>`;
-    return;
-  }
-
-  box.innerHTML = listaFiltrada.map(o=>`
-    <div class="ocorrencia">
-      <div class="oc-topo">
-        <div>
-          <div class="oc-nome">👤 ${escapar(o.nome)}</div>
-          <span class="tag-tipo">${escapar(o.tipo)}</span>
         </div>
-        <span class="oc-turma">🏫 ${escapar(o.turma)}</span>
-      </div>
-      <div class="oc-motivo">${escapar(o.motivo)}</div>
-      <div class="oc-rodape">
-        <span>👨‍🏫 Registrado por: <b>${escapar(o.professor)}</b></span>
-        <span>🕓 ${escapar(o.data)}</span>
-        ${PERFIS[usuarioAtual.perfil].podeExcluir
-          ? `<span style="margin-left:auto;"><button onclick="excluir(${o.id})" style="background:#fff0f0;border:1px solid #f3b6b6;color:#b62f2f;padding:5px 12px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;">🗑️ Excluir</button></span>`
-          : ''}
-      </div>
+
+
+        <div
+            id="alertaEdicao"
+            class="alerta">
+        </div>
+
+
+        <form id="formEdicao">
+
+
+            <input
+                type="hidden"
+                id="edicaoId">
+
+
+            <div class="campo">
+
+                <label>
+                    Estudante
+                </label>
+
+                <input
+                    type="text"
+                    id="edicaoEstudante"
+                    required>
+
+            </div>
+
+
+            <br>
+
+
+            <div class="campo">
+
+                <label>
+                    Sala / Turma
+                </label>
+
+                <select
+                    id="edicaoSala"
+                    required>
+                </select>
+
+            </div>
+
+
+            <br>
+
+
+            <div class="campo">
+
+                <label>
+                    Tipo
+                </label>
+
+                <select
+                    id="edicaoTipo"
+                    required>
+                </select>
+
+            </div>
+
+
+            <br>
+
+
+            <div class="campo">
+
+                <label>
+                    Status
+                </label>
+
+                <select
+                    id="edicaoStatus"
+                    required>
+
+                    <option value="Pendente">
+                        Pendente
+                    </option>
+
+                    <option value="Em acompanhamento">
+                        Em acompanhamento
+                    </option>
+
+                    <option value="Resolvido">
+                        Resolvido
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <br>
+
+
+            <div class="campo">
+
+                <label>
+                    Descrição
+                </label>
+
+                <textarea
+                    id="edicaoDescricao"
+                    required></textarea>
+
+            </div>
+
+
+            <br>
+
+
+            <div class="campo">
+
+                <label>
+                    Observações
+                </label>
+
+                <textarea
+                    id="edicaoObservacoes"></textarea>
+
+            </div>
+
+
+            <br>
+
+
+            <div class="campo">
+
+                <label>
+                    Providência / encaminhamento
+                </label>
+
+                <textarea
+                    id="edicaoProvidencia"></textarea>
+
+            </div>
+
+
+            <div class="form-acoes">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+
+                    💾 Salvar alterações
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="btnCancelarEdicao">
+
+                    Cancelar
+
+                </button>
+
+            </div>
+
+
+        </form>
+
     </div>
-  `).join('');
-}
 
-function escapar(t){
-  return String(t).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
+</div>
 
-/* ================= INIT ================= */
-carregar();
-document.getElementById('loginSenha').addEventListener('keydown', e=>{ if(e.key==='Enter') entrar(); });
+
+
+<!-- =========================================================
+     LOADING
+========================================================= -->
+
+<div
+    id="loading"
+    class="loading">
+
+    <div class="loading-caixa">
+
+        <div class="spinner"></div>
+
+        <strong>
+            Aguarde...
+        </strong>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     FIREBASE
+========================================================= -->
+
+<script type="module">
+
+
+    /* =====================================================
+       IMPORTAÇÕES FIREBASE
+    ===================================================== */
+
+    import {
+        initializeApp
+    }
+    from
+        "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+    import {
+        getAuth,
+        signInWithEmailAndPassword,
+        onAuthStateChanged,
+        signOut
+    }
+    from
+        "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+    import {
+        getFirestore,
+        collection,
+        addDoc,
+        getDocs,
+        updateDoc,
+        deleteDoc,
+        doc,
+        serverTimestamp
+    }
+    from
+        "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
+    /* =====================================================
+       CONFIGURAÇÃO FIREBASE
+    =====================================================
+
+       COLOQUE AQUI OS DADOS DO SEU PROJETO.
+
+       Firebase Console
+       →
+       Configurações do projeto
+       →
+       Seus aplicativos
+       →
+       Configuração do SDK
+
+    ===================================================== */
+
+
+    const firebaseConfig = {
+
+        apiKey:
+            "COLOQUE_SUA_API_KEY",
+
+        authDomain:
+            "SEU-PROJETO.firebaseapp.com",
+
+        projectId:
+            "SEU-PROJETO",
+
+        storageBucket:
+            "SEU-PROJETO.firebasestorage.app",
+
+        messagingSenderId:
+            "SEU_SENDER_ID",
+
+        appId:
+            "SEU_APP_ID"
+
+    };
+
+
+
+    /* =====================================================
+       INICIALIZAÇÃO
+    ===================================================== */
+
+    const app =
+        initializeApp(
+            firebaseConfig
+        );
+
+
+    const auth =
+        getAuth(app);
+
+
+    const db =
+        getFirestore(app);
+
+
+
+    /* =====================================================
+       DADOS DO SISTEMA
+    ===================================================== */
+
+
+    const SALAS = [
+
+        "1º Ano A",
+        "1º Ano B",
+        "2º Ano A",
+        "2º Ano B",
+        "3º Ano A",
+        "3º Ano B"
+
+    ];
+
+
+    const TIPOS = [
+
+        "Comportamento",
+        "Frequência",
+        "Atraso",
+        "Convivência",
+        "Desempenho",
+        "Uso inadequado de tecnologia",
+        "Descumprimento de regra",
+        "Outro"
+
+    ];
+
+
+    let ocorrencias = [];
+
+    let ocorrenciasFiltradas = [];
+
+
+
+    /* =====================================================
+       ELEMENTOS
+    ===================================================== */
+
+
+    const telaLogin =
+        document.getElementById(
+            "telaLogin"
+        );
+
+
+    const appTela =
+        document.getElementById(
+            "app"
+        );
+
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+
+    /* =====================================================
+       LOADING
+    ===================================================== */
+
+    function mostrarLoading() {
+
+        loading.classList.add(
+            "ativo"
+        );
+
+    }
+
+
+    function esconderLoading() {
+
+        loading.classList.remove(
+            "ativo"
+        );
+
+    }
+
+
+
+    /* =====================================================
+       ALERTAS
+    ===================================================== */
+
+    function mostrarAlerta(
+        elemento,
+        mensagem,
+        tipo = "erro"
+    ) {
+
+        elemento.textContent =
+            mensagem;
+
+        elemento.className =
+            "alerta " + tipo;
+
+    }
+
+
+    function limparAlerta(elemento) {
+
+        elemento.textContent = "";
+
+        elemento.className =
+            "alerta";
+
+    }
+
+
+
+    /* =====================================================
+       PREENCHER SELECTS
+    ===================================================== */
+
+    function preencherSelects() {
+
+
+        const selectsSala = [
+
+            document.getElementById(
+                "sala"
+            ),
+
+            document.getElementById(
+                "dashboardSala"
+            ),
+
+            document.getElementById(
+                "filtroSala"
+            ),
+
+            document.getElementById(
+                "edicaoSala"
+            )
+
+        ];
+
+
+        selectsSala.forEach(
+            select => {
+
+                if (!select)
+                    return;
+
+
+                const valorAtual =
+                    select.value;
+
+
+                const primeiraOpcao =
+                    select.options[0];
+
+
+                select.innerHTML = "";
+
+
+                if (
+                    primeiraOpcao
+                ) {
+
+                    select.appendChild(
+                        primeiraOpcao
+                    );
+
+                }
+
+
+                SALAS.forEach(
+                    sala => {
+
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+
+                        option.value =
+                            sala;
+
+                        option.textContent =
+                            sala;
+
+                        select.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+
+                if (
+                    valorAtual
+                ) {
+
+                    select.value =
+                        valorAtual;
+
+                }
+
+            }
+        );
+
+
+
+        const selectsTipo = [
+
+            document.getElementById(
+                "tipo"
+            ),
+
+            document.getElementById(
+                "dashboardTipo"
+            ),
+
+            document.getElementById(
+                "filtroTipo"
+            ),
+
+            document.getElementById(
+                "edicaoTipo"
+            )
+
+        ];
+
+
+        selectsTipo.forEach(
+            select => {
+
+                if (!select)
+                    return;
+
+
+                const valorAtual =
+                    select.value;
+
+
+                const primeiraOpcao =
+                    select.options[0];
+
+
+                select.innerHTML = "";
+
+
+                if (
+                    primeiraOpcao
+                ) {
+
+                    select.appendChild(
+                        primeiraOpcao
+                    );
+
+                }
+
+
+                TIPOS.forEach(
+                    tipo => {
+
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+
+                        option.value =
+                            tipo;
+
+                        option.textContent =
+                            tipo;
+
+                        select.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+
+                if (
+                    valorAtual
+                ) {
+
+                    select.value =
+                        valorAtual;
+
+                }
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       LOGIN
+    ===================================================== */
+
+    document
+        .getElementById(
+            "formLogin"
+        )
+        .addEventListener(
+            "submit",
+            async evento => {
+
+                evento.preventDefault();
+
+
+                const email =
+                    document
+                        .getElementById(
+                            "emailLogin"
+                        )
+                        .value
+                        .trim();
+
+
+                const senha =
+                    document
+                        .getElementById(
+                            "senhaLogin"
+                        )
+                        .value;
+
+
+                const alerta =
+                    document.getElementById(
+                        "alertaLogin"
+                    );
+
+
+                limparAlerta(
+                    alerta
+                );
+
+
+                try {
+
+                    mostrarLoading();
+
+
+                    await signInWithEmailAndPassword(
+                        auth,
+                        email,
+                        senha
+                    );
+
+                }
+
+                catch (erro) {
+
+                    console.error(
+                        erro
+                    );
+
+
+                    let mensagem =
+                        "Não foi possível realizar o login.";
+
+
+                    if (
+                        erro.code ===
+                        "auth/invalid-credential"
+                    ) {
+
+                        mensagem =
+                            "E-mail ou senha incorretos.";
+
+                    }
+
+
+                    if (
+                        erro.code ===
+                        "auth/too-many-requests"
+                    ) {
+
+                        mensagem =
+                            "Muitas tentativas. Aguarde alguns minutos.";
+
+                    }
+
+
+                    mostrarAlerta(
+                        alerta,
+                        mensagem
+                    );
+
+                }
+
+                finally {
+
+                    esconderLoading();
+
+                }
+
+            }
+        );
+
+
+
+    /* =====================================================
+       OBSERVADOR DE LOGIN
+    ===================================================== */
+
+    onAuthStateChanged(
+        auth,
+        async usuario => {
+
+            if (usuario) {
+
+                telaLogin.style.display =
+                    "none";
+
+                appTela.style.display =
+                    "block";
+
+
+                document
+                    .getElementById(
+                        "emailUsuario"
+                    )
+                    .textContent =
+                    usuario.email || "-";
+
+
+                const nome =
+                    usuario.email
+                        ? usuario.email
+                            .split("@")[0]
+                        : "Usuário";
+
+
+                document
+                    .getElementById(
+                        "nomeUsuario"
+                    )
+                    .textContent =
+                    nome;
+
+
+                document
+                    .getElementById(
+                        "avatarUsuario"
+                    )
+                    .textContent =
+                    nome
+                        .charAt(0)
+                        .toUpperCase();
+
+
+                preencherSelects();
+
+
+                await carregarOcorrencias();
+
+            }
+
+            else {
+
+                telaLogin.style.display =
+                    "flex";
+
+                appTela.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+
+
+    /* =====================================================
+       LOGOUT
+    ===================================================== */
+
+    document
+        .getElementById(
+            "btnSair"
+        )
+        .addEventListener(
+            "click",
+            async () => {
+
+                await signOut(
+                    auth
+                );
+
+            }
+        );
+
+
+
+    /* =====================================================
+       NAVEGAÇÃO
+    ===================================================== */
+
+    document
+        .querySelectorAll(
+            ".menu-item"
+        )
+        .forEach(
+            botao => {
+
+                botao.addEventListener(
+                    "click",
+                    () => {
+
+                        const secao =
+                            botao.dataset.secao;
+
+
+                        document
+                            .querySelectorAll(
+                                ".menu-item"
+                            )
+                            .forEach(
+                                item =>
+                                    item.classList
+                                        .remove(
+                                            "ativo"
+                                        )
+                            );
+
+
+                        botao.classList.add(
+                            "ativo"
+                        );
+
+
+                        document
+                            .querySelectorAll(
+                                ".secao"
+                            )
+                            .forEach(
+                                elemento =>
+                                    elemento.classList
+                                        .remove(
+                                            "ativa"
+                                        )
+                            );
+
+
+                        document
+                            .getElementById(
+                                secao
+                            )
+                            .classList.add(
+                                "ativa"
+                            );
+
+
+                        if (
+                            secao ===
+                            "dashboard"
+                        ) {
+
+                            atualizarDashboard();
+
+                        }
+
+
+                        if (
+                            secao ===
+                            "historico"
+                        ) {
+
+                            mostrarTabela(
+                                ocorrencias
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+
+    /* =====================================================
+       CARREGAR OCORRÊNCIAS
+    ===================================================== */
+
+    async function carregarOcorrencias() {
+
+        try {
+
+            mostrarLoading();
+
+
+            const consulta =
+                await getDocs(
+                    collection(
+                        db,
+                        "ocorrencias"
+                    )
+                );
+
+
+            ocorrencias = [];
+
+
+            consulta.forEach(
+                documento => {
+
+                    ocorrencias.push({
+
+                        id:
+                            documento.id,
+
+                        ...documento.data()
+
+                    });
+
+                }
+            );
+
+
+            ocorrencias.sort(
+                (a,b) =>
+                    obterData(
+                        b
+                    ) -
+                    obterData(
+                        a
+                    )
+            );
+
+
+            ocorrenciasFiltradas =
+                [...ocorrencias];
+
+
+            atualizarDashboard();
+
+            mostrarTabela(
+                ocorrencias
+            );
+
+        }
+
+        catch (erro) {
+
+            console.error(
+                erro
+            );
+
+            alert(
+                "Erro ao carregar os registros. Verifique as regras do Firebase."
+            );
+
+        }
+
+        finally {
+
+            esconderLoading();
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       REGISTRAR OCORRÊNCIA
+    ===================================================== */
+
+    document
+        .getElementById(
+            "formOcorrencia"
+        )
+        .addEventListener(
+            "submit",
+            async evento => {
+
+                evento.preventDefault();
+
+
+                const estudante =
+                    document
+                        .getElementById(
+                            "estudante"
+                        )
+                        .value
+                        .trim();
+
+
+                const sala =
+                    document
+                        .getElementById(
+                            "sala"
+                        )
+                        .value;
+
+
+                const tipo =
+                    document
+                        .getElementById(
+                            "tipo"
+                        )
+                        .value;
+
+
+                const status =
+                    document
+                        .getElementById(
+                            "status"
+                        )
+                        .value;
+
+
+                const descricao =
+                    document
+                        .getElementById(
+                            "descricao"
+                        )
+                        .value
+                        .trim();
+
+
+                const observacoes =
+                    document
+                        .getElementById(
+                            "observacoes"
+                        )
+                        .value
+                        .trim();
+
+
+                const providencia =
+                    document
+                        .getElementById(
+                            "providencia"
+                        )
+                        .value
+                        .trim();
+
+
+                const alerta =
+                    document.getElementById(
+                        "alertaRegistro"
+                    );
+
+
+                limparAlerta(
+                    alerta
+                );
+
+
+                if (
+                    !estudante ||
+                    !sala ||
+                    !tipo ||
+                    !descricao
+                ) {
+
+                    mostrarAlerta(
+                        alerta,
+                        "Preencha todos os campos obrigatórios."
+                    );
+
+                    return;
+
+                }
+
+
+                try {
+
+                    mostrarLoading();
+
+
+                    const usuario =
+                        auth.currentUser;
+
+
+                    await addDoc(
+
+                        collection(
+                            db,
+                            "ocorrencias"
+                        ),
+
+                        {
+
+                            estudante:
+                                estudante,
+
+                            sala:
+                                sala,
+
+                            tipo:
+                                tipo,
+
+                            status:
+                                status,
+
+                            descricao:
+                                descricao,
+
+                            observacoes:
+                                observacoes,
+
+                            providencia:
+                                providencia,
+
+                            data:
+                                new Date()
+                                    .toISOString(),
+
+                            criadoEm:
+                                serverTimestamp(),
+
+                            criadoPor:
+                                usuario
+                                    ? usuario.email
+                                    : ""
+
+                        }
+
+                    );
+
+
+                    mostrarAlerta(
+                        alerta,
+                        "Ocorrência registrada com sucesso!",
+                        "sucesso"
+                    );
+
+
+                    document
+                        .getElementById(
+                            "formOcorrencia"
+                        )
+                        .reset();
+
+
+                    await carregarOcorrencias();
+
+                }
+
+                catch (erro) {
+
+                    console.error(
+                        erro
+                    );
+
+
+                    mostrarAlerta(
+                        alerta,
+                        "Erro ao registrar a ocorrência."
+                    );
+
+                }
+
+                finally {
+
+                    esconderLoading();
+
+                }
+
+            }
+        );
+
+
+
+    /* =====================================================
+       DASHBOARD
+    ===================================================== */
+
+    function atualizarDashboard(
+        lista = ocorrencias
+    ) {
+
+
+        document
+            .getElementById(
+                "totalOcorrencias"
+            )
+            .textContent =
+            lista.length;
+
+
+        document
+            .getElementById(
+                "totalPendentes"
+            )
+            .textContent =
+            lista.filter(
+                item =>
+                    item.status ===
+                    "Pendente"
+            ).length;
+
+
+        document
+            .getElementById(
+                "totalAcompanhamento"
+            )
+            .textContent =
+            lista.filter(
+                item =>
+                    item.status ===
+                    "Em acompanhamento"
+            ).length;
+
+
+        document
+            .getElementById(
+                "totalResolvidos"
+            )
+            .textContent =
+            lista.filter(
+                item =>
+                    item.status ===
+                    "Resolvido"
+            ).length;
+
+
+        atualizarTabelaSalas(
+            lista
+        );
+
+    }
+
+
+
+    /* =====================================================
+       FILTRO DASHBOARD
+    ===================================================== */
+
+    document
+        .getElementById(
+            "btnFiltrarDashboard"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+
+                const sala =
+                    document
+                        .getElementById(
+                            "dashboardSala"
+                        )
+                        .value;
+
+
+                const tipo =
+                    document
+                        .getElementById(
+                            "dashboardTipo"
+                        )
+                        .value;
+
+
+                const status =
+                    document
+                        .getElementById(
+                            "dashboardStatus"
+                        )
+                        .value;
+
+
+                const dataInicial =
+                    document
+                        .getElementById(
+                            "dashboardDataInicial"
+                        )
+                        .value;
+
+
+                const dataFinal =
+                    document
+                        .getElementById(
+                            "dashboardDataFinal"
+                        )
+                        .value;
+
+
+                const resultado =
+                    filtrarLista(
+
+                        ocorrencias,
+
+                        {
+
+                            sala,
+                            tipo,
+                            status,
+                            dataInicial,
+                            dataFinal
+
+                        }
+
+                    );
+
+
+                atualizarDashboard(
+                    resultado
+                );
+
+            }
+        );
+
+
+
+    /* =====================================================
+       LIMPAR DASHBOARD
+    ===================================================== */
+
+    document
+        .getElementById(
+            "btnLimparDashboard"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                document
+                    .getElementById(
+                        "dashboardSala"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "dashboardTipo"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "dashboardStatus"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "dashboardDataInicial"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "dashboardDataFinal"
+                    )
+                    .value = "";
+
+
+                atualizarDashboard(
+                    ocorrencias
+                );
+
+            }
+        );
+
+
+
+    /* =====================================================
+       FILTRAR HISTÓRICO
+    ===================================================== */
+
+    document
+        .getElementById(
+            "btnFiltrarHistorico"
+        )
+        .addEventListener(
+            "click",
+            aplicarFiltroHistorico
+        );
+
+
+
+    function aplicarFiltroHistorico() {
+
+
+        const estudante =
+            document
+                .getElementById(
+                    "filtroEstudante"
+                )
+                .value
+                .trim()
+                .toLowerCase();
+
+
+        const sala =
+            document
+                .getElementById(
+                    "filtroSala"
+                )
+                .value;
+
+
+        const tipo =
+            document
+                .getElementById(
+                    "filtroTipo"
+                )
+                .value;
+
+
+        const status =
+            document
+                .getElementById(
+                    "filtroStatus"
+                )
+                .value;
+
+
+        const dataInicial =
+            document
+                .getElementById(
+                    "filtroDataInicial"
+                )
+                .value;
+
+
+        const dataFinal =
+            document
+                .getElementById(
+                    "filtroDataFinal"
+                )
+                .value;
+
+
+        let resultado =
+            filtrarLista(
+
+                ocorrencias,
+
+                {
+
+                    sala,
+                    tipo,
+                    status,
+                    dataInicial,
+                    dataFinal
+
+                }
+
+            );
+
+
+        if (
+            estudante
+        ) {
+
+            resultado =
+                resultado.filter(
+                    item =>
+                        String(
+                            item.estudante || ""
+                        )
+                            .toLowerCase()
+                            .includes(
+                                estudante
+                            )
+                );
+
+        }
+
+
+        ocorrenciasFiltradas =
+            resultado;
+
+
+        mostrarTabela(
+            resultado
+        );
+
+    }
+
+
+
+    /* =====================================================
+       LIMPAR HISTÓRICO
+    ===================================================== */
+
+    document
+        .getElementById(
+            "btnLimparHistorico"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                document
+                    .getElementById(
+                        "filtroEstudante"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "filtroSala"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "filtroTipo"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "filtroStatus"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "filtroDataInicial"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "filtroDataFinal"
+                    )
+                    .value = "";
+
+
+                ocorrenciasFiltradas =
+                    [...ocorrencias];
+
+
+                mostrarTabela(
+                    ocorrencias
+                );
+
+            }
+        );
+
+
+
+    /* =====================================================
+       FUNÇÃO DE FILTRO
+    ===================================================== */
+
+    function filtrarLista(
+        lista,
+        filtros
+    ) {
+
+
+        return lista.filter(
+            item => {
+
+
+                if (
+                    filtros.sala &&
+                    item.sala !==
+                    filtros.sala
+                ) {
+
+                    return false;
+
+                }
+
+
+                if (
+                    filtros.tipo &&
+                    item.tipo !==
+                    filtros.tipo
+                ) {
+
+                    return false;
+
+                }
+
+
+                if (
+                    filtros.status &&
+                    item.status !==
+                    filtros.status
+                ) {
+
+                    return false;
+
+                }
+
+
+                const data =
+                    obterData(
+                        item
+                    );
+
+
+                if (
+                    filtros.dataInicial
+                ) {
+
+                    const inicio =
+                        new Date(
+                            filtros.dataInicial +
+                            "T00:00:00"
+                        );
+
+
+                    if (
+                        data < inicio
+                    ) {
+
+                        return false;
+
+                    }
+
+                }
+
+
+                if (
+                    filtros.dataFinal
+                ) {
+
+                    const fim =
+                        new Date(
+                            filtros.dataFinal +
+                            "T23:59:59"
+                        );
+
+
+                    if (
+                        data > fim
+                    ) {
+
+                        return false;
+
+                    }
+
+                }
+
+
+                return true;
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       TABELA DE OCORRÊNCIAS
+    ===================================================== */
+
+    function mostrarTabela(
+        lista
+    ) {
+
+
+        const tabela =
+            document.getElementById(
+                "tabelaOcorrencias"
+            );
+
+
+        const contador =
+            document.getElementById(
+                "contadorHistorico"
+            );
+
+
+        tabela.innerHTML = "";
+
+
+        contador.textContent =
+            `${lista.length} registro${lista.length === 1 ? "" : "s"}`;
+
+
+        if (
+            lista.length === 0
+        ) {
+
+            tabela.innerHTML = `
+
+                <tr>
+
+                    <td colspan="7">
+
+                        <div class="estado-vazio">
+
+                            <div class="icone">
+                                📋
+                            </div>
+
+                            <strong>
+                                Nenhuma ocorrência encontrada.
+                            </strong>
+
+                            <p>
+                                Tente modificar os filtros.
+                            </p>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        lista
+            .sort(
+                (a,b) =>
+                    obterData(b) -
+                    obterData(a)
+            )
+            .forEach(
+                item => {
+
+
+                    const tr =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    const data =
+                        formatarData(
+                            item
+                        );
+
+
+                    const statusClasse =
+                        obterClasseStatus(
+                            item.status
+                        );
+
+
+                    tr.innerHTML = `
+
+                        <td>
+                            ${data}
+                        </td>
+
+                        <td>
+                            <strong>
+                                ${escapar(
+                                    item.estudante
+                                )}
+                            </strong>
+                        </td>
+
+                        <td>
+                            ${escapar(
+                                item.sala
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapar(
+                                item.tipo
+                            )}
+                        </td>
+
+                        <td>
+
+                            <div
+                                class="descricao-tabela"
+                                title="${escapar(
+                                    item.descricao
+                                )}">
+
+                                ${escapar(
+                                    item.descricao
+                                )}
+
+                            </div>
+
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="status ${statusClasse}">
+
+                                ${escapar(
+                                    item.status
+                                )}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <div
+                                class="acoes-tabela">
+
+                                <button
+                                    class="btn-mini btn-editar"
+                                    title="Editar"
+                                    data-editar="${item.id}">
+
+                                    ✏️
+
+                                </button>
+
+
+                                <button
+                                    class="btn-mini btn-excluir"
+                                    title="Excluir"
+                                    data-excluir="${item.id}">
+
+                                    🗑️
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    `;
+
+
+                    tabela.appendChild(
+                        tr
+                    );
+
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                "[data-editar]"
+            )
+            .forEach(
+                botao => {
+
+                    botao.addEventListener(
+                        "click",
+                        () =>
+                            abrirEdicao(
+                                botao.dataset.editar
+                            )
+                    );
+
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                "[data-excluir]"
+            )
+            .forEach(
+                botao => {
+
+                    botao.addEventListener(
+                        "click",
+                        () =>
+                            excluirOcorrencia(
+                                botao.dataset.excluir
+                            )
+                    );
+
+                }
+            );
+
+    }
+
+
+
+    /* =====================================================
+       TABELA POR SALA
+    ===================================================== */
+
+    function atualizarTabelaSalas(
+        lista
+    ) {
+
+
+        const tabela =
+            document.getElementById(
+                "tabelaSalas"
+            );
+
+
+        tabela.innerHTML = "";
+
+
+        SALAS.forEach(
+            sala => {
+
+
+                const registros =
+                    lista.filter(
+                        item =>
+                            item.sala ===
+                            sala
+                    );
+
+
+                const pendentes =
+                    registros.filter(
+                        item =>
+                            item.status ===
+                            "Pendente"
+                    ).length;
+
+
+                const acompanhamento =
+                    registros.filter(
+                        item =>
+                            item.status ===
+                            "Em acompanhamento"
+                    ).length;
+
+
+                const resolvidos =
+                    registros.filter(
+                        item =>
+                            item.status ===
+                            "Resolvido"
+                    ).length;
+
+
+                const tr =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                tr.innerHTML = `
+
+                    <td>
+                        <strong>
+                            ${escapar(sala)}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${registros.length}
+                    </td>
+
+                    <td>
+                        ${pendentes}
+                    </td>
+
+                    <td>
+                        ${acompanhamento}
+                    </td>
+
+                    <td>
+                        ${resolvidos}
+                    </td>
+
+                `;
+
+
+                tabela.appendChild(
+                    tr
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       ABRIR EDIÇÃO
+    ===================================================== */
+
+    function abrirEdicao(
+        id
+    ) {
+
+
+        const item =
+            ocorrencias.find(
+                registro =>
+                    registro.id ===
+                    id
+            );
+
+
+        if (!item)
+            return;
+
+
+        document
+            .getElementById(
+                "edicaoId"
+            )
+            .value =
+            id;
+
+
+        document
+            .getElementById(
+                "edicaoEstudante"
+            )
+            .value =
+            item.estudante || "";
+
+
+        document
+            .getElementById(
+                "edicaoSala"
+            )
+            .value =
+            item.sala || "";
+
+
+        document
+            .getElementById(
+                "edicaoTipo"
+            )
+            .value =
+            item.tipo || "";
+
+
+        document
+            .getElementById(
+                "edicaoStatus"
+            )
+            .value =
+            item.status || "Pendente";
+
+
+        document
+            .getElementById(
+                "edicaoDescricao"
+            )
+            .value =
+            item.descricao || "";
+
+
+        document
+            .getElementById(
+                "edicaoObservacoes"
+            )
+            .value =
+            item.observacoes || "";
+
+
+        document
+            .getElementById(
+                "edicaoProvidencia"
+            )
+            .value =
+            item.providencia || "";
+
+
+        limparAlerta(
+            document.getElementById(
+                "alertaEdicao"
+            )
+        );
+
+
+        document
+            .getElementById(
+                "modalEdicao"
+            )
+            .classList.add(
+                "aberto"
+            );
+
+    }
+
+
+
+    /* =====================================================
+       SALVAR EDIÇÃO
+    ===================================================== */
+
+    document
+        .getElementById(
+            "formEdicao"
+        )
+        .addEventListener(
+            "submit",
+            async evento => {
+
+                evento.preventDefault();
+
+
+                const id =
+                    document
+                        .getElementById(
+                            "edicaoId"
+                        )
+                        .value;
+
+
+                const alerta =
+                    document.getElementById(
+                        "alertaEdicao"
+                    );
+
+
+                try {
+
+                    mostrarLoading();
+
+
+                    await updateDoc(
+
+                        doc(
+                            db,
+                            "ocorrencias",
+                            id
+                        ),
+
+                        {
+
+                            estudante:
+                                document
+                                    .getElementById(
+                                        "edicaoEstudante"
+                                    )
+                                    .value
+                                    .trim(),
+
+                            sala:
+                                document
+                                    .getElementById(
+                                        "edicaoSala"
+                                    )
+                                    .value,
+
+                            tipo:
+                                document
+                                    .getElementById(
+                                        "edicaoTipo"
+                                    )
+                                    .value,
+
+                            status:
+                                document
+                                    .getElementById(
+                                        "edicaoStatus"
+                                    )
+                                    .value,
+
+                            descricao:
+                                document
+                                    .getElementById(
+                                        "edicaoDescricao"
+                                    )
+                                    .value
+                                    .trim(),
+
+                            observacoes:
+                                document
+                                    .getElementById(
+                                        "edicaoObservacoes"
+                                    )
+                                    .value
+                                    .trim(),
+
+                            providencia:
+                                document
+                                    .getElementById(
+                                        "edicaoProvidencia"
+                                    )
+                                    .value
+                                    .trim(),
+
+                            atualizadoEm:
+                                serverTimestamp(),
+
+                            atualizadoPor:
+                                auth.currentUser
+                                    ? auth.currentUser.email
+                                    : ""
+
+                        }
+
+                    );
+
+
+                    fecharModal();
+
+
+                    await carregarOcorrencias();
+
+
+                    mostrarTabela(
+                        ocorrencias
+                    );
+
+                }
+
+                catch (erro) {
+
+                    console.error(
+                        erro
+                    );
+
+
+                    mostrarAlerta(
+                        alerta,
+                        "Não foi possível salvar as alterações."
+                    );
+
+                }
+
+                finally {
+
+                    esconderLoading();
+
+                }
+
+            }
+        );
+
+
+
+    /* =====================================================
+       EXCLUIR
+    ===================================================== */
+
+    async function excluirOcorrencia(
+        id
+    ) {
+
+
+        const item =
+            ocorrencias.find(
+                registro =>
+                    registro.id ===
+                    id
+            );
+
+
+        if (!item)
+            return;
+
+
+        const confirmar =
+            confirm(
+
+                "Deseja realmente excluir esta ocorrência?\n\n" +
+
+                "Estudante: " +
+                item.estudante +
+                "\n" +
+
+                "Sala: " +
+                item.sala +
+                "\n\n" +
+
+                "Essa ação não poderá ser desfeita."
+
+            );
+
+
+        if (!confirmar)
+            return;
+
+
+        try {
+
+            mostrarLoading();
+
+
+            await deleteDoc(
+
+                doc(
+                    db,
+                    "ocorrencias",
+                    id
+                )
+
+            );
+
+
+            await carregarOcorrencias();
+
+
+            mostrarTabela(
+                ocorrencias
+            );
+
+        }
+
+        catch (erro) {
+
+            console.error(
+                erro
+            );
+
+
+            alert(
+                "Não foi possível excluir a ocorrência."
+            );
+
+        }
+
+        finally {
+
+            esconderLoading();
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       MODAL
+    ===================================================== */
+
+    function fecharModal() {
+
+        document
+            .getElementById(
+                "modalEdicao"
+            )
+            .classList.remove(
+                "aberto"
+            );
+
+    }
+
+
+    document
+        .getElementById(
+            "btnFecharModal"
+        )
+        .addEventListener(
+            "click",
+            fecharModal
+        );
+
+
+    document
+        .getElementById(
+            "btnCancelarEdicao"
+        )
+        .addEventListener(
+            "click",
+            fecharModal
+        );
+
+
+    document
+        .getElementById(
+            "modalEdicao"
+        )
+        .addEventListener(
+            "click",
+            evento => {
+
+                if (
+                    evento.target.id ===
+                    "modalEdicao"
+                ) {
+
+                    fecharModal();
+
+                }
+
+            }
+        );
+
+
+
+    /* =====================================================
+       STATUS
+    ===================================================== */
+
+    function obterClasseStatus(
+        status
+    ) {
+
+
+        if (
+            status ===
+            "Resolvido"
+        ) {
+
+            return "status-resolvido";
+
+        }
+
+
+        if (
+            status ===
+            "Em acompanhamento"
+        ) {
+
+            return "status-acompanhamento";
+
+        }
+
+
+        return "status-pendente";
+
+    }
+
+
+
+    /* =====================================================
+       DATA
+    ===================================================== */
+
+    function obterData(
+        item
+    ) {
+
+
+        if (
+            !item ||
+            !item.data
+        ) {
+
+            return 0;
+
+        }
+
+
+        const data =
+            new Date(
+                item.data
+            );
+
+
+        if (
+            isNaN(
+                data.getTime()
+            )
+        ) {
+
+            return 0;
+
+        }
+
+
+        return data.getTime();
+
+    }
+
+
+
+    function formatarData(
+        item
+    ) {
+
+
+        const data =
+            new Date(
+                item.data
+            );
+
+
+        if (
+            isNaN(
+                data.getTime()
+            )
+        ) {
+
+            return "-";
+
+        }
+
+
+        return data.toLocaleString(
+            "pt-BR",
+            {
+
+                day:
+                    "2-digit",
+
+                month:
+                    "2-digit",
+
+                year:
+                    "numeric",
+
+                hour:
+                    "2-digit",
+
+                minute:
+                    "2-digit"
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       SEGURANÇA DE HTML
+    ===================================================== */
+
+    function escapar(
+        valor
+    ) {
+
+
+        if (
+            valor === null ||
+            valor === undefined
+        ) {
+
+            return "";
+
+        }
+
+
+        return String(valor)
+
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+
+            .replace(
+                /</g,
+                "&lt;"
+            )
+
+            .replace(
+                />/g,
+                "&gt;"
+            )
+
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+
 </script>
+
+
 </body>
+
 </html>
