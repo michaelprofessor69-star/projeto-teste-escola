@@ -1,2218 +1,1114 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <meta
-        name="description"
-        content="EduOcorrências - Sistema de registro e acompanhamento de ocorrências escolares">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>EduOcorrências | Gestão Escolar</title>
 
+    <meta name="theme-color" content="#172554">
 
     <style>
-
-        /* =====================================================
-           RESET
-        ===================================================== */
-
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
-
 
         :root {
+            --primary: #172554;
+            --primary-light: #1e3a8a;
+            --secondary: #2563eb;
+            --success: #16a34a;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --info: #0891b2;
 
-            --azul-escuro: #172554;
-            --azul: #2563eb;
-            --azul-claro: #eff6ff;
+            --background: #f1f5f9;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
 
-            --verde: #16a34a;
-            --verde-claro: #dcfce7;
-
-            --amarelo: #d97706;
-            --amarelo-claro: #fef3c7;
-
-            --vermelho: #dc2626;
-            --vermelho-claro: #fee2e2;
-
-            --cinza-900: #0f172a;
-            --cinza-700: #334155;
-            --cinza-600: #475569;
-            --cinza-500: #64748b;
-            --cinza-400: #94a3b8;
-            --cinza-300: #cbd5e1;
-            --cinza-200: #e2e8f0;
-            --cinza-100: #f1f5f9;
-            --cinza-50: #f8fafc;
-
-            --branco: #ffffff;
-
-            --sombra:
-                0 8px 25px rgba(15, 23, 42, 0.08);
-
-            --raio: 14px;
+            --radius: 14px;
+            --shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
         }
-
 
         body {
-
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-
-            background:
-                var(--cinza-100);
-
-            color:
-                var(--cinza-900);
-
-            min-height:
-                100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
         }
-
 
         button,
         input,
         select,
         textarea {
-
-            font-family:
-                inherit;
+            font-family: inherit;
         }
-
 
         button {
-
-            cursor:
-                pointer;
+            cursor: pointer;
         }
 
+        /* =========================
+           TELA DE LOGIN
+        ========================== */
 
-        /* =====================================================
-           LOGIN
-        ===================================================== */
-
-        #telaLogin {
-
-            min-height:
-                100vh;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            padding:
-                20px;
+        #loginScreen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
 
             background:
                 linear-gradient(
                     135deg,
-                    #172554 0%,
-                    #1d4ed8 50%,
-                    #2563eb 100%
+                    #172554,
+                    #1e3a8a,
+                    #2563eb
                 );
         }
 
-
-        .login-container {
-
-            width:
-                100%;
-
-            max-width:
-                440px;
-        }
-
-
         .login-card {
-
-            background:
-                var(--branco);
-
-            border-radius:
-                22px;
-
-            padding:
-                35px;
-
-            box-shadow:
-                0 25px 60px rgba(0,0,0,.25);
+            width: 100%;
+            max-width: 430px;
+            background: white;
+            border-radius: 22px;
+            padding: 35px;
+            box-shadow: 0 25px 60px rgba(0,0,0,.25);
         }
-
 
         .login-logo {
-
-            width:
-                75px;
-
-            height:
-                75px;
-
-            margin:
-                0 auto 20px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            border-radius:
-                20px;
-
-            background:
-                var(--azul-claro);
-
-            font-size:
-                38px;
+            text-align: center;
+            margin-bottom: 28px;
         }
 
+        .logo-icon {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 15px;
 
-        .login-card h1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-            text-align:
-                center;
+            border-radius: 20px;
 
-            color:
-                var(--azul-escuro);
+            background: var(--primary);
+            color: white;
 
-            font-size:
-                28px;
-
-            margin-bottom:
-                8px;
+            font-size: 36px;
         }
 
-
-        .login-subtitulo {
-
-            text-align:
-                center;
-
-            color:
-                var(--cinza-500);
-
-            margin-bottom:
-                28px;
-
-            line-height:
-                1.5;
+        .login-logo h1 {
+            color: var(--primary);
+            font-size: 28px;
+            margin-bottom: 6px;
         }
 
-
-        .campo-login {
-
-            margin-bottom:
-                18px;
+        .login-logo p {
+            color: var(--muted);
+            font-size: 14px;
         }
 
-
-        .campo-login label {
-
-            display:
-                block;
-
-            margin-bottom:
-                7px;
-
-            font-size:
-                14px;
-
-            font-weight:
-                bold;
-
-            color:
-                var(--cinza-700);
+        .form-group {
+            margin-bottom: 17px;
         }
 
-
-        .campo-login input {
-
-            width:
-                100%;
-
-            padding:
-                14px;
-
-            border:
-                1px solid var(--cinza-300);
-
-            border-radius:
-                10px;
-
-            outline:
-                none;
-
-            font-size:
-                15px;
-
-            transition:
-                .2s;
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #334155;
         }
 
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
 
-        .campo-login input:focus {
+            border: 1px solid var(--border);
+            border-radius: 10px;
 
-            border-color:
-                var(--azul);
+            background: white;
+            color: var(--text);
 
-            box-shadow:
-                0 0 0 3px rgba(37,99,235,.12);
+            font-size: 15px;
+            outline: none;
+
+            transition: .2s;
         }
 
-
-        .btn-login {
-
-            width:
-                100%;
-
-            padding:
-                14px;
-
-            border:
-                none;
-
-            border-radius:
-                10px;
-
-            background:
-                var(--azul);
-
-            color:
-                white;
-
-            font-size:
-                16px;
-
-            font-weight:
-                bold;
-
-            transition:
-                .2s;
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(37,99,235,.12);
         }
 
-
-        .btn-login:hover {
-
-            background:
-                #1d4ed8;
+        textarea {
+            min-height: 110px;
+            resize: vertical;
         }
-
-
-        .login-rodape {
-
-            text-align:
-                center;
-
-            margin-top:
-                22px;
-
-            font-size:
-                12px;
-
-            color:
-                var(--cinza-400);
-        }
-
-
-        /* =====================================================
-           APLICATIVO
-        ===================================================== */
-
-        #app {
-
-            display:
-                none;
-
-            min-height:
-                100vh;
-        }
-
-
-        /* =====================================================
-           CABEÇALHO
-        ===================================================== */
-
-        .topo {
-
-            background:
-                var(--branco);
-
-            border-bottom:
-                1px solid var(--cinza-200);
-
-            position:
-                sticky;
-
-            top:
-                0;
-
-            z-index:
-                100;
-
-            box-shadow:
-                0 2px 8px rgba(15,23,42,.05);
-        }
-
-
-        .topo-conteudo {
-
-            max-width:
-                1400px;
-
-            margin:
-                auto;
-
-            padding:
-                14px 22px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            gap:
-                20px;
-        }
-
-
-        .marca {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                12px;
-        }
-
-
-        .marca-icone {
-
-            width:
-                45px;
-
-            height:
-                45px;
-
-            border-radius:
-                12px;
-
-            background:
-                var(--azul);
-
-            color:
-                white;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            font-size:
-                23px;
-        }
-
-
-        .marca h1 {
-
-            font-size:
-                20px;
-
-            color:
-                var(--azul-escuro);
-        }
-
-
-        .marca span {
-
-            display:
-                block;
-
-            color:
-                var(--cinza-500);
-
-            font-size:
-                12px;
-
-            margin-top:
-                2px;
-        }
-
-
-        .usuario-topo {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                12px;
-        }
-
-
-        .usuario-info {
-
-            text-align:
-                right;
-        }
-
-
-        .usuario-info strong {
-
-            display:
-                block;
-
-            font-size:
-                14px;
-        }
-
-
-        .usuario-info span {
-
-            font-size:
-                12px;
-
-            color:
-                var(--cinza-500);
-        }
-
-
-        .avatar {
-
-            width:
-                40px;
-
-            height:
-                40px;
-
-            border-radius:
-                50%;
-
-            background:
-                var(--azul-claro);
-
-            color:
-                var(--azul);
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            font-weight:
-                bold;
-        }
-
-
-        .btn-sair {
-
-            border:
-                none;
-
-            background:
-                var(--vermelho-claro);
-
-            color:
-                var(--vermelho);
-
-            padding:
-                9px 13px;
-
-            border-radius:
-                8px;
-
-            font-weight:
-                bold;
-        }
-
-
-        /* =====================================================
-           LAYOUT
-        ===================================================== */
-
-        .layout {
-
-            max-width:
-                1400px;
-
-            margin:
-                auto;
-
-            display:
-                flex;
-
-            min-height:
-                calc(100vh - 74px);
-        }
-
-
-        /* =====================================================
-           MENU LATERAL
-        ===================================================== */
-
-        .sidebar {
-
-            width:
-                240px;
-
-            background:
-                var(--branco);
-
-            border-right:
-                1px solid var(--cinza-200);
-
-            padding:
-                22px 14px;
-        }
-
-
-        .menu-titulo {
-
-            font-size:
-                11px;
-
-            text-transform:
-                uppercase;
-
-            letter-spacing:
-                .8px;
-
-            color:
-                var(--cinza-400);
-
-            margin:
-                0 10px 10px;
-        }
-
-
-        .menu-item {
-
-            width:
-                100%;
-
-            border:
-                none;
-
-            background:
-                transparent;
-
-            padding:
-                12px;
-
-            border-radius:
-                9px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                11px;
-
-            color:
-                var(--cinza-600);
-
-            font-weight:
-                600;
-
-            margin-bottom:
-                5px;
-
-            text-align:
-                left;
-        }
-
-
-        .menu-item:hover {
-
-            background:
-                var(--cinza-100);
-        }
-
-
-        .menu-item.ativo {
-
-            background:
-                var(--azul-claro);
-
-            color:
-                var(--azul);
-        }
-
-
-        /* =====================================================
-           CONTEÚDO
-        ===================================================== */
-
-        .conteudo {
-
-            flex:
-                1;
-
-            padding:
-                28px;
-        }
-
-
-        .secao {
-
-            display:
-                none;
-        }
-
-
-        .secao.ativa {
-
-            display:
-                block;
-        }
-
-
-        .titulo-secao {
-
-            margin-bottom:
-                22px;
-        }
-
-
-        .titulo-secao h2 {
-
-            font-size:
-                25px;
-
-            color:
-                var(--azul-escuro);
-
-            margin-bottom:
-                5px;
-        }
-
-
-        .titulo-secao p {
-
-            color:
-                var(--cinza-500);
-        }
-
-
-        /* =====================================================
-           DASHBOARD
-        ===================================================== */
-
-        .indicadores {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap:
-                16px;
-
-            margin-bottom:
-                22px;
-        }
-
-
-        .indicador {
-
-            background:
-                white;
-
-            border-radius:
-                var(--raio);
-
-            padding:
-                20px;
-
-            box-shadow:
-                var(--sombra);
-
-            border:
-                1px solid var(--cinza-200);
-        }
-
-
-        .indicador-topo {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            margin-bottom:
-                14px;
-        }
-
-
-        .indicador-icone {
-
-            width:
-                40px;
-
-            height:
-                40px;
-
-            border-radius:
-                10px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            font-size:
-                20px;
-        }
-
-
-        .indicador.total .indicador-icone {
-
-            background:
-                var(--azul-claro);
-        }
-
-
-        .indicador.pendente .indicador-icone {
-
-            background:
-                var(--vermelho-claro);
-        }
-
-
-        .indicador.acompanhamento .indicador-icone {
-
-            background:
-                var(--amarelo-claro);
-        }
-
-
-        .indicador.resolvido .indicador-icone {
-
-            background:
-                var(--verde-claro);
-        }
-
-
-        .indicador-numero {
-
-            font-size:
-                30px;
-
-            font-weight:
-                bold;
-
-            color:
-                var(--cinza-900);
-        }
-
-
-        .indicador-texto {
-
-            color:
-                var(--cinza-500);
-
-            font-size:
-                13px;
-        }
-
-
-        /* =====================================================
-           CARDS
-        ===================================================== */
-
-        .card {
-
-            background:
-                var(--branco);
-
-            border:
-                1px solid var(--cinza-200);
-
-            border-radius:
-                var(--raio);
-
-            padding:
-                22px;
-
-            box-shadow:
-                var(--sombra);
-
-            margin-bottom:
-                22px;
-        }
-
-
-        .card-cabecalho {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            margin-bottom:
-                18px;
-
-            gap:
-                10px;
-        }
-
-
-        .card-cabecalho h3 {
-
-            color:
-                var(--azul-escuro);
-
-            font-size:
-                18px;
-        }
-
-
-        /* =====================================================
-           FILTROS
-        ===================================================== */
-
-        .filtros {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                repeat(5, 1fr);
-
-            gap:
-                12px;
-        }
-
-
-        .campo {
-
-            display:
-                flex;
-
-            flex-direction:
-                column;
-
-            gap:
-                6px;
-        }
-
-
-        .campo label {
-
-            font-size:
-                13px;
-
-            font-weight:
-                bold;
-
-            color:
-                var(--cinza-700);
-        }
-
-
-        .campo input,
-        .campo select,
-        .campo textarea {
-
-            width:
-                100%;
-
-            padding:
-                11px 12px;
-
-            border:
-                1px solid var(--cinza-300);
-
-            border-radius:
-                8px;
-
-            outline:
-                none;
-
-            font-size:
-                14px;
-
-            background:
-                white;
-        }
-
-
-        .campo input:focus,
-        .campo select:focus,
-        .campo textarea:focus {
-
-            border-color:
-                var(--azul);
-
-            box-shadow:
-                0 0 0 3px rgba(37,99,235,.10);
-        }
-
-
-        .campo textarea {
-
-            min-height:
-                130px;
-
-            resize:
-                vertical;
-        }
-
-
-        .campo-full {
-
-            grid-column:
-                1 / -1;
-        }
-
-
-        .acoes-filtro {
-
-            display:
-                flex;
-
-            gap:
-                8px;
-
-            margin-top:
-                15px;
-
-            flex-wrap:
-                wrap;
-        }
-
-
-        /* =====================================================
-           BOTÕES
-        ===================================================== */
 
         .btn {
+            border: none;
+            border-radius: 10px;
+            padding: 12px 17px;
 
-            border:
-                none;
+            font-weight: bold;
+            font-size: 14px;
 
-            border-radius:
-                8px;
-
-            padding:
-                11px 16px;
-
-            font-weight:
-                bold;
-
-            font-size:
-                14px;
+            transition: .2s;
         }
 
+        .btn:hover {
+            transform: translateY(-1px);
+            opacity: .95;
+        }
 
         .btn-primary {
-
-            background:
-                var(--azul);
-
-            color:
-                white;
+            background: var(--secondary);
+            color: white;
         }
-
-
-        .btn-primary:hover {
-
-            background:
-                #1d4ed8;
-        }
-
-
-        .btn-secondary {
-
-            background:
-                var(--cinza-200);
-
-            color:
-                var(--cinza-700);
-        }
-
 
         .btn-success {
-
-            background:
-                var(--verde);
-
-            color:
-                white;
+            background: var(--success);
+            color: white;
         }
-
 
         .btn-danger {
-
-            background:
-                var(--vermelho);
-
-            color:
-                white;
+            background: var(--danger);
+            color: white;
         }
 
-
-        /* =====================================================
-           FORMULÁRIO
-        ===================================================== */
-
-        .form-grid {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap:
-                17px;
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #334155;
         }
 
-
-        .form-acoes {
-
-            margin-top:
-                20px;
-
-            display:
-                flex;
-
-            gap:
-                10px;
-
-            flex-wrap:
-                wrap;
+        .btn-warning {
+            background: var(--warning);
+            color: white;
         }
 
+        .btn-block {
+            width: 100%;
+        }
 
-        /* =====================================================
+        .login-message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* =========================
+           SISTEMA
+        ========================== */
+
+        #app {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 70px;
+
+            background: var(--primary);
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 25px;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(255,255,255,.12);
+            border-radius: 10px;
+
+            font-size: 22px;
+        }
+
+        .brand h2 {
+            font-size: 19px;
+        }
+
+        .brand small {
+            display: block;
+            color: #cbd5e1;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-email {
+            font-size: 13px;
+            color: #dbeafe;
+        }
+
+        .logout-btn {
+            border: none;
+            background: #dc2626;
+            color: white;
+            border-radius: 8px;
+            padding: 9px 13px;
+            font-weight: bold;
+        }
+
+        .layout {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        .sidebar {
+            width: 240px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 20px 12px;
+        }
+
+        .menu-title {
+            color: #94a3b8;
+            font-size: 11px;
+            font-weight: bold;
+            margin: 12px 12px 8px;
+            text-transform: uppercase;
+        }
+
+        .menu-btn {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: #475569;
+
+            text-align: left;
+
+            padding: 12px;
+            border-radius: 10px;
+
+            margin-bottom: 4px;
+
+            font-weight: bold;
+        }
+
+        .menu-btn:hover,
+        .menu-btn.active {
+            background: #eff6ff;
+            color: var(--secondary);
+        }
+
+        .content {
+            flex: 1;
+            padding: 25px;
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 27px;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* =========================
+           CARDS
+        ========================== */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-card .number {
+            font-size: 29px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-top: 7px;
+        }
+
+        .stat-card .label {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 22px;
+        }
+
+        .icon-blue {
+            background: #dbeafe;
+        }
+
+        .icon-green {
+            background: #dcfce7;
+        }
+
+        .icon-orange {
+            background: #ffedd5;
+        }
+
+        .icon-red {
+            background: #fee2e2;
+        }
+
+        /* =========================
+           PAINÉIS
+        ========================== */
+
+        .panel {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 22px;
+            margin-bottom: 22px;
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+
+            margin-bottom: 18px;
+        }
+
+        .panel-title h2 {
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        /* =========================
+           FILTROS
+        ========================== */
+
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 10px;
+            align-items: end;
+        }
+
+        /* =========================
            TABELA
-        ===================================================== */
+        ========================== */
 
-        .tabela-container {
-
-            overflow-x:
-                auto;
+        .table-container {
+            overflow-x: auto;
         }
-
 
         table {
-
-            width:
-                100%;
-
-            border-collapse:
-                collapse;
-
-            min-width:
-                1050px;
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
         }
-
 
         th {
-
-            background:
-                var(--cinza-50);
-
-            color:
-                var(--cinza-600);
-
-            font-size:
-                12px;
-
-            text-transform:
-                uppercase;
-
-            letter-spacing:
-                .4px;
-
-            padding:
-                13px;
-
-            text-align:
-                left;
-
-            border-bottom:
-                2px solid var(--cinza-200);
+            background: #f8fafc;
+            color: #475569;
+            font-size: 12px;
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
         }
-
 
         td {
-
-            padding:
-                13px;
-
-            border-bottom:
-                1px solid var(--cinza-200);
-
-            font-size:
-                13px;
-
-            vertical-align:
-                middle;
+            padding: 13px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13px;
+            vertical-align: top;
         }
-
 
         tr:hover td {
-
-            background:
-                var(--cinza-50);
+            background: #f8fafc;
         }
 
-
-        .descricao-tabela {
-
-            max-width:
-                280px;
-
-            white-space:
-                nowrap;
-
-            overflow:
-                hidden;
-
-            text-overflow:
-                ellipsis;
+        .badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
         }
 
-
-        /* =====================================================
-           STATUS
-        ===================================================== */
-
-        .status {
-
-            display:
-                inline-block;
-
-            padding:
-                5px 9px;
-
-            border-radius:
-                20px;
-
-            font-size:
-                11px;
-
-            font-weight:
-                bold;
-
-            white-space:
-                nowrap;
+        .badge-open {
+            background: #fee2e2;
+            color: #991b1b;
         }
 
-
-        .status-pendente {
-
-            background:
-                var(--vermelho-claro);
-
-            color:
-                #991b1b;
+        .badge-progress {
+            background: #ffedd5;
+            color: #9a3412;
         }
 
-
-        .status-acompanhamento {
-
-            background:
-                var(--amarelo-claro);
-
-            color:
-                #92400e;
+        .badge-closed {
+            background: #dcfce7;
+            color: #166534;
         }
 
-
-        .status-resolvido {
-
-            background:
-                var(--verde-claro);
-
-            color:
-                #166534;
+        .action-buttons {
+            display: flex;
+            gap: 6px;
         }
 
-
-        /* =====================================================
-           AÇÕES TABELA
-        ===================================================== */
-
-        .acoes-tabela {
-
-            display:
-                flex;
-
-            gap:
-                5px;
+        .action-btn {
+            border: none;
+            border-radius: 7px;
+            padding: 7px 9px;
+            font-size: 12px;
+            font-weight: bold;
         }
 
-
-        .btn-mini {
-
-            border:
-                none;
-
-            width:
-                32px;
-
-            height:
-                32px;
-
-            border-radius:
-                7px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
+        .edit-btn {
+            background: #dbeafe;
+            color: #1d4ed8;
         }
 
-
-        .btn-editar {
-
-            background:
-                var(--azul-claro);
-
-            color:
-                var(--azul);
+        .delete-btn {
+            background: #fee2e2;
+            color: #b91c1c;
         }
 
+        /* =========================
+           FORMULÁRIO
+        ========================== */
 
-        .btn-excluir {
-
-            background:
-                var(--vermelho-claro);
-
-            color:
-                var(--vermelho);
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 17px;
         }
 
-
-        /* =====================================================
-           ESTADO VAZIO
-        ===================================================== */
-
-        .estado-vazio {
-
-            padding:
-                45px 20px;
-
-            text-align:
-                center;
-
-            color:
-                var(--cinza-500);
+        .full {
+            grid-column: 1 / -1;
         }
 
-
-        .estado-vazio .icone {
-
-            font-size:
-                40px;
-
-            margin-bottom:
-                10px;
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
         }
 
-
-        /* =====================================================
+        /* =========================
            MODAL
-        ===================================================== */
+        ========================== */
 
         .modal {
+            display: none;
 
-            display:
-                none;
+            position: fixed;
+            inset: 0;
 
-            position:
-                fixed;
+            background: rgba(15,23,42,.6);
 
-            inset:
-                0;
+            z-index: 999;
 
-            background:
-                rgba(15,23,42,.60);
+            align-items: center;
+            justify-content: center;
 
-            z-index:
-                500;
-
-            padding:
-                20px;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
+            padding: 20px;
         }
 
-
-        .modal.aberto {
-
-            display:
-                flex;
+        .modal.show {
+            display: flex;
         }
 
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 700px;
 
-        .modal-conteudo {
+            max-height: 90vh;
+            overflow-y: auto;
 
-            background:
-                white;
+            border-radius: 18px;
+            padding: 25px;
 
-            width:
-                100%;
-
-            max-width:
-                650px;
-
-            max-height:
-                90vh;
-
-            overflow-y:
-                auto;
-
-            border-radius:
-                16px;
-
-            padding:
-                25px;
+            box-shadow: 0 25px 70px rgba(0,0,0,.25);
         }
 
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-        .modal-cabecalho {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            margin-bottom:
-                20px;
+            margin-bottom: 20px;
         }
 
-
-        .modal-cabecalho h3 {
-
-            color:
-                var(--azul-escuro);
+        .modal-header h2 {
+            color: var(--primary);
         }
 
-
-        .btn-fechar {
-
-            width:
-                35px;
-
-            height:
-                35px;
-
-            border:
-                none;
-
-            border-radius:
-                50%;
-
-            background:
-                var(--cinza-100);
-
-            font-size:
-                20px;
+        .close-modal {
+            border: none;
+            background: #f1f5f9;
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            font-size: 20px;
         }
 
+        /* =========================
+           MENSAGENS
+        ========================== */
 
-        /* =====================================================
-           ALERTAS
-        ===================================================== */
-
-        .alerta {
-
-            display:
-                none;
-
-            padding:
-                12px 14px;
-
-            border-radius:
-                8px;
-
-            margin-bottom:
-                15px;
-
-            font-size:
-                14px;
-
-            font-weight:
-                600;
+        .empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--muted);
         }
-
-
-        .alerta.erro {
-
-            display:
-                block;
-
-            background:
-                var(--vermelho-claro);
-
-            color:
-                #991b1b;
-        }
-
-
-        .alerta.sucesso {
-
-            display:
-                block;
-
-            background:
-                var(--verde-claro);
-
-            color:
-                #166534;
-        }
-
-
-        /* =====================================================
-           LOADING
-        ===================================================== */
 
         .loading {
-
-            position:
-                fixed;
-
-            inset:
-                0;
-
-            background:
-                rgba(255,255,255,.75);
-
-            display:
-                none;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            z-index:
-                1000;
+            text-align: center;
+            padding: 30px;
+            color: var(--muted);
         }
 
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
 
-        .loading.ativo {
+            max-width: 350px;
 
-            display:
-                flex;
+            padding: 14px 18px;
+
+            border-radius: 10px;
+
+            color: white;
+
+            font-size: 14px;
+            font-weight: bold;
+
+            display: none;
+
+            z-index: 2000;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,.2);
         }
 
-
-        .loading-caixa {
-
-            background:
-                white;
-
-            padding:
-                25px;
-
-            border-radius:
-                14px;
-
-            box-shadow:
-                var(--sombra);
-
-            text-align:
-                center;
+        .toast.show {
+            display: block;
         }
 
-
-        .spinner {
-
-            width:
-                35px;
-
-            height:
-                35px;
-
-            border:
-                4px solid var(--cinza-200);
-
-            border-top-color:
-                var(--azul);
-
-            border-radius:
-                50%;
-
-            animation:
-                girar 1s linear infinite;
-
-            margin:
-                0 auto 12px;
+        .toast.success {
+            background: var(--success);
+            color: white;
         }
 
-
-        @keyframes girar {
-
-            to {
-                transform:
-                    rotate(360deg);
-            }
-
+        .toast.error {
+            background: var(--danger);
+            color: white;
         }
 
-
-        /* =====================================================
-           RESPONSIVIDADE
-        ===================================================== */
+        /* =========================
+           RESPONSIVO
+        ========================== */
 
         @media (max-width: 1100px) {
 
-            .indicadores {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-
-            .filtros {
-
-                grid-template-columns:
-                    repeat(3, 1fr);
+            .filters {
+                grid-template-columns: repeat(2, 1fr);
             }
 
         }
 
+        @media (max-width: 800px) {
 
-        @media (max-width: 850px) {
+            .topbar {
+                padding: 0 15px;
+            }
+
+            .user-email {
+                display: none;
+            }
 
             .sidebar {
-
-                width:
-                    75px;
-
-                padding:
-                    15px 8px;
+                width: 65px;
+                padding: 15px 8px;
             }
 
-
-            .menu-titulo,
-            .menu-texto {
-
-                display:
-                    none;
+            .menu-title,
+            .menu-text {
+                display: none;
             }
 
-
-            .menu-item {
-
-                justify-content:
-                    center;
+            .menu-btn {
+                text-align: center;
+                font-size: 19px;
             }
 
-
-            .conteudo {
-
-                padding:
-                    18px;
+            .content {
+                padding: 18px;
             }
-
 
             .form-grid {
-
-                grid-template-columns:
-                    1fr;
+                grid-template-columns: 1fr;
             }
 
-
-            .campo-full {
-
-                grid-column:
-                    auto;
-            }
-
-
-            .filtros {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
+            .full {
+                grid-column: auto;
             }
 
         }
-
 
         @media (max-width: 600px) {
 
-            .topo-conteudo {
-
-                padding:
-                    12px;
+            .login-card {
+                padding: 25px 20px;
             }
 
-
-            .marca h1 {
-
-                font-size:
-                    17px;
+            .cards {
+                grid-template-columns: 1fr;
             }
 
-
-            .marca span {
-
-                display:
-                    none;
+            .filters {
+                grid-template-columns: 1fr;
             }
 
-
-            .usuario-info {
-
-                display:
-                    none;
+            .page-header h1 {
+                font-size: 22px;
             }
 
-
-            .indicadores {
-
-                grid-template-columns:
-                    1fr 1fr;
-
-                gap:
-                    10px;
+            .panel {
+                padding: 16px;
             }
 
-
-            .indicador {
-
-                padding:
-                    15px;
+            .form-actions {
+                flex-direction: column;
             }
 
-
-            .indicador-numero {
-
-                font-size:
-                    25px;
+            .form-actions .btn {
+                width: 100%;
             }
 
-
-            .filtros {
-
-                grid-template-columns:
-                    1fr;
+            .brand h2 {
+                font-size: 16px;
             }
 
-
-            .conteudo {
-
-                padding:
-                    12px;
-            }
-
-
-            .card {
-
-                padding:
-                    16px;
-            }
-
-
-            .titulo-secao h2 {
-
-                font-size:
-                    21px;
-            }
-
-
-            .btn-sair {
-
-                padding:
-                    8px;
+            .brand-icon {
+                width: 36px;
+                height: 36px;
             }
 
         }
-
-
     </style>
-
 </head>
-
 
 <body>
 
+<!-- =====================================================
+     LOGIN
+===================================================== -->
 
-<!-- =========================================================
-     TELA DE LOGIN
-========================================================= -->
+<div id="loginScreen">
 
-<div id="telaLogin">
+    <div class="login-card">
 
-    <div class="login-container">
+        <div class="login-logo">
 
-        <div class="login-card">
-
-            <div class="login-logo">
+            <div class="logo-icon">
                 📚
             </div>
 
+            <h1>EduOcorrências</h1>
 
-            <h1>
-                EduOcorrências
-            </h1>
-
-
-            <p class="login-subtitulo">
-
-                Sistema de registro e acompanhamento
-                de ocorrências escolares
-
+            <p>
+                Sistema de acompanhamento escolar
             </p>
 
-
-            <div
-                id="alertaLogin"
-                class="alerta">
-            </div>
-
-
-            <form id="formLogin">
-
-                <div class="campo-login">
-
-                    <label for="emailLogin">
-                        E-mail
-                    </label>
-
-                    <input
-                        type="email"
-                        id="emailLogin"
-                        placeholder="Digite seu e-mail"
-                        required>
-
-                </div>
-
-
-                <div class="campo-login">
-
-                    <label for="senhaLogin">
-                        Senha
-                    </label>
-
-                    <input
-                        type="password"
-                        id="senhaLogin"
-                        placeholder="Digite sua senha"
-                        required>
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="btn-login">
-
-                    Entrar no sistema
-
-                </button>
-
-            </form>
-
-
-            <div class="login-rodape">
-
-                Acesso restrito a usuários autorizados.
-
-            </div>
-
         </div>
+
+        <form id="loginForm">
+
+            <div class="form-group">
+
+                <label for="loginEmail">
+                    E-mail
+                </label>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Digite seu e-mail"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="loginPassword">
+                    Senha
+                </label>
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Digite sua senha"
+                    required
+                >
+
+            </div>
+
+            <button
+                type="submit"
+                class="btn btn-primary btn-block"
+                id="loginButton"
+            >
+                Entrar
+            </button>
+
+        </form>
+
+        <div
+            id="loginMessage"
+            class="login-message"
+        ></div>
 
     </div>
 
 </div>
 
 
-
-<!-- =========================================================
+<!-- =====================================================
      APLICAÇÃO
-========================================================= -->
+===================================================== -->
 
 <div id="app">
 
+    <header class="topbar">
 
-    <!-- TOPO -->
+        <div class="brand">
 
-    <header class="topo">
+            <div class="brand-icon">
+                📚
+            </div>
 
-        <div class="topo-conteudo">
+            <div>
 
+                <h2>
+                    EduOcorrências
+                </h2>
 
-            <div class="marca">
-
-                <div class="marca-icone">
-                    📚
-                </div>
-
-                <div>
-
-                    <h1>
-                        EduOcorrências
-                    </h1>
-
-                    <span>
-                        Gestão de ocorrências escolares
-                    </span>
-
-                </div>
+                <small>
+                    Gestão de ocorrências escolares
+                </small>
 
             </div>
 
+        </div>
 
-            <div class="usuario-topo">
+        <div class="user-area">
 
-                <div class="usuario-info">
+            <span
+                class="user-email"
+                id="userEmail"
+            ></span>
 
-                    <strong
-                        id="nomeUsuario">
-                        Usuário
-                    </strong>
-
-                    <span
-                        id="emailUsuario">
-                        -
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="avatar"
-                    id="avatarUsuario">
-                    U
-                </div>
-
-
-                <button
-                    class="btn-sair"
-                    id="btnSair">
-
-                    Sair
-
-                </button>
-
-            </div>
-
+            <button
+                class="logout-btn"
+                id="logoutButton"
+            >
+                Sair
+            </button>
 
         </div>
 
     </header>
 
 
-
-    <!-- LAYOUT -->
-
     <div class="layout">
 
-
-        <!-- MENU -->
+        <!-- =================================================
+             MENU
+        ================================================== -->
 
         <aside class="sidebar">
 
-            <div class="menu-titulo">
+            <div class="menu-title">
                 Menu
             </div>
 
-
             <button
-                class="menu-item ativo"
-                data-secao="dashboard">
-
+                class="menu-btn active"
+                data-page="dashboard"
+            >
                 📊
-
-                <span class="menu-texto">
-                    Dashboard
+                <span class="menu-text">
+                    Panorama
                 </span>
-
             </button>
 
-
             <button
-                class="menu-item"
-                data-secao="registro">
-
+                class="menu-btn"
+                data-page="novaOcorrencia"
+            >
                 📝
-
-                <span class="menu-texto">
-                    Registrar ocorrência
+                <span class="menu-text">
+                    Nova ocorrência
                 </span>
-
             </button>
 
-
             <button
-                class="menu-item"
-                data-secao="historico">
-
-                📋
-
-                <span class="menu-texto">
+                class="menu-btn"
+                data-page="historico"
+            >
+                📚
+                <span class="menu-text">
                     Histórico
                 </span>
-
             </button>
 
         </aside>
 
 
+        <!-- =================================================
+             CONTEÚDO
+        ================================================== -->
 
-        <!-- CONTEÚDO -->
-
-        <main class="conteudo">
+        <main class="content">
 
 
             <!-- =================================================
                  DASHBOARD
-            ================================================= -->
+            ================================================== -->
 
             <section
-                id="dashboard"
-                class="secao ativa">
+                id="page-dashboard"
+                class="page active"
+            >
 
+                <div class="page-header">
 
-                <div class="titulo-secao">
-
-                    <h2>
-                        Panorama geral
-                    </h2>
+                    <h1>
+                        Panorama
+                    </h1>
 
                     <p>
-                        Acompanhe as ocorrências registradas
-                        no ambiente escolar.
+                        Visão geral das ocorrências registradas.
                     </p>
 
                 </div>
 
 
-                <!-- INDICADORES -->
+                <div class="cards">
 
-                <div class="indicadores">
+                    <div class="stat-card">
 
+                        <div>
 
-                    <div class="indicador total">
-
-                        <div class="indicador-topo">
-
-                            <div>
-
-                                <div
-                                    id="totalOcorrencias"
-                                    class="indicador-numero">
-
-                                    0
-
-                                </div>
-
-                                <div class="indicador-texto">
-
-                                    Total de ocorrências
-
-                                </div>
-
+                            <div class="label">
+                                Total de ocorrências
                             </div>
 
-
-                            <div class="indicador-icone">
-                                📊
+                            <div
+                                class="number"
+                                id="totalOcorrencias"
+                            >
+                                0
                             </div>
 
+                        </div>
+
+                        <div class="stat-icon icon-blue">
+                            📋
                         </div>
 
                     </div>
 
 
+                    <div class="stat-card">
 
-                    <div class="indicador pendente">
+                        <div>
 
-                        <div class="indicador-topo">
-
-                            <div>
-
-                                <div
-                                    id="totalPendentes"
-                                    class="indicador-numero">
-
-                                    0
-
-                                </div>
-
-                                <div class="indicador-texto">
-
-                                    Pendentes
-
-                                </div>
-
+                            <div class="label">
+                                Hoje
                             </div>
 
-
-                            <div class="indicador-icone">
-                                🔴
+                            <div
+                                class="number"
+                                id="ocorrenciasHoje"
+                            >
+                                0
                             </div>
 
+                        </div>
+
+                        <div class="stat-icon icon-orange">
+                            📅
                         </div>
 
                     </div>
 
 
+                    <div class="stat-card">
 
-                    <div class="indicador acompanhamento">
+                        <div>
 
-                        <div class="indicador-topo">
-
-                            <div>
-
-                                <div
-                                    id="totalAcompanhamento"
-                                    class="indicador-numero">
-
-                                    0
-
-                                </div>
-
-                                <div class="indicador-texto">
-
-                                    Em acompanhamento
-
-                                </div>
-
+                            <div class="label">
+                                Em aberto
                             </div>
 
-
-                            <div class="indicador-icone">
-                                🟡
+                            <div
+                                class="number"
+                                id="ocorrenciasAbertas"
+                            >
+                                0
                             </div>
 
+                        </div>
+
+                        <div class="stat-icon icon-red">
+                            ⚠️
                         </div>
 
                     </div>
 
 
+                    <div class="stat-card">
 
-                    <div class="indicador resolvido">
+                        <div>
 
-                        <div class="indicador-topo">
-
-                            <div>
-
-                                <div
-                                    id="totalResolvidos"
-                                    class="indicador-numero">
-
-                                    0
-
-                                </div>
-
-                                <div class="indicador-texto">
-
-                                    Resolvidas
-
-                                </div>
-
+                            <div class="label">
+                                Encerradas
                             </div>
 
-
-                            <div class="indicador-icone">
-                                🟢
+                            <div
+                                class="number"
+                                id="ocorrenciasEncerradas"
+                            >
+                                0
                             </div>
 
                         </div>
 
-                    </div>
+                        <div class="stat-icon icon-green">
+                            ✅
+                        </div>
 
+                    </div>
 
                 </div>
 
 
+                <!-- FILTROS -->
 
-                <!-- FILTROS DO DASHBOARD -->
+                <div class="panel">
 
-                <div class="card">
+                    <div class="panel-title">
 
-                    <div class="card-cabecalho">
-
-                        <h3>
+                        <h2>
                             🔎 Filtros
-                        </h3>
+                        </h2>
+
+                        <button
+                            class="btn btn-secondary"
+                            id="clearFilters"
+                        >
+                            Limpar filtros
+                        </button>
 
                     </div>
 
 
-                    <div class="filtros">
+                    <div class="filters">
 
-
-                        <div class="campo">
+                        <div class="form-group">
 
                             <label>
                                 Sala / Turma
                             </label>
 
-                            <select
-                                id="dashboardSala">
+                            <select id="filterSala">
 
                                 <option value="">
                                     Todas
@@ -2223,14 +1119,13 @@
                         </div>
 
 
-                        <div class="campo">
+                        <div class="form-group">
 
                             <label>
                                 Tipo
                             </label>
 
-                            <select
-                                id="dashboardTipo">
+                            <select id="filterTipo">
 
                                 <option value="">
                                     Todos
@@ -2241,385 +1136,7 @@
                         </div>
 
 
-                        <div class="campo">
-
-                            <label>
-                                Status
-                            </label>
-
-                            <select
-                                id="dashboardStatus">
-
-                                <option value="">
-                                    Todos
-                                </option>
-
-                                <option value="Pendente">
-                                    Pendente
-                                </option>
-
-                                <option value="Em acompanhamento">
-                                    Em acompanhamento
-                                </option>
-
-                                <option value="Resolvido">
-                                    Resolvido
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="campo">
-
-                            <label>
-                                Data inicial
-                            </label>
-
-                            <input
-                                type="date"
-                                id="dashboardDataInicial">
-
-                        </div>
-
-
-                        <div class="campo">
-
-                            <label>
-                                Data final
-                            </label>
-
-                            <input
-                                type="date"
-                                id="dashboardDataFinal">
-
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="acoes-filtro">
-
-                        <button
-                            class="btn btn-primary"
-                            id="btnFiltrarDashboard">
-
-                            🔎 Aplicar filtros
-
-                        </button>
-
-
-                        <button
-                            class="btn btn-secondary"
-                            id="btnLimparDashboard">
-
-                            Limpar filtros
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- RESUMO POR SALA -->
-
-                <div class="card">
-
-                    <div class="card-cabecalho">
-
-                        <h3>
-                            🏫 Ocorrências por sala
-                        </h3>
-
-                    </div>
-
-
-                    <div class="tabela-container">
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>
-                                        Sala / Turma
-                                    </th>
-
-                                    <th>
-                                        Total
-                                    </th>
-
-                                    <th>
-                                        Pendentes
-                                    </th>
-
-                                    <th>
-                                        Em acompanhamento
-                                    </th>
-
-                                    <th>
-                                        Resolvidas
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-
-                            <tbody
-                                id="tabelaSalas">
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-
-            </section>
-
-
-
-            <!-- =================================================
-                 REGISTRO
-            ================================================= -->
-
-            <section
-                id="registro"
-                class="secao">
-
-
-                <div class="titulo-secao">
-
-                    <h2>
-                        📝 Registrar ocorrência
-                    </h2>
-
-                    <p>
-                        Registre uma nova ocorrência
-                        para acompanhamento da equipe.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-
-                    <div
-                        id="alertaRegistro"
-                        class="alerta">
-                    </div>
-
-
-                    <form id="formOcorrencia">
-
-
-                        <div class="form-grid">
-
-
-                            <div class="campo">
-
-                                <label>
-                                    Estudante *
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="estudante"
-                                    placeholder="Nome completo do estudante"
-                                    required>
-
-                            </div>
-
-
-                            <div class="campo">
-
-                                <label>
-                                    Sala / Turma *
-                                </label>
-
-                                <select
-                                    id="sala"
-                                    required>
-
-                                    <option value="">
-                                        Selecione
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-
-                            <div class="campo">
-
-                                <label>
-                                    Tipo de ocorrência *
-                                </label>
-
-                                <select
-                                    id="tipo"
-                                    required>
-
-                                    <option value="">
-                                        Selecione
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-
-                            <div class="campo">
-
-                                <label>
-                                    Status *
-                                </label>
-
-                                <select
-                                    id="status"
-                                    required>
-
-                                    <option value="Pendente">
-                                        Pendente
-                                    </option>
-
-                                    <option value="Em acompanhamento">
-                                        Em acompanhamento
-                                    </option>
-
-                                    <option value="Resolvido">
-                                        Resolvido
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-
-                            <div class="campo campo-full">
-
-                                <label>
-                                    Descrição da ocorrência *
-                                </label>
-
-                                <textarea
-                                    id="descricao"
-                                    placeholder="Descreva a ocorrência de forma objetiva e detalhada..."
-                                    required></textarea>
-
-                            </div>
-
-
-                            <div class="campo">
-
-                                <label>
-                                    Observações
-                                </label>
-
-                                <textarea
-                                    id="observacoes"
-                                    placeholder="Informações adicionais, providências tomadas etc."></textarea>
-
-                            </div>
-
-
-                            <div class="campo">
-
-                                <label>
-                                    Providência / encaminhamento
-                                </label>
-
-                                <textarea
-                                    id="providencia"
-                                    placeholder="Informe as providências adotadas, quando houver."></textarea>
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="form-acoes">
-
-                            <button
-                                type="submit"
-                                class="btn btn-primary">
-
-                                💾 Registrar ocorrência
-
-                            </button>
-
-
-                            <button
-                                type="reset"
-                                class="btn btn-secondary">
-
-                                Limpar formulário
-
-                            </button>
-
-                        </div>
-
-
-                    </form>
-
-                </div>
-
-
-            </section>
-
-
-
-            <!-- =================================================
-                 HISTÓRICO
-            ================================================= -->
-
-            <section
-                id="historico"
-                class="secao">
-
-
-                <div class="titulo-secao">
-
-                    <h2>
-                        📋 Histórico de ocorrências
-                    </h2>
-
-                    <p>
-                        Consulte todos os registros
-                        armazenados no sistema.
-                    </p>
-
-                </div>
-
-
-
-                <!-- FILTROS -->
-
-                <div class="card">
-
-                    <div class="card-cabecalho">
-
-                        <h3>
-                            🔎 Consultar registros
-                        </h3>
-
-                    </div>
-
-
-                    <div class="filtros">
-
-
-                        <div class="campo">
+                        <div class="form-group">
 
                             <label>
                                 Estudante
@@ -2627,79 +1144,14 @@
 
                             <input
                                 type="text"
-                                id="filtroEstudante"
-                                placeholder="Nome do estudante">
+                                id="filterEstudante"
+                                placeholder="Digite o nome"
+                            >
 
                         </div>
 
 
-                        <div class="campo">
-
-                            <label>
-                                Sala / Turma
-                            </label>
-
-                            <select
-                                id="filtroSala">
-
-                                <option value="">
-                                    Todas
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="campo">
-
-                            <label>
-                                Tipo
-                            </label>
-
-                            <select
-                                id="filtroTipo">
-
-                                <option value="">
-                                    Todos
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="campo">
-
-                            <label>
-                                Status
-                            </label>
-
-                            <select
-                                id="filtroStatus">
-
-                                <option value="">
-                                    Todos
-                                </option>
-
-                                <option value="Pendente">
-                                    Pendente
-                                </option>
-
-                                <option value="Em acompanhamento">
-                                    Em acompanhamento
-                                </option>
-
-                                <option value="Resolvido">
-                                    Resolvido
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="campo">
+                        <div class="form-group">
 
                             <label>
                                 Data inicial
@@ -2707,12 +1159,13 @@
 
                             <input
                                 type="date"
-                                id="filtroDataInicial">
+                                id="filterDataInicio"
+                            >
 
                         </div>
 
 
-                        <div class="campo">
+                        <div class="form-group">
 
                             <label>
                                 Data final
@@ -2720,58 +1173,56 @@
 
                             <input
                                 type="date"
-                                id="filtroDataFinal">
+                                id="filterDataFim"
+                            >
 
                         </div>
-
-
-                    </div>
-
-
-                    <div class="acoes-filtro">
-
-                        <button
-                            class="btn btn-primary"
-                            id="btnFiltrarHistorico">
-
-                            🔎 Pesquisar
-
-                        </button>
-
-
-                        <button
-                            class="btn btn-secondary"
-                            id="btnLimparHistorico">
-
-                            Limpar
-
-                        </button>
 
                     </div>
 
                 </div>
 
 
+                <!-- RESUMO POR SALA -->
 
-                <!-- TABELA -->
+                <div class="panel">
 
-                <div class="card">
+                    <div class="panel-title">
 
-                    <div class="card-cabecalho">
+                        <h2>
+                            🏫 Ocorrências por sala / turma
+                        </h2>
 
-                        <h3>
-                            Registros encontrados
-                        </h3>
+                    </div>
+
+                    <div
+                        id="resumoSalas"
+                        class="cards"
+                    ></div>
+
+                </div>
+
+
+                <!-- LISTA -->
+
+                <div class="panel">
+
+                    <div class="panel-title">
+
+                        <h2>
+                            📋 Ocorrências recentes
+                        </h2>
 
                         <span
-                            id="contadorHistorico">
+                            id="resultadoCount"
+                            class="badge badge-progress"
+                        >
                             0 registros
                         </span>
 
                     </div>
 
-
-                    <div class="tabela-container">
+                    <div class="table-container">
 
                         <table>
 
@@ -2811,9 +1262,7 @@
 
                             </thead>
 
-
-                            <tbody
-                                id="tabelaOcorrencias">
+                            <tbody id="dashboardTableBody">
 
                             </tbody>
 
@@ -2823,9 +1272,264 @@
 
                 </div>
 
+            </section>
+
+
+            <!-- =================================================
+                 NOVA OCORRÊNCIA
+            ================================================== -->
+
+            <section
+                id="page-novaOcorrencia"
+                class="page"
+            >
+
+                <div class="page-header">
+
+                    <h1>
+                        Nova ocorrência
+                    </h1>
+
+                    <p>
+                        Registre uma nova ocorrência escolar.
+                    </p>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <form id="occurrenceForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>
+                                    Nome do estudante *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="estudante"
+                                    required
+                                    placeholder="Nome completo"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Sala / Turma *
+                                </label>
+
+                                <select
+                                    id="sala"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Selecione
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Tipo de ocorrência *
+                                </label>
+
+                                <select
+                                    id="tipo"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Selecione
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Status
+                                </label>
+
+                                <select id="status">
+
+                                    <option value="Aberta">
+                                        Aberta
+                                    </option>
+
+                                    <option value="Em andamento">
+                                        Em andamento
+                                    </option>
+
+                                    <option value="Encerrada">
+                                        Encerrada
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label>
+                                    Descrição da ocorrência *
+                                </label>
+
+                                <textarea
+                                    id="descricao"
+                                    required
+                                    placeholder="Descreva o que aconteceu..."
+                                ></textarea>
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label>
+                                    Observações
+                                </label>
+
+                                <textarea
+                                    id="observacoes"
+                                    placeholder="Informações adicionais..."
+                                ></textarea>
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label>
+                                    Providência adotada
+                                </label>
+
+                                <textarea
+                                    id="providencia"
+                                    placeholder="Informe as providências adotadas..."
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-actions">
+
+                            <button
+                                type="reset"
+                                class="btn btn-secondary"
+                            >
+                                Limpar
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="btn btn-success"
+                                id="saveOccurrenceButton"
+                            >
+                                💾 Registrar ocorrência
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
 
             </section>
 
+
+            <!-- =================================================
+                 HISTÓRICO
+            ================================================== -->
+
+            <section
+                id="page-historico"
+                class="page"
+            >
+
+                <div class="page-header">
+
+                    <h1>
+                        Histórico
+                    </h1>
+
+                    <p>
+                        Consulte todas as ocorrências registradas.
+                    </p>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Data
+                                    </th>
+
+                                    <th>
+                                        Estudante
+                                    </th>
+
+                                    <th>
+                                        Sala
+                                    </th>
+
+                                    <th>
+                                        Tipo
+                                    </th>
+
+                                    <th>
+                                        Descrição
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Ações
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="historyTableBody">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
 
         </main>
 
@@ -2834,197 +1538,171 @@
 </div>
 
 
-
-<!-- =========================================================
+<!-- =====================================================
      MODAL DE EDIÇÃO
-========================================================= -->
+===================================================== -->
 
 <div
-    id="modalEdicao"
-    class="modal">
+    id="editModal"
+    class="modal"
+>
 
+    <div class="modal-content">
 
-    <div class="modal-conteudo">
+        <div class="modal-header">
 
-
-        <div class="modal-cabecalho">
-
-            <h3>
-                ✏️ Editar ocorrência
-            </h3>
-
+            <h2>
+                Editar ocorrência
+            </h2>
 
             <button
-                class="btn-fechar"
-                id="btnFecharModal">
-
+                class="close-modal"
+                id="closeModal"
+            >
                 ×
-
             </button>
 
         </div>
 
 
-        <div
-            id="alertaEdicao"
-            class="alerta">
-        </div>
-
-
-        <form id="formEdicao">
-
+        <form id="editForm">
 
             <input
                 type="hidden"
-                id="edicaoId">
+                id="editId"
+            >
 
 
-            <div class="campo">
+            <div class="form-grid">
 
-                <label>
-                    Estudante
-                </label>
+                <div class="form-group">
 
-                <input
-                    type="text"
-                    id="edicaoEstudante"
-                    required>
+                    <label>
+                        Estudante
+                    </label>
 
-            </div>
+                    <input
+                        type="text"
+                        id="editEstudante"
+                        required
+                    >
 
-
-            <br>
-
-
-            <div class="campo">
-
-                <label>
-                    Sala / Turma
-                </label>
-
-                <select
-                    id="edicaoSala"
-                    required>
-                </select>
-
-            </div>
+                </div>
 
 
-            <br>
+                <div class="form-group">
+
+                    <label>
+                        Sala / Turma
+                    </label>
+
+                    <select
+                        id="editSala"
+                        required
+                    ></select>
+
+                </div>
 
 
-            <div class="campo">
+                <div class="form-group">
 
-                <label>
-                    Tipo
-                </label>
+                    <label>
+                        Tipo
+                    </label>
 
-                <select
-                    id="edicaoTipo"
-                    required>
-                </select>
+                    <select
+                        id="editTipo"
+                        required
+                    ></select>
 
-            </div>
-
-
-            <br>
+                </div>
 
 
-            <div class="campo">
+                <div class="form-group">
 
-                <label>
-                    Status
-                </label>
+                    <label>
+                        Status
+                    </label>
 
-                <select
-                    id="edicaoStatus"
-                    required>
+                    <select id="editStatus">
 
-                    <option value="Pendente">
-                        Pendente
-                    </option>
+                        <option value="Aberta">
+                            Aberta
+                        </option>
 
-                    <option value="Em acompanhamento">
-                        Em acompanhamento
-                    </option>
+                        <option value="Em andamento">
+                            Em andamento
+                        </option>
 
-                    <option value="Resolvido">
-                        Resolvido
-                    </option>
+                        <option value="Encerrada">
+                            Encerrada
+                        </option>
 
-                </select>
+                    </select>
 
-            </div>
+                </div>
 
 
-            <br>
+                <div class="form-group full">
+
+                    <label>
+                        Descrição
+                    </label>
+
+                    <textarea
+                        id="editDescricao"
+                        required
+                    ></textarea>
+
+                </div>
 
 
-            <div class="campo">
+                <div class="form-group full">
 
-                <label>
-                    Descrição
-                </label>
+                    <label>
+                        Observações
+                    </label>
 
-                <textarea
-                    id="edicaoDescricao"
-                    required></textarea>
+                    <textarea
+                        id="editObservacoes"
+                    ></textarea>
 
-            </div>
-
-
-            <br>
+                </div>
 
 
-            <div class="campo">
+                <div class="form-group full">
 
-                <label>
-                    Observações
-                </label>
+                    <label>
+                        Providência
+                    </label>
 
-                <textarea
-                    id="edicaoObservacoes"></textarea>
+                    <textarea
+                        id="editProvidencia"
+                    ></textarea>
 
-            </div>
-
-
-            <br>
-
-
-            <div class="campo">
-
-                <label>
-                    Providência / encaminhamento
-                </label>
-
-                <textarea
-                    id="edicaoProvidencia"></textarea>
+                </div>
 
             </div>
 
 
-            <div class="form-acoes">
-
-                <button
-                    type="submit"
-                    class="btn btn-primary">
-
-                    💾 Salvar alterações
-
-                </button>
-
+            <div class="form-actions">
 
                 <button
                     type="button"
                     class="btn btn-secondary"
-                    id="btnCancelarEdicao">
-
+                    id="cancelEdit"
+                >
                     Cancelar
+                </button>
 
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    💾 Salvar alterações
                 </button>
 
             </div>
-
 
         </form>
 
@@ -3033,45 +1711,25 @@
 </div>
 
 
-
-<!-- =========================================================
-     LOADING
-========================================================= -->
+<!-- =====================================================
+     TOAST
+===================================================== -->
 
 <div
-    id="loading"
-    class="loading">
-
-    <div class="loading-caixa">
-
-        <div class="spinner"></div>
-
-        <strong>
-            Aguarde...
-        </strong>
-
-    </div>
-
-</div>
+    id="toast"
+    class="toast"
+></div>
 
 
-
-<!-- =========================================================
+<!-- =====================================================
      FIREBASE
-========================================================= -->
+===================================================== -->
 
 <script type="module">
 
-
-    /* =====================================================
-       IMPORTAÇÕES FIREBASE
-    ===================================================== */
-
     import {
         initializeApp
-    }
-    from
-        "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
     import {
@@ -3079,90 +1737,83 @@
         signInWithEmailAndPassword,
         onAuthStateChanged,
         signOut
-    }
-    from
-        "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
     import {
         getFirestore,
         collection,
-        addDoc,
         getDocs,
+        addDoc,
         updateDoc,
         deleteDoc,
         doc,
         serverTimestamp
-    }
-    from
-        "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
     /* =====================================================
        CONFIGURAÇÃO FIREBASE
-    =====================================================
 
-       COLOQUE AQUI OS DADOS DO SEU PROJETO.
-
-       Firebase Console
-       →
-       Configurações do projeto
-       →
-       Seus aplicativos
-       →
-       Configuração do SDK
-
+       COLOQUE AQUI A CONFIGURAÇÃO DO SEU PROJETO
+       FIREBASE QUE JÁ ESTÁ FUNCIONANDO.
     ===================================================== */
-
 
     const firebaseConfig = {
 
-        apiKey:
-            "COLOQUE_SUA_API_KEY",
+        apiKey: "COLE_AQUI_SUA_API_KEY",
 
-        authDomain:
-            "SEU-PROJETO.firebaseapp.com",
+        authDomain: "COLE_AQUI_SEU_AUTH_DOMAIN",
 
-        projectId:
-            "SEU-PROJETO",
+        projectId: "COLE_AQUI_SEU_PROJECT_ID",
 
-        storageBucket:
-            "SEU-PROJETO.firebasestorage.app",
+        storageBucket: "COLE_AQUI_SEU_STORAGE_BUCKET",
 
-        messagingSenderId:
-            "SEU_SENDER_ID",
+        messagingSenderId: "COLE_AQUI_SEU_MESSAGING_SENDER_ID",
 
-        appId:
-            "SEU_APP_ID"
+        appId: "COLE_AQUI_SEU_APP_ID"
 
     };
 
 
+    const app = initializeApp(firebaseConfig);
 
-    /* =====================================================
-       INICIALIZAÇÃO
-    ===================================================== */
+    const auth = getAuth(app);
 
-    const app =
-        initializeApp(
-            firebaseConfig
-        );
-
-
-    const auth =
-        getAuth(app);
-
-
-    const db =
-        getFirestore(app);
-
+    const db = getFirestore(app);
 
 
     /* =====================================================
-       DADOS DO SISTEMA
+       CONFIGURAÇÕES DO SISTEMA
     ===================================================== */
 
+    const COLLECTION_NAME = "ocorrencias";
+
+
+    /*
+       IMPORTANTE:
+
+       Coloque aqui os e-mails que terão acesso
+       ao painel de gestão.
+
+       Exemplo:
+
+       const GESTAO_EMAILS = [
+           "gestao@escola.com",
+           "coordenacao@escola.com"
+       ];
+    */
+
+    const GESTAO_EMAILS = [
+
+        "COLOQUE_AQUI_O_EMAIL_DA_GESTAO"
+
+    ];
+
+
+    /* =====================================================
+       SALAS / TURMAS
+    ===================================================== */
 
     const SALAS = [
 
@@ -3175,6 +1826,10 @@
 
     ];
 
+
+    /* =====================================================
+       TIPOS DE OCORRÊNCIA
+    ===================================================== */
 
     const TIPOS = [
 
@@ -3192,85 +1847,169 @@
 
     let ocorrencias = [];
 
-    let ocorrenciasFiltradas = [];
-
+    let usuarioAtual = null;
 
 
     /* =====================================================
        ELEMENTOS
     ===================================================== */
 
+    const loginScreen =
+        document.getElementById("loginScreen");
 
-    const telaLogin =
-        document.getElementById(
-            "telaLogin"
-        );
+    const appElement =
+        document.getElementById("app");
 
+    const loginForm =
+        document.getElementById("loginForm");
 
-    const appTela =
-        document.getElementById(
-            "app"
-        );
+    const loginMessage =
+        document.getElementById("loginMessage");
 
-
-    const loading =
-        document.getElementById(
-            "loading"
-        );
-
+    const userEmail =
+        document.getElementById("userEmail");
 
 
     /* =====================================================
-       LOADING
+       FUNÇÕES AUXILIARES
     ===================================================== */
 
-    function mostrarLoading() {
+    function escapeHTML(text) {
 
-        loading.classList.add(
-            "ativo"
-        );
+        if (text === null || text === undefined) {
+            return "";
+        }
+
+        return String(text)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
 
     }
 
 
-    function esconderLoading() {
-
-        loading.classList.remove(
-            "ativo"
-        );
-
-    }
-
-
-
-    /* =====================================================
-       ALERTAS
-    ===================================================== */
-
-    function mostrarAlerta(
-        elemento,
+    function mostrarToast(
         mensagem,
-        tipo = "erro"
+        tipo = "success"
     ) {
 
-        elemento.textContent =
-            mensagem;
+        const toast =
+            document.getElementById("toast");
 
-        elemento.className =
-            "alerta " + tipo;
+        toast.textContent = mensagem;
+
+        toast.className =
+            "toast show " + tipo;
+
+        setTimeout(() => {
+
+            toast.className = "toast";
+
+        }, 3500);
+
+    }
+
+
+    function formatarData(data) {
+
+        if (!data) {
+            return "-";
+        }
+
+        let dataObj;
+
+        if (
+            data &&
+            typeof data.toDate === "function"
+        ) {
+
+            dataObj = data.toDate();
+
+        } else {
+
+            dataObj = new Date(data);
+
+        }
+
+        if (isNaN(dataObj.getTime())) {
+            return "-";
+        }
+
+        return dataObj.toLocaleString(
+            "pt-BR",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
 
     }
 
 
-    function limparAlerta(elemento) {
+    function somenteData(data) {
 
-        elemento.textContent = "";
+        if (!data) {
+            return "";
+        }
 
-        elemento.className =
-            "alerta";
+        let dataObj;
+
+        if (
+            data &&
+            typeof data.toDate === "function"
+        ) {
+
+            dataObj = data.toDate();
+
+        } else {
+
+            dataObj = new Date(data);
+
+        }
+
+        if (isNaN(dataObj.getTime())) {
+            return "";
+        }
+
+        return dataObj.toISOString().split("T")[0];
 
     }
 
+
+    function statusBadge(status) {
+
+        if (status === "Encerrada") {
+
+            return `
+                <span class="badge badge-closed">
+                    Encerrada
+                </span>
+            `;
+
+        }
+
+        if (status === "Em andamento") {
+
+            return `
+                <span class="badge badge-progress">
+                    Em andamento
+                </span>
+            `;
+
+        }
+
+        return `
+            <span class="badge badge-open">
+                Aberta
+            </span>
+        `;
+
+    }
 
 
     /* =====================================================
@@ -3279,352 +2018,142 @@
 
     function preencherSelects() {
 
-
         const selectsSala = [
 
-            document.getElementById(
-                "sala"
-            ),
-
-            document.getElementById(
-                "dashboardSala"
-            ),
-
-            document.getElementById(
-                "filtroSala"
-            ),
-
-            document.getElementById(
-                "edicaoSala"
-            )
+            document.getElementById("sala"),
+            document.getElementById("editSala"),
+            document.getElementById("filterSala")
 
         ];
 
+        selectsSala.forEach((select) => {
 
-        selectsSala.forEach(
-            select => {
-
-                if (!select)
-                    return;
-
-
-                const valorAtual =
-                    select.value;
-
-
-                const primeiraOpcao =
-                    select.options[0];
-
-
-                select.innerHTML = "";
-
-
-                if (
-                    primeiraOpcao
-                ) {
-
-                    select.appendChild(
-                        primeiraOpcao
-                    );
-
-                }
-
-
-                SALAS.forEach(
-                    sala => {
-
-                        const option =
-                            document.createElement(
-                                "option"
-                            );
-
-                        option.value =
-                            sala;
-
-                        option.textContent =
-                            sala;
-
-                        select.appendChild(
-                            option
-                        );
-
-                    }
-                );
-
-
-                if (
-                    valorAtual
-                ) {
-
-                    select.value =
-                        valorAtual;
-
-                }
-
+            if (!select) {
+                return;
             }
-        );
 
+            const isFilter =
+                select.id === "filterSala";
+
+            select.innerHTML =
+                isFilter
+                    ? `<option value="">Todas</option>`
+                    : `<option value="">Selecione</option>`;
+
+            SALAS.forEach((sala) => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = sala;
+                option.textContent = sala;
+
+                select.appendChild(option);
+
+            });
+
+        });
 
 
         const selectsTipo = [
 
-            document.getElementById(
-                "tipo"
-            ),
-
-            document.getElementById(
-                "dashboardTipo"
-            ),
-
-            document.getElementById(
-                "filtroTipo"
-            ),
-
-            document.getElementById(
-                "edicaoTipo"
-            )
+            document.getElementById("tipo"),
+            document.getElementById("editTipo"),
+            document.getElementById("filterTipo")
 
         ];
 
+        selectsTipo.forEach((select) => {
 
-        selectsTipo.forEach(
-            select => {
-
-                if (!select)
-                    return;
-
-
-                const valorAtual =
-                    select.value;
-
-
-                const primeiraOpcao =
-                    select.options[0];
-
-
-                select.innerHTML = "";
-
-
-                if (
-                    primeiraOpcao
-                ) {
-
-                    select.appendChild(
-                        primeiraOpcao
-                    );
-
-                }
-
-
-                TIPOS.forEach(
-                    tipo => {
-
-                        const option =
-                            document.createElement(
-                                "option"
-                            );
-
-                        option.value =
-                            tipo;
-
-                        option.textContent =
-                            tipo;
-
-                        select.appendChild(
-                            option
-                        );
-
-                    }
-                );
-
-
-                if (
-                    valorAtual
-                ) {
-
-                    select.value =
-                        valorAtual;
-
-                }
-
+            if (!select) {
+                return;
             }
-        );
+
+            const isFilter =
+                select.id === "filterTipo";
+
+            select.innerHTML =
+                isFilter
+                    ? `<option value="">Todos</option>`
+                    : `<option value="">Selecione</option>`;
+
+            TIPOS.forEach((tipo) => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = tipo;
+                option.textContent = tipo;
+
+                select.appendChild(option);
+
+            });
+
+        });
 
     }
-
 
 
     /* =====================================================
        LOGIN
     ===================================================== */
 
-    document
-        .getElementById(
-            "formLogin"
-        )
-        .addEventListener(
-            "submit",
-            async evento => {
+    loginForm.addEventListener(
+        "submit",
+        async (event) => {
 
-                evento.preventDefault();
+            event.preventDefault();
 
+            const email =
+                document.getElementById(
+                    "loginEmail"
+                ).value.trim();
 
-                const email =
-                    document
-                        .getElementById(
-                            "emailLogin"
-                        )
-                        .value
-                        .trim();
+            const password =
+                document.getElementById(
+                    "loginPassword"
+                ).value;
 
 
-                const senha =
-                    document
-                        .getElementById(
-                            "senhaLogin"
-                        )
-                        .value;
-
-
-                const alerta =
-                    document.getElementById(
-                        "alertaLogin"
-                    );
-
-
-                limparAlerta(
-                    alerta
+            const loginButton =
+                document.getElementById(
+                    "loginButton"
                 );
 
+            loginButton.disabled = true;
 
-                try {
-
-                    mostrarLoading();
-
-
-                    await signInWithEmailAndPassword(
-                        auth,
-                        email,
-                        senha
-                    );
-
-                }
-
-                catch (erro) {
-
-                    console.error(
-                        erro
-                    );
+            loginButton.textContent =
+                "Entrando...";
 
 
-                    let mensagem =
-                        "Não foi possível realizar o login.";
+            try {
 
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
 
-                    if (
-                        erro.code ===
-                        "auth/invalid-credential"
-                    ) {
+            } catch (error) {
 
-                        mensagem =
-                            "E-mail ou senha incorretos.";
+                console.error(error);
 
-                    }
-
-
-                    if (
-                        erro.code ===
-                        "auth/too-many-requests"
-                    ) {
-
-                        mensagem =
-                            "Muitas tentativas. Aguarde alguns minutos.";
-
-                    }
-
-
-                    mostrarAlerta(
-                        alerta,
-                        mensagem
-                    );
-
-                }
-
-                finally {
-
-                    esconderLoading();
-
-                }
-
-            }
-        );
-
-
-
-    /* =====================================================
-       OBSERVADOR DE LOGIN
-    ===================================================== */
-
-    onAuthStateChanged(
-        auth,
-        async usuario => {
-
-            if (usuario) {
-
-                telaLogin.style.display =
-                    "none";
-
-                appTela.style.display =
+                loginMessage.style.display =
                     "block";
 
+                loginMessage.className =
+                    "login-message error";
 
-                document
-                    .getElementById(
-                        "emailUsuario"
-                    )
-                    .textContent =
-                    usuario.email || "-";
+                loginMessage.textContent =
+                    "Não foi possível realizar o login. Verifique o e-mail e a senha.";
 
+            } finally {
 
-                const nome =
-                    usuario.email
-                        ? usuario.email
-                            .split("@")[0]
-                        : "Usuário";
+                loginButton.disabled =
+                    false;
 
-
-                document
-                    .getElementById(
-                        "nomeUsuario"
-                    )
-                    .textContent =
-                    nome;
-
-
-                document
-                    .getElementById(
-                        "avatarUsuario"
-                    )
-                    .textContent =
-                    nome
-                        .charAt(0)
-                        .toUpperCase();
-
-
-                preencherSelects();
-
-
-                await carregarOcorrencias();
-
-            }
-
-            else {
-
-                telaLogin.style.display =
-                    "flex";
-
-                appTela.style.display =
-                    "none";
+                loginButton.textContent =
+                    "Entrar";
 
             }
 
@@ -3632,114 +2161,102 @@
     );
 
 
+    /* =====================================================
+       CONTROLE DE AUTENTICAÇÃO
+    ===================================================== */
+
+    onAuthStateChanged(
+        auth,
+        async (user) => {
+
+            if (!user) {
+
+                usuarioAtual = null;
+
+                loginScreen.style.display =
+                    "flex";
+
+                appElement.style.display =
+                    "none";
+
+                return;
+
+            }
+
+
+            usuarioAtual = user;
+
+
+            /*
+              Verifica se o usuário pertence
+              à lista autorizada.
+            */
+
+            const emailUsuario =
+                user.email
+                    ? user.email.toLowerCase()
+                    : "";
+
+
+            const autorizado =
+                GESTAO_EMAILS
+                    .map(
+                        email =>
+                            email.toLowerCase()
+                    )
+                    .includes(emailUsuario);
+
+
+            if (!autorizado) {
+
+                await signOut(auth);
+
+                loginMessage.style.display =
+                    "block";
+
+                loginMessage.className =
+                    "login-message error";
+
+                loginMessage.textContent =
+                    "Este usuário não possui autorização para acessar o sistema.";
+
+                return;
+
+            }
+
+
+            loginScreen.style.display =
+                "none";
+
+            appElement.style.display =
+                "block";
+
+            userEmail.textContent =
+                user.email;
+
+
+            preencherSelects();
+
+            await carregarOcorrencias();
+
+        }
+    );
+
 
     /* =====================================================
        LOGOUT
     ===================================================== */
 
     document
-        .getElementById(
-            "btnSair"
-        )
+        .getElementById("logoutButton")
         .addEventListener(
             "click",
             async () => {
 
-                await signOut(
-                    auth
-                );
+                await signOut(auth);
 
             }
         );
-
-
-
-    /* =====================================================
-       NAVEGAÇÃO
-    ===================================================== */
-
-    document
-        .querySelectorAll(
-            ".menu-item"
-        )
-        .forEach(
-            botao => {
-
-                botao.addEventListener(
-                    "click",
-                    () => {
-
-                        const secao =
-                            botao.dataset.secao;
-
-
-                        document
-                            .querySelectorAll(
-                                ".menu-item"
-                            )
-                            .forEach(
-                                item =>
-                                    item.classList
-                                        .remove(
-                                            "ativo"
-                                        )
-                            );
-
-
-                        botao.classList.add(
-                            "ativo"
-                        );
-
-
-                        document
-                            .querySelectorAll(
-                                ".secao"
-                            )
-                            .forEach(
-                                elemento =>
-                                    elemento.classList
-                                        .remove(
-                                            "ativa"
-                                        )
-                            );
-
-
-                        document
-                            .getElementById(
-                                secao
-                            )
-                            .classList.add(
-                                "ativa"
-                            );
-
-
-                        if (
-                            secao ===
-                            "dashboard"
-                        ) {
-
-                            atualizarDashboard();
-
-                        }
-
-
-                        if (
-                            secao ===
-                            "historico"
-                        ) {
-
-                            mostrarTabela(
-                                ocorrencias
-                            );
-
-                        }
-
-                    }
-                );
-
-            }
-        );
-
 
 
     /* =====================================================
@@ -3750,14 +2267,11 @@
 
         try {
 
-            mostrarLoading();
-
-
-            const consulta =
+            const snapshot =
                 await getDocs(
                     collection(
                         db,
-                        "ocorrencias"
+                        COLLECTION_NAME
                     )
                 );
 
@@ -3765,13 +2279,12 @@
             ocorrencias = [];
 
 
-            consulta.forEach(
-                documento => {
+            snapshot.forEach(
+                (documento) => {
 
                     ocorrencias.push({
 
-                        id:
-                            documento.id,
+                        id: documento.id,
 
                         ...documento.data()
 
@@ -3782,48 +2295,69 @@
 
 
             ocorrencias.sort(
-                (a,b) =>
-                    obterData(
-                        b
-                    ) -
-                    obterData(
-                        a
-                    )
+                (a, b) => {
+
+                    const dataA =
+                        obterDataOrdenacao(a);
+
+                    const dataB =
+                        obterDataOrdenacao(b);
+
+                    return dataB - dataA;
+
+                }
             );
-
-
-            ocorrenciasFiltradas =
-                [...ocorrencias];
 
 
             atualizarDashboard();
 
-            mostrarTabela(
-                ocorrencias
+            renderizarHistorico();
+
+        } catch (error) {
+
+            console.error(error);
+
+            mostrarToast(
+                "Erro ao carregar ocorrências: " +
+                error.message,
+                "error"
             );
-
-        }
-
-        catch (erro) {
-
-            console.error(
-                erro
-            );
-
-            alert(
-                "Erro ao carregar os registros. Verifique as regras do Firebase."
-            );
-
-        }
-
-        finally {
-
-            esconderLoading();
 
         }
 
     }
 
+
+    function obterDataOrdenacao(ocorrencia) {
+
+        if (
+            ocorrencia.criadoEm &&
+            typeof ocorrencia.criadoEm.toDate ===
+                "function"
+        ) {
+
+            return ocorrencia.criadoEm
+                .toDate()
+                .getTime();
+
+        }
+
+
+        if (ocorrencia.data) {
+
+            const data =
+                new Date(ocorrencia.data);
+
+            if (!isNaN(data.getTime())) {
+                return data.getTime();
+            }
+
+        }
+
+
+        return 0;
+
+    }
 
 
     /* =====================================================
@@ -3831,195 +2365,165 @@
     ===================================================== */
 
     document
-        .getElementById(
-            "formOcorrencia"
-        )
+        .getElementById("occurrenceForm")
         .addEventListener(
             "submit",
-            async evento => {
+            async (event) => {
 
-                evento.preventDefault();
-
-
-                const estudante =
-                    document
-                        .getElementById(
-                            "estudante"
-                        )
-                        .value
-                        .trim();
+                event.preventDefault();
 
 
-                const sala =
-                    document
-                        .getElementById(
-                            "sala"
-                        )
-                        .value;
-
-
-                const tipo =
-                    document
-                        .getElementById(
-                            "tipo"
-                        )
-                        .value;
-
-
-                const status =
-                    document
-                        .getElementById(
-                            "status"
-                        )
-                        .value;
-
-
-                const descricao =
-                    document
-                        .getElementById(
-                            "descricao"
-                        )
-                        .value
-                        .trim();
-
-
-                const observacoes =
-                    document
-                        .getElementById(
-                            "observacoes"
-                        )
-                        .value
-                        .trim();
-
-
-                const providencia =
-                    document
-                        .getElementById(
-                            "providencia"
-                        )
-                        .value
-                        .trim();
-
-
-                const alerta =
+                const button =
                     document.getElementById(
-                        "alertaRegistro"
+                        "saveOccurrenceButton"
                     );
 
+                button.disabled = true;
 
-                limparAlerta(
-                    alerta
-                );
-
-
-                if (
-                    !estudante ||
-                    !sala ||
-                    !tipo ||
-                    !descricao
-                ) {
-
-                    mostrarAlerta(
-                        alerta,
-                        "Preencha todos os campos obrigatórios."
-                    );
-
-                    return;
-
-                }
+                button.textContent =
+                    "Salvando...";
 
 
                 try {
 
-                    mostrarLoading();
+                    const estudante =
+                        document
+                            .getElementById(
+                                "estudante"
+                            )
+                            .value
+                            .trim();
+
+                    const sala =
+                        document
+                            .getElementById(
+                                "sala"
+                            )
+                            .value;
+
+                    const tipo =
+                        document
+                            .getElementById(
+                                "tipo"
+                            )
+                            .value;
+
+                    const status =
+                        document
+                            .getElementById(
+                                "status"
+                            )
+                            .value;
+
+                    const descricao =
+                        document
+                            .getElementById(
+                                "descricao"
+                            )
+                            .value
+                            .trim();
+
+                    const observacoes =
+                        document
+                            .getElementById(
+                                "observacoes"
+                            )
+                            .value
+                            .trim();
+
+                    const providencia =
+                        document
+                            .getElementById(
+                                "providencia"
+                            )
+                            .value
+                            .trim();
 
 
-                    const usuario =
-                        auth.currentUser;
+                    const agora =
+                        new Date();
 
 
                     await addDoc(
-
                         collection(
                             db,
-                            "ocorrencias"
+                            COLLECTION_NAME
                         ),
-
                         {
 
-                            estudante:
-                                estudante,
+                            estudante,
 
-                            sala:
-                                sala,
+                            sala,
 
-                            tipo:
-                                tipo,
+                            tipo,
 
-                            status:
-                                status,
+                            status,
 
-                            descricao:
-                                descricao,
+                            descricao,
 
-                            observacoes:
-                                observacoes,
+                            observacoes,
 
-                            providencia:
-                                providencia,
+                            providencia,
 
                             data:
-                                new Date()
-                                    .toISOString(),
+                                agora.toISOString(),
 
                             criadoEm:
                                 serverTimestamp(),
 
                             criadoPor:
-                                usuario
-                                    ? usuario.email
+                                usuarioAtual
+                                    ? usuarioAtual.email
+                                    : "",
+
+                            atualizadoEm:
+                                serverTimestamp(),
+
+                            atualizadoPor:
+                                usuarioAtual
+                                    ? usuarioAtual.email
                                     : ""
 
                         }
-
                     );
 
 
-                    mostrarAlerta(
-                        alerta,
-                        "Ocorrência registrada com sucesso!",
-                        "sucesso"
+                    mostrarToast(
+                        "Ocorrência registrada com sucesso!"
                     );
 
 
                     document
                         .getElementById(
-                            "formOcorrencia"
+                            "occurrenceForm"
                         )
                         .reset();
 
 
                     await carregarOcorrencias();
 
-                }
 
-                catch (erro) {
-
-                    console.error(
-                        erro
+                    mostrarPagina(
+                        "dashboard"
                     );
 
 
-                    mostrarAlerta(
-                        alerta,
-                        "Erro ao registrar a ocorrência."
+                } catch (error) {
+
+                    console.error(error);
+
+                    mostrarToast(
+                        "Erro ao registrar ocorrência: " +
+                        error.message,
+                        "error"
                     );
 
-                }
+                } finally {
 
-                finally {
+                    button.disabled = false;
 
-                    esconderLoading();
+                    button.textContent =
+                        "💾 Registrar ocorrência";
 
                 }
 
@@ -4027,406 +2531,76 @@
         );
 
 
-
     /* =====================================================
-       DASHBOARD
+       FILTRAGEM
     ===================================================== */
 
-    function atualizarDashboard(
-        lista = ocorrencias
-    ) {
-
-
-        document
-            .getElementById(
-                "totalOcorrencias"
-            )
-            .textContent =
-            lista.length;
-
-
-        document
-            .getElementById(
-                "totalPendentes"
-            )
-            .textContent =
-            lista.filter(
-                item =>
-                    item.status ===
-                    "Pendente"
-            ).length;
-
-
-        document
-            .getElementById(
-                "totalAcompanhamento"
-            )
-            .textContent =
-            lista.filter(
-                item =>
-                    item.status ===
-                    "Em acompanhamento"
-            ).length;
-
-
-        document
-            .getElementById(
-                "totalResolvidos"
-            )
-            .textContent =
-            lista.filter(
-                item =>
-                    item.status ===
-                    "Resolvido"
-            ).length;
-
-
-        atualizarTabelaSalas(
-            lista
-        );
-
-    }
-
-
-
-    /* =====================================================
-       FILTRO DASHBOARD
-    ===================================================== */
-
-    document
-        .getElementById(
-            "btnFiltrarDashboard"
-        )
-        .addEventListener(
-            "click",
-            () => {
-
-
-                const sala =
-                    document
-                        .getElementById(
-                            "dashboardSala"
-                        )
-                        .value;
-
-
-                const tipo =
-                    document
-                        .getElementById(
-                            "dashboardTipo"
-                        )
-                        .value;
-
-
-                const status =
-                    document
-                        .getElementById(
-                            "dashboardStatus"
-                        )
-                        .value;
-
-
-                const dataInicial =
-                    document
-                        .getElementById(
-                            "dashboardDataInicial"
-                        )
-                        .value;
-
-
-                const dataFinal =
-                    document
-                        .getElementById(
-                            "dashboardDataFinal"
-                        )
-                        .value;
-
-
-                const resultado =
-                    filtrarLista(
-
-                        ocorrencias,
-
-                        {
-
-                            sala,
-                            tipo,
-                            status,
-                            dataInicial,
-                            dataFinal
-
-                        }
-
-                    );
-
-
-                atualizarDashboard(
-                    resultado
-                );
-
-            }
-        );
-
-
-
-    /* =====================================================
-       LIMPAR DASHBOARD
-    ===================================================== */
-
-    document
-        .getElementById(
-            "btnLimparDashboard"
-        )
-        .addEventListener(
-            "click",
-            () => {
-
-                document
-                    .getElementById(
-                        "dashboardSala"
-                    )
-                    .value = "";
-
-
-                document
-                    .getElementById(
-                        "dashboardTipo"
-                    )
-                    .value = "";
-
-
-                document
-                    .getElementById(
-                        "dashboardStatus"
-                    )
-                    .value = "";
-
-
-                document
-                    .getElementById(
-                        "dashboardDataInicial"
-                    )
-                    .value = "";
-
-
-                document
-                    .getElementById(
-                        "dashboardDataFinal"
-                    )
-                    .value = "";
-
-
-                atualizarDashboard(
-                    ocorrencias
-                );
-
-            }
-        );
-
-
-
-    /* =====================================================
-       FILTRAR HISTÓRICO
-    ===================================================== */
-
-    document
-        .getElementById(
-            "btnFiltrarHistorico"
-        )
-        .addEventListener(
-            "click",
-            aplicarFiltroHistorico
-        );
-
-
-
-    function aplicarFiltroHistorico() {
-
-
-        const estudante =
-            document
-                .getElementById(
-                    "filtroEstudante"
-                )
-                .value
-                .trim()
-                .toLowerCase();
-
+    function obterOcorrenciasFiltradas() {
 
         const sala =
             document
                 .getElementById(
-                    "filtroSala"
+                    "filterSala"
                 )
                 .value;
-
 
         const tipo =
             document
                 .getElementById(
-                    "filtroTipo"
+                    "filterTipo"
                 )
                 .value;
 
-
-        const status =
+        const estudante =
             document
                 .getElementById(
-                    "filtroStatus"
+                    "filterEstudante"
                 )
-                .value;
+                .value
+                .toLowerCase()
+                .trim();
 
-
-        const dataInicial =
+        const dataInicio =
             document
                 .getElementById(
-                    "filtroDataInicial"
+                    "filterDataInicio"
                 )
                 .value;
 
-
-        const dataFinal =
+        const dataFim =
             document
                 .getElementById(
-                    "filtroDataFinal"
+                    "filterDataFim"
                 )
                 .value;
 
 
-        let resultado =
-            filtrarLista(
+        return ocorrencias.filter(
+            (ocorrencia) => {
 
-                ocorrencias,
-
-                {
-
-                    sala,
-                    tipo,
-                    status,
-                    dataInicial,
-                    dataFinal
-
+                if (
+                    sala &&
+                    ocorrencia.sala !== sala
+                ) {
+                    return false;
                 }
-
-            );
-
-
-        if (
-            estudante
-        ) {
-
-            resultado =
-                resultado.filter(
-                    item =>
-                        String(
-                            item.estudante || ""
-                        )
-                            .toLowerCase()
-                            .includes(
-                                estudante
-                            )
-                );
-
-        }
-
-
-        ocorrenciasFiltradas =
-            resultado;
-
-
-        mostrarTabela(
-            resultado
-        );
-
-    }
-
-
-
-    /* =====================================================
-       LIMPAR HISTÓRICO
-    ===================================================== */
-
-    document
-        .getElementById(
-            "btnLimparHistorico"
-        )
-        .addEventListener(
-            "click",
-            () => {
-
-                document
-                    .getElementById(
-                        "filtroEstudante"
-                    )
-                    .value = "";
-
-
-                document
-                    .getElementById(
-                        "filtroSala"
-                    )
-                    .value = "";
-
-
-                document
-                    .getElementById(
-                        "filtroTipo"
-                    )
-                    .value = "";
-
-
-                document
-                    .getElementById(
-                        "filtroStatus"
-                    )
-                    .value = "";
-
-
-                document
-                    .getElementById(
-                        "filtroDataInicial"
-                    )
-                    .value = "";
-
-
-                document
-                    .getElementById(
-                        "filtroDataFinal"
-                    )
-                    .value = "";
-
-
-                ocorrenciasFiltradas =
-                    [...ocorrencias];
-
-
-                mostrarTabela(
-                    ocorrencias
-                );
-
-            }
-        );
-
-
-
-    /* =====================================================
-       FUNÇÃO DE FILTRO
-    ===================================================== */
-
-    function filtrarLista(
-        lista,
-        filtros
-    ) {
-
-
-        return lista.filter(
-            item => {
 
 
                 if (
-                    filtros.sala &&
-                    item.sala !==
-                    filtros.sala
+                    tipo &&
+                    ocorrencia.tipo !== tipo
+                ) {
+                    return false;
+                }
+
+
+                if (
+                    estudante &&
+                    !String(
+                        ocorrencia.estudante || ""
+                    )
+                    .toLowerCase()
+                    .includes(estudante)
                 ) {
 
                     return false;
@@ -4434,74 +2608,29 @@
                 }
 
 
-                if (
-                    filtros.tipo &&
-                    item.tipo !==
-                    filtros.tipo
-                ) {
-
-                    return false;
-
-                }
-
-
-                if (
-                    filtros.status &&
-                    item.status !==
-                    filtros.status
-                ) {
-
-                    return false;
-
-                }
-
-
-                const data =
-                    obterData(
-                        item
+                const dataOcorrencia =
+                    somenteData(
+                        ocorrencia.data ||
+                        ocorrencia.criadoEm
                     );
 
 
                 if (
-                    filtros.dataInicial
+                    dataInicio &&
+                    dataOcorrencia < dataInicio
                 ) {
 
-                    const inicio =
-                        new Date(
-                            filtros.dataInicial +
-                            "T00:00:00"
-                        );
-
-
-                    if (
-                        data < inicio
-                    ) {
-
-                        return false;
-
-                    }
+                    return false;
 
                 }
 
 
                 if (
-                    filtros.dataFinal
+                    dataFim &&
+                    dataOcorrencia > dataFim
                 ) {
 
-                    const fim =
-                        new Date(
-                            filtros.dataFinal +
-                            "T23:59:59"
-                        );
-
-
-                    if (
-                        data > fim
-                    ) {
-
-                        return false;
-
-                    }
+                    return false;
 
                 }
 
@@ -4514,61 +2643,225 @@
     }
 
 
-
     /* =====================================================
-       TABELA DE OCORRÊNCIAS
+       DASHBOARD
     ===================================================== */
 
-    function mostrarTabela(
+    function atualizarDashboard() {
+
+        const filtradas =
+            obterOcorrenciasFiltradas();
+
+
+        document
+            .getElementById(
+                "totalOcorrencias"
+            )
+            .textContent =
+            filtradas.length;
+
+
+        const hoje =
+            new Date()
+                .toISOString()
+                .split("T")[0];
+
+
+        const ocorrenciasHoje =
+            filtradas.filter(
+                (ocorrencia) => {
+
+                    return (
+                        somenteData(
+                            ocorrencia.data ||
+                            ocorrencia.criadoEm
+                        ) === hoje
+                    );
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "ocorrenciasHoje"
+            )
+            .textContent =
+            ocorrenciasHoje.length;
+
+
+        const abertas =
+            filtradas.filter(
+                ocorrencia =>
+                    ocorrencia.status ===
+                    "Aberta"
+            );
+
+
+        const encerradas =
+            filtradas.filter(
+                ocorrencia =>
+                    ocorrencia.status ===
+                    "Encerrada"
+            );
+
+
+        document
+            .getElementById(
+                "ocorrenciasAbertas"
+            )
+            .textContent =
+            abertas.length;
+
+
+        document
+            .getElementById(
+                "ocorrenciasEncerradas"
+            )
+            .textContent =
+            encerradas.length;
+
+
+        renderizarResumoSalas(
+            filtradas
+        );
+
+
+        renderizarTabelaDashboard(
+            filtradas
+        );
+
+    }
+
+
+    /* =====================================================
+       RESUMO POR SALA
+    ===================================================== */
+
+    function renderizarResumoSalas(
         lista
     ) {
 
-
-        const tabela =
+        const container =
             document.getElementById(
-                "tabelaOcorrencias"
+                "resumoSalas"
             );
 
 
-        const contador =
-            document.getElementById(
-                "contadorHistorico"
-            );
+        const contador = {};
 
 
-        tabela.innerHTML = "";
+        lista.forEach(
+            ocorrencia => {
 
+                const sala =
+                    ocorrencia.sala ||
+                    "Sem sala";
 
-        contador.textContent =
-            `${lista.length} registro${lista.length === 1 ? "" : "s"}`;
+                contador[sala] =
+                    (contador[sala] || 0) + 1;
+
+            }
+        );
 
 
         if (
-            lista.length === 0
+            Object.keys(contador).length ===
+            0
         ) {
 
-            tabela.innerHTML = `
+            container.innerHTML = `
+                <div class="empty">
+                    Nenhuma ocorrência encontrada.
+                </div>
+            `;
 
-                <tr>
+            return;
 
-                    <td colspan="7">
+        }
 
-                        <div class="estado-vazio">
 
-                            <div class="icone">
-                                📋
+        container.innerHTML = "";
+
+
+        Object.entries(contador)
+            .sort(
+                (a,b) => b[1] - a[1]
+            )
+            .forEach(
+                ([sala, total]) => {
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+                    card.className =
+                        "stat-card";
+
+
+                    card.innerHTML = `
+
+                        <div>
+
+                            <div class="label">
+                                ${escapeHTML(sala)}
                             </div>
 
-                            <strong>
-                                Nenhuma ocorrência encontrada.
-                            </strong>
-
-                            <p>
-                                Tente modificar os filtros.
-                            </p>
+                            <div class="number">
+                                ${total}
+                            </div>
 
                         </div>
 
+                        <div class="stat-icon icon-blue">
+                            🏫
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(card);
+
+                }
+            );
+
+    }
+
+
+    /* =====================================================
+       TABELA DO DASHBOARD
+    ===================================================== */
+
+    function renderizarTabelaDashboard(
+        lista
+    ) {
+
+        const tbody =
+            document.getElementById(
+                "dashboardTableBody"
+            );
+
+
+        document
+            .getElementById(
+                "resultadoCount"
+            )
+            .textContent =
+            `${lista.length} registro(s)`;
+
+
+        if (lista.length === 0) {
+
+            tbody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="7"
+                        class="empty"
+                    >
+                        Nenhuma ocorrência encontrada.
                     </td>
 
                 </tr>
@@ -4580,258 +2873,16 @@
         }
 
 
-        lista
-            .sort(
-                (a,b) =>
-                    obterData(b) -
-                    obterData(a)
-            )
-            .forEach(
-                item => {
+        tbody.innerHTML = "";
 
 
-                    const tr =
-                        document.createElement(
-                            "tr"
-                        );
+        lista.forEach(
+            ocorrencia => {
 
-
-                    const data =
-                        formatarData(
-                            item
-                        );
-
-
-                    const statusClasse =
-                        obterClasseStatus(
-                            item.status
-                        );
-
-
-                    tr.innerHTML = `
-
-                        <td>
-                            ${data}
-                        </td>
-
-                        <td>
-                            <strong>
-                                ${escapar(
-                                    item.estudante
-                                )}
-                            </strong>
-                        </td>
-
-                        <td>
-                            ${escapar(
-                                item.sala
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapar(
-                                item.tipo
-                            )}
-                        </td>
-
-                        <td>
-
-                            <div
-                                class="descricao-tabela"
-                                title="${escapar(
-                                    item.descricao
-                                )}">
-
-                                ${escapar(
-                                    item.descricao
-                                )}
-
-                            </div>
-
-                        </td>
-
-                        <td>
-
-                            <span
-                                class="status ${statusClasse}">
-
-                                ${escapar(
-                                    item.status
-                                )}
-
-                            </span>
-
-                        </td>
-
-                        <td>
-
-                            <div
-                                class="acoes-tabela">
-
-                                <button
-                                    class="btn-mini btn-editar"
-                                    title="Editar"
-                                    data-editar="${item.id}">
-
-                                    ✏️
-
-                                </button>
-
-
-                                <button
-                                    class="btn-mini btn-excluir"
-                                    title="Excluir"
-                                    data-excluir="${item.id}">
-
-                                    🗑️
-
-                                </button>
-
-                            </div>
-
-                        </td>
-
-                    `;
-
-
-                    tabela.appendChild(
-                        tr
-                    );
-
-                }
-            );
-
-
-        document
-            .querySelectorAll(
-                "[data-editar]"
-            )
-            .forEach(
-                botao => {
-
-                    botao.addEventListener(
-                        "click",
-                        () =>
-                            abrirEdicao(
-                                botao.dataset.editar
-                            )
-                    );
-
-                }
-            );
-
-
-        document
-            .querySelectorAll(
-                "[data-excluir]"
-            )
-            .forEach(
-                botao => {
-
-                    botao.addEventListener(
-                        "click",
-                        () =>
-                            excluirOcorrencia(
-                                botao.dataset.excluir
-                            )
-                    );
-
-                }
-            );
-
-    }
-
-
-
-    /* =====================================================
-       TABELA POR SALA
-    ===================================================== */
-
-    function atualizarTabelaSalas(
-        lista
-    ) {
-
-
-        const tabela =
-            document.getElementById(
-                "tabelaSalas"
-            );
-
-
-        tabela.innerHTML = "";
-
-
-        SALAS.forEach(
-            sala => {
-
-
-                const registros =
-                    lista.filter(
-                        item =>
-                            item.sala ===
-                            sala
-                    );
-
-
-                const pendentes =
-                    registros.filter(
-                        item =>
-                            item.status ===
-                            "Pendente"
-                    ).length;
-
-
-                const acompanhamento =
-                    registros.filter(
-                        item =>
-                            item.status ===
-                            "Em acompanhamento"
-                    ).length;
-
-
-                const resolvidos =
-                    registros.filter(
-                        item =>
-                            item.status ===
-                            "Resolvido"
-                    ).length;
-
-
-                const tr =
-                    document.createElement(
-                        "tr"
-                    );
-
-
-                tr.innerHTML = `
-
-                    <td>
-                        <strong>
-                            ${escapar(sala)}
-                        </strong>
-                    </td>
-
-                    <td>
-                        ${registros.length}
-                    </td>
-
-                    <td>
-                        ${pendentes}
-                    </td>
-
-                    <td>
-                        ${acompanhamento}
-                    </td>
-
-                    <td>
-                        ${resolvidos}
-                    </td>
-
-                `;
-
-
-                tabela.appendChild(
-                    tr
+                tbody.appendChild(
+                    criarLinhaOcorrencia(
+                        ocorrencia
+                    )
                 );
 
             }
@@ -4840,109 +2891,321 @@
     }
 
 
+    /* =====================================================
+       HISTÓRICO
+    ===================================================== */
+
+    function renderizarHistorico() {
+
+        const tbody =
+            document.getElementById(
+                "historyTableBody"
+            );
+
+
+        if (ocorrencias.length === 0) {
+
+            tbody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="7"
+                        class="empty"
+                    >
+                        Nenhuma ocorrência registrada.
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        tbody.innerHTML = "";
+
+
+        ocorrencias.forEach(
+            ocorrencia => {
+
+                tbody.appendChild(
+                    criarLinhaOcorrencia(
+                        ocorrencia
+                    )
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       CRIAR LINHA
+    ===================================================== */
+
+    function criarLinhaOcorrencia(
+        ocorrencia
+    ) {
+
+        const tr =
+            document.createElement("tr");
+
+
+        tr.innerHTML = `
+
+            <td>
+                ${escapeHTML(
+                    formatarData(
+                        ocorrencia.data ||
+                        ocorrencia.criadoEm
+                    )
+                )}
+            </td>
+
+            <td>
+                <strong>
+                    ${escapeHTML(
+                        ocorrencia.estudante
+                    )}
+                </strong>
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    ocorrencia.sala
+                )}
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    ocorrencia.tipo
+                )}
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    ocorrencia.descricao
+                )}
+            </td>
+
+            <td>
+                ${statusBadge(
+                    ocorrencia.status
+                )}
+            </td>
+
+            <td>
+
+                <div class="action-buttons">
+
+                    <button
+                        class="action-btn edit-btn"
+                        data-action="edit"
+                        data-id="${ocorrencia.id}"
+                    >
+                        ✏️
+                    </button>
+
+                    <button
+                        class="action-btn delete-btn"
+                        data-action="delete"
+                        data-id="${ocorrencia.id}"
+                    >
+                        🗑️
+                    </button>
+
+                </div>
+
+            </td>
+
+        `;
+
+
+        return tr;
+
+    }
+
+
+    /* =====================================================
+       EVENTOS DAS AÇÕES
+    ===================================================== */
+
+    document.addEventListener(
+        "click",
+        async (event) => {
+
+            const button =
+                event.target.closest(
+                    "[data-action]"
+                );
+
+
+            if (!button) {
+                return;
+            }
+
+
+            const id =
+                button.dataset.id;
+
+            const action =
+                button.dataset.action;
+
+
+            if (action === "edit") {
+
+                abrirEdicao(id);
+
+            }
+
+
+            if (action === "delete") {
+
+                await excluirOcorrencia(id);
+
+            }
+
+        }
+    );
+
 
     /* =====================================================
        ABRIR EDIÇÃO
     ===================================================== */
 
-    function abrirEdicao(
-        id
-    ) {
+    function abrirEdicao(id) {
 
-
-        const item =
+        const ocorrencia =
             ocorrencias.find(
-                registro =>
-                    registro.id ===
-                    id
+                item => item.id === id
             );
 
 
-        if (!item)
+        if (!ocorrencia) {
+
+            mostrarToast(
+                "Ocorrência não encontrada.",
+                "error"
+            );
+
             return;
 
+        }
+
 
         document
             .getElementById(
-                "edicaoId"
+                "editId"
             )
             .value =
-            id;
+            ocorrencia.id;
 
 
         document
             .getElementById(
-                "edicaoEstudante"
+                "editEstudante"
             )
             .value =
-            item.estudante || "";
+            ocorrencia.estudante || "";
 
 
         document
             .getElementById(
-                "edicaoSala"
+                "editSala"
             )
             .value =
-            item.sala || "";
+            ocorrencia.sala || "";
 
 
         document
             .getElementById(
-                "edicaoTipo"
+                "editTipo"
             )
             .value =
-            item.tipo || "";
+            ocorrencia.tipo || "";
 
 
         document
             .getElementById(
-                "edicaoStatus"
+                "editStatus"
             )
             .value =
-            item.status || "Pendente";
+            ocorrencia.status ||
+            "Aberta";
 
 
         document
             .getElementById(
-                "edicaoDescricao"
+                "editDescricao"
             )
             .value =
-            item.descricao || "";
+            ocorrencia.descricao || "";
 
 
         document
             .getElementById(
-                "edicaoObservacoes"
+                "editObservacoes"
             )
             .value =
-            item.observacoes || "";
+            ocorrencia.observacoes || "";
 
 
         document
             .getElementById(
-                "edicaoProvidencia"
+                "editProvidencia"
             )
             .value =
-            item.providencia || "";
-
-
-        limparAlerta(
-            document.getElementById(
-                "alertaEdicao"
-            )
-        );
+            ocorrencia.providencia || "";
 
 
         document
             .getElementById(
-                "modalEdicao"
+                "editModal"
             )
-            .classList.add(
-                "aberto"
-            );
+            .classList
+            .add("show");
 
     }
 
+
+    /* =====================================================
+       FECHAR MODAL
+    ===================================================== */
+
+    function fecharModal() {
+
+        document
+            .getElementById(
+                "editModal"
+            )
+            .classList
+            .remove("show");
+
+    }
+
+
+    document
+        .getElementById(
+            "closeModal"
+        )
+        .addEventListener(
+            "click",
+            fecharModal
+        );
+
+
+    document
+        .getElementById(
+            "cancelEdit"
+        )
+        .addEventListener(
+            "click",
+            fecharModal
+        );
 
 
     /* =====================================================
@@ -4951,48 +3214,41 @@
 
     document
         .getElementById(
-            "formEdicao"
+            "editForm"
         )
         .addEventListener(
             "submit",
-            async evento => {
+            async (event) => {
 
-                evento.preventDefault();
+                event.preventDefault();
 
 
                 const id =
                     document
                         .getElementById(
-                            "edicaoId"
+                            "editId"
                         )
                         .value;
 
 
-                const alerta =
-                    document.getElementById(
-                        "alertaEdicao"
-                    );
-
-
                 try {
 
-                    mostrarLoading();
+                    const referencia =
+                        doc(
+                            db,
+                            COLLECTION_NAME,
+                            id
+                        );
 
 
                     await updateDoc(
-
-                        doc(
-                            db,
-                            "ocorrencias",
-                            id
-                        ),
-
+                        referencia,
                         {
 
                             estudante:
                                 document
                                     .getElementById(
-                                        "edicaoEstudante"
+                                        "editEstudante"
                                     )
                                     .value
                                     .trim(),
@@ -5000,28 +3256,28 @@
                             sala:
                                 document
                                     .getElementById(
-                                        "edicaoSala"
+                                        "editSala"
                                     )
                                     .value,
 
                             tipo:
                                 document
                                     .getElementById(
-                                        "edicaoTipo"
+                                        "editTipo"
                                     )
                                     .value,
 
                             status:
                                 document
                                     .getElementById(
-                                        "edicaoStatus"
+                                        "editStatus"
                                     )
                                     .value,
 
                             descricao:
                                 document
                                     .getElementById(
-                                        "edicaoDescricao"
+                                        "editDescricao"
                                     )
                                     .value
                                     .trim(),
@@ -5029,7 +3285,7 @@
                             observacoes:
                                 document
                                     .getElementById(
-                                        "edicaoObservacoes"
+                                        "editObservacoes"
                                     )
                                     .value
                                     .trim(),
@@ -5037,7 +3293,7 @@
                             providencia:
                                 document
                                     .getElementById(
-                                        "edicaoProvidencia"
+                                        "editProvidencia"
                                     )
                                     .value
                                     .trim(),
@@ -5046,50 +3302,39 @@
                                 serverTimestamp(),
 
                             atualizadoPor:
-                                auth.currentUser
-                                    ? auth.currentUser.email
+                                usuarioAtual
+                                    ? usuarioAtual.email
                                     : ""
 
                         }
-
                     );
 
 
                     fecharModal();
 
 
+                    mostrarToast(
+                        "Ocorrência atualizada com sucesso!"
+                    );
+
+
                     await carregarOcorrencias();
 
 
-                    mostrarTabela(
-                        ocorrencias
+                } catch (error) {
+
+                    console.error(error);
+
+                    mostrarToast(
+                        "Erro ao atualizar ocorrência: " +
+                        error.message,
+                        "error"
                     );
-
-                }
-
-                catch (erro) {
-
-                    console.error(
-                        erro
-                    );
-
-
-                    mostrarAlerta(
-                        alerta,
-                        "Não foi possível salvar as alterações."
-                    );
-
-                }
-
-                finally {
-
-                    esconderLoading();
 
                 }
 
             }
         );
-
 
 
     /* =====================================================
@@ -5100,326 +3345,253 @@
         id
     ) {
 
-
-        const item =
+        const ocorrencia =
             ocorrencias.find(
-                registro =>
-                    registro.id ===
-                    id
+                item => item.id === id
             );
 
 
-        if (!item)
+        if (!ocorrencia) {
             return;
+        }
 
 
         const confirmar =
             confirm(
-
-                "Deseja realmente excluir esta ocorrência?\n\n" +
-
+                "Tem certeza que deseja excluir esta ocorrência?\n\n" +
                 "Estudante: " +
-                item.estudante +
-                "\n" +
-
-                "Sala: " +
-                item.sala +
+                ocorrencia.estudante +
                 "\n\n" +
-
-                "Essa ação não poderá ser desfeita."
-
+                "Esta ação não poderá ser desfeita."
             );
 
 
-        if (!confirmar)
+        if (!confirmar) {
             return;
+        }
 
 
         try {
 
-            mostrarLoading();
-
-
             await deleteDoc(
-
                 doc(
                     db,
-                    "ocorrencias",
+                    COLLECTION_NAME,
                     id
                 )
+            );
 
+
+            mostrarToast(
+                "Ocorrência excluída com sucesso."
             );
 
 
             await carregarOcorrencias();
 
 
-            mostrarTabela(
-                ocorrencias
+        } catch (error) {
+
+            console.error(error);
+
+            mostrarToast(
+                "Erro ao excluir ocorrência: " +
+                error.message,
+                "error"
             );
-
-        }
-
-        catch (erro) {
-
-            console.error(
-                erro
-            );
-
-
-            alert(
-                "Não foi possível excluir a ocorrência."
-            );
-
-        }
-
-        finally {
-
-            esconderLoading();
 
         }
 
     }
 
 
-
     /* =====================================================
-       MODAL
+       FILTROS EM TEMPO REAL
     ===================================================== */
 
-    function fecharModal() {
+    [
+
+        "filterSala",
+        "filterTipo",
+        "filterEstudante",
+        "filterDataInicio",
+        "filterDataFim"
+
+    ].forEach(
+        id => {
+
+            document
+                .getElementById(id)
+                .addEventListener(
+                    "input",
+                    atualizarDashboard
+                );
+
+            document
+                .getElementById(id)
+                .addEventListener(
+                    "change",
+                    atualizarDashboard
+                );
+
+        }
+    );
+
+
+    /* =====================================================
+       LIMPAR FILTROS
+    ===================================================== */
+
+    document
+        .getElementById(
+            "clearFilters"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                document
+                    .getElementById(
+                        "filterSala"
+                    )
+                    .value = "";
+
+                document
+                    .getElementById(
+                        "filterTipo"
+                    )
+                    .value = "";
+
+                document
+                    .getElementById(
+                        "filterEstudante"
+                    )
+                    .value = "";
+
+                document
+                    .getElementById(
+                        "filterDataInicio"
+                    )
+                    .value = "";
+
+                document
+                    .getElementById(
+                        "filterDataFim"
+                    )
+                    .value = "";
+
+
+                atualizarDashboard();
+
+            }
+        );
+
+
+    /* =====================================================
+       NAVEGAÇÃO
+    ===================================================== */
+
+    document
+        .querySelectorAll(
+            ".menu-btn"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        const pagina =
+                            button.dataset.page;
+
+                        mostrarPagina(
+                            pagina
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    function mostrarPagina(
+        pagina
+    ) {
 
         document
-            .getElementById(
-                "modalEdicao"
+            .querySelectorAll(
+                ".page"
             )
-            .classList.remove(
-                "aberto"
-            );
+            .forEach(
+                page => {
 
-    }
-
-
-    document
-        .getElementById(
-            "btnFecharModal"
-        )
-        .addEventListener(
-            "click",
-            fecharModal
-        );
-
-
-    document
-        .getElementById(
-            "btnCancelarEdicao"
-        )
-        .addEventListener(
-            "click",
-            fecharModal
-        );
-
-
-    document
-        .getElementById(
-            "modalEdicao"
-        )
-        .addEventListener(
-            "click",
-            evento => {
-
-                if (
-                    evento.target.id ===
-                    "modalEdicao"
-                ) {
-
-                    fecharModal();
+                    page.classList.remove(
+                        "active"
+                    );
 
                 }
-
-            }
-        );
-
-
-
-    /* =====================================================
-       STATUS
-    ===================================================== */
-
-    function obterClasseStatus(
-        status
-    ) {
-
-
-        if (
-            status ===
-            "Resolvido"
-        ) {
-
-            return "status-resolvido";
-
-        }
-
-
-        if (
-            status ===
-            "Em acompanhamento"
-        ) {
-
-            return "status-acompanhamento";
-
-        }
-
-
-        return "status-pendente";
-
-    }
-
-
-
-    /* =====================================================
-       DATA
-    ===================================================== */
-
-    function obterData(
-        item
-    ) {
-
-
-        if (
-            !item ||
-            !item.data
-        ) {
-
-            return 0;
-
-        }
-
-
-        const data =
-            new Date(
-                item.data
             );
 
 
-        if (
-            isNaN(
-                data.getTime()
-            )
-        ) {
-
-            return 0;
-
-        }
-
-
-        return data.getTime();
-
-    }
-
-
-
-    function formatarData(
-        item
-    ) {
-
-
-        const data =
-            new Date(
-                item.data
+        const destino =
+            document.getElementById(
+                "page-" + pagina
             );
 
 
-        if (
-            isNaN(
-                data.getTime()
-            )
-        ) {
+        if (destino) {
 
-            return "-";
+            destino.classList.add(
+                "active"
+            );
 
         }
 
 
-        return data.toLocaleString(
-            "pt-BR",
-            {
+        document
+            .querySelectorAll(
+                ".menu-btn"
+            )
+            .forEach(
+                button => {
 
-                day:
-                    "2-digit",
+                    button.classList.remove(
+                        "active"
+                    );
 
-                month:
-                    "2-digit",
 
-                year:
-                    "numeric",
+                    if (
+                        button.dataset.page ===
+                        pagina
+                    ) {
 
-                hour:
-                    "2-digit",
+                        button.classList.add(
+                            "active"
+                        );
 
-                minute:
-                    "2-digit"
+                    }
 
-            }
-        );
+                }
+            );
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
 
     }
-
 
 
     /* =====================================================
-       SEGURANÇA DE HTML
+       INICIALIZAÇÃO
     ===================================================== */
 
-    function escapar(
-        valor
-    ) {
-
-
-        if (
-            valor === null ||
-            valor === undefined
-        ) {
-
-            return "";
-
-        }
-
-
-        return String(valor)
-
-            .replace(
-                /&/g,
-                "&amp;"
-            )
-
-            .replace(
-                /</g,
-                "&lt;"
-            )
-
-            .replace(
-                />/g,
-                "&gt;"
-            )
-
-            .replace(
-                /"/g,
-                "&quot;"
-            )
-
-            .replace(
-                /'/g,
-                "&#039;"
-            );
-
-    }
-
-
+    preencherSelects();
 
 </script>
 
-
 </body>
-
 </html>
