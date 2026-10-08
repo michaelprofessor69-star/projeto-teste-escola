@@ -1,45 +1,21 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EduOcorrências</title>
 
   <style>
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --dark: #0f172a;
-      --background: #f1f5f9;
-      --card: #ffffff;
-      --text: #1e293b;
-      --muted: #64748b;
-      --border: #e2e8f0;
-      --success: #16a34a;
-      --danger: #dc2626;
-      --warning: #d97706;
-    }
-
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: var(--background);
-      color: var(--text);
-      min-height: 100vh;
+      background: #f4f7fb;
+      color: #1f2937;
     }
 
     button,
@@ -49,52 +25,11 @@
       font: inherit;
     }
 
-    button {
-      cursor: pointer;
-    }
-
     .hidden {
       display: none !important;
     }
 
-    /* =========================
-       LOADING
-    ========================= */
-
-    #loadingScreen {
-      position: fixed;
-      inset: 0;
-      background: white;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .loading-box {
-      text-align: center;
-      color: var(--dark);
-    }
-
-    .spinner {
-      width: 45px;
-      height: 45px;
-      border: 4px solid #dbeafe;
-      border-top-color: var(--primary);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 15px;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* =========================
-       LOGIN
-    ========================= */
+    /* LOGIN */
 
     #loginScreen {
       min-height: 100vh;
@@ -102,125 +37,118 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      background: linear-gradient(
-        135deg,
-        #0f172a,
-        #1e3a8a,
-        #2563eb
-      );
-    }
-
-    .login-container {
-      width: 100%;
-      max-width: 430px;
+      background: linear-gradient(135deg, #172554, #2563eb);
     }
 
     .login-card {
+      width: 100%;
+      max-width: 430px;
       background: white;
-      border-radius: 22px;
+      border-radius: 20px;
       padding: 35px;
-      box-shadow: 0 25px 60px rgba(0,0,0,.25);
+      box-shadow: 0 20px 50px rgba(0,0,0,.20);
     }
 
-    .logo {
+    .login-logo {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .login-logo .icone {
       width: 70px;
       height: 70px;
+      margin: auto;
       border-radius: 18px;
-      background: var(--primary);
+      background: #2563eb;
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 32px;
-      margin: 0 auto 18px;
+      font-weight: bold;
     }
 
-    .login-title {
-      text-align: center;
+    .login-logo h1 {
+      margin-top: 15px;
+      color: #172554;
       font-size: 27px;
-      font-weight: 700;
-      color: var(--dark);
     }
 
-    .login-subtitle {
-      text-align: center;
-      color: var(--muted);
-      margin: 8px 0 28px;
-      line-height: 1.5;
+    .login-logo p {
+      margin-top: 6px;
+      color: #64748b;
     }
-
-    /* =========================
-       FORM
-    ========================= */
 
     .form-group {
-      margin-bottom: 18px;
+      margin-bottom: 17px;
     }
 
-    label {
+    .form-group label {
       display: block;
-      font-weight: 600;
+      font-weight: bold;
       margin-bottom: 7px;
+      color: #334155;
     }
 
     input,
     select,
     textarea {
       width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
-      background: white;
-      color: var(--text);
+      padding: 12px 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
       outline: none;
+      background: white;
     }
 
     input:focus,
     select:focus,
     textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.10);
     }
 
     textarea {
-      min-height: 110px;
+      min-height: 100px;
       resize: vertical;
     }
 
     .btn {
       border: none;
-      border-radius: 10px;
-      padding: 12px 17px;
-      font-weight: 700;
+      border-radius: 9px;
+      padding: 12px 18px;
+      cursor: pointer;
+      font-weight: bold;
       transition: .2s;
     }
 
     .btn:hover {
       transform: translateY(-1px);
-    }
-
-    .btn:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-      transform: none;
+      opacity: .94;
     }
 
     .btn-primary {
-      background: var(--primary);
+      background: #2563eb;
       color: white;
     }
 
-    .btn-primary:hover {
-      background: var(--primary-dark);
-    }
-
-    .btn-secondary {
-      background: #e2e8f0;
-      color: var(--dark);
+    .btn-success {
+      background: #16a34a;
+      color: white;
     }
 
     .btn-danger {
-      background: var(--danger);
+      background: #dc2626;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #64748b;
+      color: white;
+    }
+
+    .btn-warning {
+      background: #d97706;
       color: white;
     }
 
@@ -228,65 +156,44 @@
       width: 100%;
     }
 
-    /* =========================
-       MENSAGENS
-    ========================= */
-
-    .login-message {
+    .mensagem {
       margin-top: 15px;
       padding: 12px;
-      border-radius: 10px;
+      border-radius: 8px;
+      display: none;
       font-size: 14px;
-      line-height: 1.4;
     }
 
-    .message-error {
+    .mensagem.erro {
+      display: block;
       background: #fee2e2;
       color: #991b1b;
     }
 
-    .message-success {
+    .mensagem.sucesso {
+      display: block;
       background: #dcfce7;
       color: #166534;
     }
 
-    .alert {
-      padding: 13px 15px;
-      border-radius: 10px;
-      margin-bottom: 18px;
-      font-size: 14px;
-    }
+    /* SISTEMA */
 
-    .alert-success {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .alert-error {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    /* =========================
-       APP
-    ========================= */
-
-    #app {
+    #appScreen {
       min-height: 100vh;
     }
 
     .topbar {
-      background: var(--dark);
+      background: #172554;
       color: white;
-      min-height: 72px;
-      padding: 0 25px;
+      padding: 15px 25px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 20;
+      box-shadow: 0 3px 12px rgba(0,0,0,.15);
     }
 
     .brand {
@@ -296,264 +203,214 @@
     }
 
     .brand-icon {
-      width: 42px;
-      height: 42px;
+      width: 45px;
+      height: 45px;
       border-radius: 12px;
-      background: var(--primary);
+      background: #2563eb;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 21px;
+      font-size: 22px;
     }
 
-    .brand-title {
-      font-size: 19px;
-      font-weight: 700;
+    .brand h1 {
+      font-size: 20px;
     }
 
-    .brand-subtitle {
-      font-size: 12px;
+    .brand small {
       color: #cbd5e1;
-      margin-top: 2px;
     }
 
-    .user-area {
+    .usuario-topo {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 15px;
     }
 
-    .user-info {
-      text-align: right;
+    .perfil-badge {
+      background: rgba(255,255,255,.12);
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 13px;
     }
 
-    .user-name {
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .user-profile {
-      font-size: 12px;
-      color: #cbd5e1;
-      margin-top: 3px;
-    }
-
-    .logout-btn {
-      border: 1px solid #475569;
-      background: transparent;
+    .btn-sair {
+      background: #dc2626;
       color: white;
-      padding: 9px 13px;
-      border-radius: 9px;
+      padding: 9px 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
     }
 
-    .logout-btn:hover {
-      background: #1e293b;
-    }
-
-    /* =========================
-       LAYOUT
-    ========================= */
-
-    .app-layout {
+    .layout {
       display: flex;
-      min-height: calc(100vh - 72px);
+      min-height: calc(100vh - 75px);
     }
 
     .sidebar {
       width: 245px;
       background: white;
-      border-right: 1px solid var(--border);
-      padding: 22px 15px;
-      flex-shrink: 0;
+      border-right: 1px solid #e2e8f0;
+      padding: 20px 14px;
     }
 
-    .menu-title {
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      font-weight: 700;
-      padding: 0 12px;
-      margin-bottom: 10px;
-    }
-
-    .menu-item {
+    .menu-btn {
       width: 100%;
+      text-align: left;
+      padding: 13px 15px;
       border: none;
       background: transparent;
-      text-align: left;
-      padding: 12px 14px;
-      border-radius: 10px;
-      margin-bottom: 5px;
-      color: var(--text);
-      font-weight: 600;
+      border-radius: 9px;
+      cursor: pointer;
+      margin-bottom: 6px;
+      color: #475569;
+      font-weight: bold;
     }
 
-    .menu-item:hover {
-      background: #eff6ff;
-      color: var(--primary);
-    }
-
-    .menu-item.active {
+    .menu-btn:hover,
+    .menu-btn.ativo {
       background: #dbeafe;
-      color: var(--primary);
+      color: #1d4ed8;
     }
 
-    .main-content {
+    .conteudo {
       flex: 1;
-      padding: 28px;
-      overflow-x: hidden;
+      padding: 25px;
+      min-width: 0;
     }
 
-    .page {
-      max-width: 1400px;
-      margin: auto;
+    .pagina {
+      display: none;
     }
 
-    .page-header {
-      margin-bottom: 25px;
+    .pagina.ativa {
+      display: block;
     }
 
-    .page-title {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--dark);
-    }
-
-    .page-description {
-      color: var(--muted);
-      margin-top: 6px;
-    }
-
-    /* =========================
-       CARDS
-    ========================= */
-
-    .card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 22px;
+    .titulo-pagina {
       margin-bottom: 20px;
     }
 
-    .card-title {
-      font-size: 18px;
-      font-weight: 750;
-      color: var(--dark);
-      margin-bottom: 18px;
+    .titulo-pagina h2 {
+      color: #172554;
+      font-size: 26px;
     }
 
-    .stats-grid {
+    .titulo-pagina p {
+      margin-top: 5px;
+      color: #64748b;
+    }
+
+    /* DASHBOARD */
+
+    .cards-dashboard {
       display: grid;
-      grid-template-columns: repeat(4,1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 18px;
       margin-bottom: 25px;
     }
 
-    .stat-card {
+    .card {
       background: white;
-      border: 1px solid var(--border);
-      border-radius: 15px;
+      border-radius: 14px;
       padding: 20px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
+      box-shadow: 0 2px 10px rgba(15,23,42,.06);
+      border: 1px solid #e2e8f0;
     }
 
-    .stat-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 13px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      background: #dbeafe;
+    .card .numero {
+      font-size: 30px;
+      font-weight: bold;
+      color: #2563eb;
+      margin-top: 8px;
     }
 
-    .stat-label {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 5px;
+    .card .label {
+      color: #64748b;
+      font-size: 14px;
+      font-weight: bold;
     }
 
-    .stat-number {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--dark);
-    }
+    /* FORMULÁRIO */
 
-    /* =========================
-       FORM GRID
-    ========================= */
+    .form-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 2px 10px rgba(15,23,42,.06);
+      border: 1px solid #e2e8f0;
+    }
 
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(2,1fr);
-      gap: 18px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 17px;
     }
 
-    .form-full {
+    .form-grid .campo-grande {
       grid-column: 1 / -1;
     }
 
-    .required {
-      color: var(--danger);
-    }
-
-    .form-actions {
+    .botoes-form {
       display: flex;
-      gap: 10px;
       justify-content: flex-end;
-      margin-top: 20px;
+      gap: 10px;
+      margin-top: 10px;
     }
 
-    /* =========================
-       FILTROS
-    ========================= */
+    .info-professor {
+      padding: 11px 14px;
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      border-radius: 7px;
+      color: #1e40af;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
 
-    .filters {
+    /* FILTROS */
+
+    .filtros {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 20px;
       display: grid;
-      grid-template-columns: repeat(4,1fr);
-      gap: 15px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 13px;
     }
 
-    .filter-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 15px;
-    }
+    /* TABELA */
 
-    /* =========================
-       TABELA
-    ========================= */
-
-    .table-wrapper {
-      overflow-x: auto;
-      border: 1px solid var(--border);
-      border-radius: 12px;
+    .tabela-container {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      overflow: auto;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 1100px;
+      min-width: 1250px;
     }
 
     th {
-      background: #f8fafc;
-      color: var(--muted);
-      font-size: 12px;
-      text-transform: uppercase;
-      padding: 13px;
+      background: #172554;
+      color: white;
+      padding: 13px 10px;
       text-align: left;
+      font-size: 13px;
       white-space: nowrap;
     }
 
     td {
-      padding: 14px 13px;
-      border-top: 1px solid var(--border);
-      font-size: 14px;
+      padding: 12px 10px;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 13px;
       vertical-align: top;
     }
 
@@ -561,837 +418,591 @@
       background: #f8fafc;
     }
 
-    .badge {
-      display: inline-flex;
+    .status {
+      display: inline-block;
       padding: 5px 9px;
       border-radius: 20px;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: bold;
+      white-space: nowrap;
     }
 
-    .badge-aberta {
-      background: #fef3c7;
-      color: #92400e;
-    }
-
-    .badge-acompanhamento {
-      background: #dbeafe;
-      color: #1e40af;
-    }
-
-    .badge-resolvida {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .badge-cancelada {
+    .status-aberta {
       background: #fee2e2;
       color: #991b1b;
     }
 
-    .action-buttons {
+    .status-acompanhamento {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-resolvida {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-cancelada {
+      background: #e2e8f0;
+      color: #475569;
+    }
+
+    .acoes {
       display: flex;
-      gap: 6px;
+      gap: 5px;
     }
 
-    .small-btn {
+    .btn-mini {
       border: none;
-      border-radius: 7px;
       padding: 7px 9px;
-      font-size: 12px;
-      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      color: white;
+      font-size: 11px;
+      font-weight: bold;
     }
 
-    .edit-btn {
-      background: #dbeafe;
-      color: #1d4ed8;
+    .btn-editar {
+      background: #2563eb;
     }
 
-    .delete-btn {
-      background: #fee2e2;
-      color: #b91c1c;
+    .btn-excluir {
+      background: #dc2626;
     }
 
-    /* =========================
-       MODAL
-    ========================= */
+    .sem-registros {
+      padding: 35px;
+      text-align: center;
+      color: #64748b;
+    }
 
-    .modal-overlay {
+    /* MODAL */
+
+    .modal {
       position: fixed;
       inset: 0;
       background: rgba(15,23,42,.65);
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      z-index: 500;
+      z-index: 100;
     }
 
-    .modal {
-      background: white;
+    .modal.ativo {
+      display: flex;
+    }
+
+    .modal-content {
       width: 100%;
-      max-width: 720px;
+      max-width: 800px;
       max-height: 90vh;
       overflow-y: auto;
-      border-radius: 18px;
+      background: white;
+      border-radius: 16px;
       padding: 25px;
     }
 
     .modal-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 20px;
     }
 
-    .modal-title {
-      font-size: 21px;
-      font-weight: 800;
+    .modal-header h3 {
+      color: #172554;
     }
 
-    .close-modal {
+    .fechar-modal {
       border: none;
-      background: #f1f5f9;
-      width: 35px;
-      height: 35px;
-      border-radius: 9px;
-      font-size: 18px;
+      background: transparent;
+      font-size: 28px;
+      cursor: pointer;
+      color: #64748b;
     }
 
-    /* =========================
-       EMPTY
-    ========================= */
+    /* RESPONSIVO */
 
-    .empty-state {
-      text-align: center;
-      padding: 45px 20px;
-      color: var(--muted);
-    }
-
-    .empty-icon {
-      font-size: 45px;
-      margin-bottom: 10px;
-    }
-
-    .empty-title {
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 6px;
-    }
-
-    /* =========================
-       RESPONSIVO
-    ========================= */
-
-    @media(max-width:1000px) {
-
-      .stats-grid {
-        grid-template-columns: repeat(2,1fr);
+    @media (max-width: 1000px) {
+      .cards-dashboard {
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .filters {
-        grid-template-columns: repeat(2,1fr);
+      .filtros {
+        grid-template-columns: repeat(2, 1fr);
       }
-
     }
 
-    @media(max-width:750px) {
-
+    @media (max-width: 750px) {
       .topbar {
         padding: 12px 15px;
-        min-height: auto;
-        flex-wrap: wrap;
       }
 
-      .user-info {
+      .usuario-topo {
+        gap: 7px;
+      }
+
+      .perfil-badge {
         display: none;
       }
 
-      .app-layout {
+      .layout {
         display: block;
       }
 
       .sidebar {
         width: 100%;
         border-right: none;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid #e2e8f0;
         padding: 10px;
         display: flex;
         overflow-x: auto;
-        gap: 5px;
       }
 
-      .menu-title {
-        display: none;
+      .menu-btn {
+        width: auto;
+        white-space: nowrap;
+        margin: 0 5px 0 0;
       }
 
-      .menu-item {
-        min-width: max-content;
-        margin: 0;
+      .conteudo {
+        padding: 15px;
       }
 
-      .main-content {
-        padding: 18px 12px;
-      }
-
-      .stats-grid,
-      .filters,
       .form-grid {
         grid-template-columns: 1fr;
       }
 
-      .form-full {
+      .form-grid .campo-grande {
         grid-column: auto;
       }
 
-      .page-title {
-        font-size: 23px;
+      .cards-dashboard {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .card {
+        padding: 15px;
+      }
+
+      .filtros {
+        grid-template-columns: 1fr;
+      }
+
+      .botoes-form {
+        flex-direction: column;
+      }
+
+      .botoes-form button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .cards-dashboard {
+        grid-template-columns: 1fr;
       }
 
       .login-card {
         padding: 25px 20px;
       }
-
-      .form-actions {
-        flex-direction: column;
-      }
-
-      .form-actions .btn {
-        width: 100%;
-      }
-
     }
-
   </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =========================
-     LOADING
-========================= -->
-
-<div id="loadingScreen">
-
-  <div class="loading-box">
-
-    <div class="spinner"></div>
-
-    <strong>
-      Carregando EduOcorrências...
-    </strong>
-
-  </div>
-
-</div>
-
-
-<!-- =========================
-     LOGIN
-========================= -->
-
-<section
-  id="loginScreen"
-  class="hidden"
->
-
-  <div class="login-container">
+  <!-- LOGIN -->
+  <section id="loginScreen">
 
     <div class="login-card">
 
-      <div class="logo">
-        📋
+      <div class="login-logo">
+        <div class="icone">✓</div>
+        <h1>EduOcorrências</h1>
+        <p>Registro e acompanhamento de ocorrências</p>
       </div>
 
-      <h1 class="login-title">
-        EduOcorrências
-      </h1>
-
-      <p class="login-subtitle">
-        Sistema de registro e acompanhamento
-        de ocorrências escolares
-      </p>
-
-      <form id="loginForm">
+      <form id="formLogin">
 
         <div class="form-group">
-
-          <label for="loginEmail">
-            E-mail
-          </label>
-
+          <label for="loginEmail">E-mail</label>
           <input
-            id="loginEmail"
             type="email"
+            id="loginEmail"
             placeholder="Digite seu e-mail"
             required
           >
-
         </div>
 
         <div class="form-group">
-
-          <label for="loginPassword">
-            Senha
-          </label>
-
+          <label for="loginSenha">Senha</label>
           <input
-            id="loginPassword"
             type="password"
+            id="loginSenha"
             placeholder="Digite sua senha"
             required
           >
-
         </div>
 
-        <button
-          id="loginButton"
-          type="submit"
-          class="btn btn-primary btn-full"
-        >
+        <button class="btn btn-primary btn-full" type="submit">
           Entrar
         </button>
 
       </form>
 
-      <div
-        id="loginMessage"
-        class="login-message hidden"
-      ></div>
+      <div id="mensagemLogin" class="mensagem"></div>
 
     </div>
 
-  </div>
-
-</section>
+  </section>
 
 
-<!-- =========================
-     APLICAÇÃO
-========================= -->
+  <!-- APLICAÇÃO -->
+  <section id="appScreen" class="hidden">
 
-<section
-  id="app"
-  class="hidden"
->
+    <header class="topbar">
 
-  <header class="topbar">
+      <div class="brand">
 
-    <div class="brand">
-
-      <div class="brand-icon">
-        📋
-      </div>
-
-      <div>
-
-        <div class="brand-title">
-          EduOcorrências
+        <div class="brand-icon">
+          ✓
         </div>
 
-        <div class="brand-subtitle">
-          Sistema de Registro Escolar
+        <div>
+          <h1>EduOcorrências</h1>
+          <small>Sistema de registro escolar</small>
         </div>
 
       </div>
 
-    </div>
+      <div class="usuario-topo">
 
-
-    <div class="user-area">
-
-      <div class="user-info">
-
-        <div
-          id="loggedUserName"
-          class="user-name"
-        >
+        <span id="nomeUsuarioTopo">
           Usuário
-        </div>
+        </span>
 
-        <div
-          id="loggedUserProfile"
-          class="user-profile"
-        >
+        <span id="perfilUsuarioTopo" class="perfil-badge">
           Perfil
-        </div>
+        </span>
+
+        <button id="btnSair" class="btn-sair">
+          Sair
+        </button>
 
       </div>
 
-      <button
-        id="logoutButton"
-        class="logout-btn"
-      >
-        Sair
-      </button>
+    </header>
 
-    </div>
 
-  </header>
+    <div class="layout">
 
+      <!-- MENU -->
+      <aside class="sidebar">
 
-  <div class="app-layout">
+        <button
+          class="menu-btn ativo"
+          data-pagina="ocorrencia"
+          id="menuOcorrencia">
+          📝 Registrar ocorrência
+        </button>
 
+        <button
+          class="menu-btn"
+          data-pagina="dashboard"
+          id="menuDashboard">
+          📊 Dashboard
+        </button>
 
-    <!-- MENU -->
+        <button
+          class="menu-btn"
+          data-pagina="historico"
+          id="menuHistorico">
+          📋 Histórico
+        </button>
 
-    <aside class="sidebar">
+      </aside>
 
-      <div class="menu-title">
-        Menu
-      </div>
 
-      <button
-        class="menu-item"
-        data-page="novaOcorrencia"
-      >
-        📝 Registrar ocorrência
-      </button>
+      <main class="conteudo">
 
-      <button
-        id="menuDashboard"
-        class="menu-item"
-        data-page="dashboard"
-      >
-        📊 Dashboard
-      </button>
+        <!-- REGISTRO -->
+        <section id="pagina-ocorrencia" class="pagina ativa">
 
-      <button
-        id="menuHistorico"
-        class="menu-item"
-        data-page="historico"
-      >
-        📚 Histórico
-      </button>
+          <div class="titulo-pagina">
+            <h2>Registrar ocorrência</h2>
+            <p>
+              Registre uma ocorrência para consulta e acompanhamento posterior.
+            </p>
+          </div>
 
-    </aside>
+          <div class="form-card">
 
-
-    <!-- CONTEÚDO -->
-
-    <main class="main-content">
-
-
-      <!-- NOVA OCORRÊNCIA -->
-
-      <section
-        id="pageNovaOcorrencia"
-        class="page"
-      >
-
-        <div class="page-header">
-
-          <h1 class="page-title">
-            Registrar ocorrência
-          </h1>
-
-          <p class="page-description">
-            Registre uma nova ocorrência escolar.
-          </p>
-
-        </div>
-
-
-        <div id="formMessage"></div>
-
-
-        <div class="card">
-
-          <h2 class="card-title">
-            Dados da ocorrência
-          </h2>
-
-
-          <form id="occurrenceForm">
-
-            <div class="form-grid">
-
-
-              <div class="form-group">
-
-                <label for="estudante">
-                  Estudante
-                  <span class="required">*</span>
-                </label>
-
-                <input
-                  id="estudante"
-                  type="text"
-                  placeholder="Nome completo do estudante"
-                  required
-                >
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="sala">
-                  Sala / Turma
-                  <span class="required">*</span>
-                </label>
-
-                <select
-                  id="sala"
-                  required
-                >
-
-                  <option value="">
-                    Selecione...
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <!-- NOVO: PROFESSOR -->
-
-              <div class="form-group">
-
-                <label for="professor">
-                  Professor responsável
-                  <span class="required">*</span>
-                </label>
-
-                <input
-                  id="professor"
-                  type="text"
-                  placeholder="Nome do professor"
-                  required
-                >
-
-              </div>
-
-
-              <!-- NOVO: HORÁRIO -->
-
-              <div class="form-group">
-
-                <label for="horario">
-                  Horário da ocorrência
-                  <span class="required">*</span>
-                </label>
-
-                <input
-                  id="horario"
-                  type="time"
-                  required
-                >
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="tipo">
-                  Tipo da ocorrência
-                  <span class="required">*</span>
-                </label>
-
-                <select
-                  id="tipo"
-                  required
-                >
-
-                  <option value="">
-                    Selecione...
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="status">
-                  Status
-                </label>
-
-                <select id="status">
-
-                  <option value="Aberta">
-                    Aberta
-                  </option>
-
-                  <option value="Em acompanhamento">
-                    Em acompanhamento
-                  </option>
-
-                  <option value="Resolvida">
-                    Resolvida
-                  </option>
-
-                  <option value="Cancelada">
-                    Cancelada
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <div class="form-group form-full">
-
-                <label for="descricao">
-                  Descrição da ocorrência
-                  <span class="required">*</span>
-                </label>
-
-                <textarea
-                  id="descricao"
-                  placeholder="Descreva o que aconteceu..."
-                  required
-                ></textarea>
-
-              </div>
-
-
-              <div class="form-group form-full">
-
-                <label for="observacoes">
-                  Observações
-                </label>
-
-                <textarea
-                  id="observacoes"
-                  placeholder="Outras informações relevantes..."
-                ></textarea>
-
-              </div>
-
-
-              <div class="form-group form-full">
-
-                <label for="providencia">
-                  Providência adotada
-                </label>
-
-                <textarea
-                  id="providencia"
-                  placeholder="Informe a providência tomada..."
-                ></textarea>
-
-              </div>
-
-
+            <div class="info-professor">
+              O registro ficará armazenado permanentemente no sistema para
+              consulta posterior pela Gestão.
             </div>
 
+            <form id="formOcorrencia">
 
-            <div class="form-actions">
+              <div class="form-grid">
 
-              <button
-                type="button"
-                id="clearFormButton"
-                class="btn btn-secondary"
-              >
-                Limpar
-              </button>
+                <!-- NOVO CAMPO PROFESSOR -->
+                <div class="form-group">
 
-              <button
-                type="submit"
-                id="saveOccurrenceButton"
-                class="btn btn-primary"
-              >
-                Registrar ocorrência
-              </button>
+                  <label for="professor">
+                    Professor responsável *
+                  </label>
 
-            </div>
+                  <input
+                    type="text"
+                    id="professor"
+                    placeholder="Nome do professor"
+                    required
+                  >
 
-          </form>
-
-        </div>
-
-      </section>
+                </div>
 
 
-      <!-- DASHBOARD -->
+                <!-- NOVO CAMPO HORÁRIO -->
+                <div class="form-group">
 
-      <section
-        id="pageDashboard"
-        class="page hidden"
-      >
+                  <label for="horario">
+                    Horário da ocorrência *
+                  </label>
 
-        <div class="page-header">
+                  <input
+                    type="time"
+                    id="horario"
+                    step="60"
+                    required
+                  >
 
-          <h1 class="page-title">
-            Panorama das ocorrências
-          </h1>
-
-          <p class="page-description">
-            Visão geral das ocorrências registradas.
-          </p>
-
-        </div>
+                </div>
 
 
-        <div class="stats-grid">
+                <div class="form-group">
+
+                  <label for="estudante">
+                    Estudante *
+                  </label>
+
+                  <input
+                    type="text"
+                    id="estudante"
+                    placeholder="Nome do estudante"
+                    required
+                  >
+
+                </div>
 
 
-          <div class="stat-card">
+                <div class="form-group">
 
-            <div class="stat-icon">
-              📋
-            </div>
+                  <label for="sala">
+                    Sala / Turma *
+                  </label>
 
-            <div>
+                  <select id="sala" required>
+                    <option value="">Selecione...</option>
+                  </select>
 
-              <div class="stat-label">
-                Total
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="tipo">
+                    Tipo da ocorrência *
+                  </label>
+
+                  <select id="tipo" required>
+                    <option value="">Selecione...</option>
+                  </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="status">
+                    Status *
+                  </label>
+
+                  <select id="status" required>
+
+                    <option value="Aberta">
+                      Aberta
+                    </option>
+
+                    <option value="Em acompanhamento">
+                      Em acompanhamento
+                    </option>
+
+                    <option value="Resolvida">
+                      Resolvida
+                    </option>
+
+                    <option value="Cancelada">
+                      Cancelada
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div class="form-group campo-grande">
+
+                  <label for="descricao">
+                    Descrição da ocorrência *
+                  </label>
+
+                  <textarea
+                    id="descricao"
+                    placeholder="Descreva detalhadamente o que aconteceu..."
+                    required
+                  ></textarea>
+
+                </div>
+
+
+                <div class="form-group campo-grande">
+
+                  <label for="observacoes">
+                    Observações
+                  </label>
+
+                  <textarea
+                    id="observacoes"
+                    placeholder="Informações adicionais..."
+                  ></textarea>
+
+                </div>
+
+
+                <div class="form-group campo-grande">
+
+                  <label for="providencia">
+                    Providência adotada
+                  </label>
+
+                  <textarea
+                    id="providencia"
+                    placeholder="Informe as providências adotadas..."
+                  ></textarea>
+
+                </div>
+
               </div>
 
-              <div
-                id="statTotal"
-                class="stat-number"
-              >
-                0
+
+              <div class="botoes-form">
+
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="btnLimpar">
+                  Limpar
+                </button>
+
+                <button
+                  type="submit"
+                  class="btn btn-success">
+                  Registrar ocorrência
+                </button>
+
               </div>
 
+            </form>
+
+            <div id="mensagemOcorrencia" class="mensagem"></div>
+
+          </div>
+
+        </section>
+
+
+        <!-- DASHBOARD -->
+        <section id="pagina-dashboard" class="pagina">
+
+          <div class="titulo-pagina">
+
+            <h2>Dashboard</h2>
+
+            <p>
+              Panorama geral das ocorrências registradas.
+            </p>
+
+          </div>
+
+
+          <div class="cards-dashboard">
+
+            <div class="card">
+              <div class="label">Total de ocorrências</div>
+              <div class="numero" id="totalOcorrencias">0</div>
+            </div>
+
+            <div class="card">
+              <div class="label">Abertas</div>
+              <div class="numero" id="totalAbertas">0</div>
+            </div>
+
+            <div class="card">
+              <div class="label">Em acompanhamento</div>
+              <div class="numero" id="totalAcompanhamento">0</div>
+            </div>
+
+            <div class="card">
+              <div class="label">Resolvidas</div>
+              <div class="numero" id="totalResolvidas">0</div>
             </div>
 
           </div>
 
 
-          <div class="stat-card">
+          <div class="card">
 
-            <div class="stat-icon">
-              🟡
-            </div>
+            <h3 style="margin-bottom:15px;">
+              Ocorrências por sala / turma
+            </h3>
 
-            <div>
-
-              <div class="stat-label">
-                Abertas
-              </div>
-
-              <div
-                id="statAbertas"
-                class="stat-number"
-              >
-                0
-              </div>
-
+            <div id="panoramaSalas">
+              Carregando...
             </div>
 
           </div>
 
+        </section>
 
-          <div class="stat-card">
 
-            <div class="stat-icon">
-              🔵
-            </div>
+        <!-- HISTÓRICO -->
+        <section id="pagina-historico" class="pagina">
 
-            <div>
+          <div class="titulo-pagina">
 
-              <div class="stat-label">
-                Em acompanhamento
-              </div>
+            <h2>Histórico de ocorrências</h2>
 
-              <div
-                id="statAcompanhamento"
-                class="stat-number"
-              >
-                0
-              </div>
-
-            </div>
+            <p>
+              Consulte, filtre, edite ou exclua os registros.
+            </p>
 
           </div>
 
 
-          <div class="stat-card">
-
-            <div class="stat-icon">
-              🟢
-            </div>
-
-            <div>
-
-              <div class="stat-label">
-                Resolvidas
-              </div>
-
-              <div
-                id="statResolvidas"
-                class="stat-number"
-              >
-                0
-              </div>
-
-            </div>
-
-          </div>
-
-
-        </div>
-
-
-        <div class="card">
-
-          <h2 class="card-title">
-            Resumo por sala / turma
-          </h2>
-
-          <div id="roomSummary">
-
-            <div class="empty-state">
-              Nenhuma ocorrência registrada.
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- HISTÓRICO -->
-
-      <section
-        id="pageHistorico"
-        class="page hidden"
-      >
-
-        <div class="page-header">
-
-          <h1 class="page-title">
-            Histórico de ocorrências
-          </h1>
-
-          <p class="page-description">
-            Consulte, filtre e gerencie os registros.
-          </p>
-
-        </div>
-
-
-        <div class="card">
-
-          <h2 class="card-title">
-            Filtros
-          </h2>
-
-
-          <div class="filters">
-
+          <div class="filtros">
 
             <div class="form-group">
 
-              <label for="filterSala">
+              <label for="filtroSala">
                 Sala / Turma
               </label>
 
-              <select id="filterSala">
-
-                <option value="">
-                  Todas
-                </option>
-
+              <select id="filtroSala">
+                <option value="">Todas</option>
               </select>
 
             </div>
@@ -1399,16 +1010,45 @@
 
             <div class="form-group">
 
-              <label for="filterTipo">
+              <label for="filtroTipo">
                 Tipo
               </label>
 
-              <select id="filterTipo">
+              <select id="filtroTipo">
+                <option value="">Todos</option>
+              </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="filtroStatus">
+                Status
+              </label>
+
+              <select id="filtroStatus">
 
                 <option value="">
                   Todos
                 </option>
 
+                <option value="Aberta">
+                  Aberta
+                </option>
+
+                <option value="Em acompanhamento">
+                  Em acompanhamento
+                </option>
+
+                <option value="Resolvida">
+                  Resolvida
+                </option>
+
+                <option value="Cancelada">
+                  Cancelada
+                </option>
+
               </select>
 
             </div>
@@ -1416,70 +1056,21 @@
 
             <div class="form-group">
 
-              <label for="filterEstudante">
-                Estudante
-              </label>
-
-              <input
-                id="filterEstudante"
-                type="text"
-                placeholder="Nome do estudante"
-              >
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="filterData">
+              <label for="filtroData">
                 Data
               </label>
 
               <input
-                id="filterData"
                 type="date"
+                id="filtroData"
               >
 
             </div>
 
-
           </div>
 
 
-          <div class="filter-actions">
-
-            <button
-              id="applyFilters"
-              class="btn btn-primary"
-            >
-              🔎 Filtrar
-            </button>
-
-            <button
-              id="clearFilters"
-              class="btn btn-secondary"
-            >
-              Limpar filtros
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-title">
-
-            Registros encontrados:
-            <span id="historyCount">
-              0
-            </span>
-
-          </div>
-
-
-          <div class="table-wrapper">
+          <div class="tabela-container">
 
             <table>
 
@@ -1501,914 +1092,387 @@
 
               </thead>
 
-              <tbody
-                id="occurrencesTableBody"
-              ></tbody>
+              <tbody id="tabelaHistorico">
+
+              </tbody>
 
             </table>
 
           </div>
 
-        </div>
+        </section>
 
-      </section>
-
-
-    </main>
-
-  </div>
-
-</section>
-
-
-<!-- =========================
-     MODAL DE EDIÇÃO
-========================= -->
-
-<div
-  id="editModal"
-  class="modal-overlay hidden"
->
-
-  <div class="modal">
-
-    <div class="modal-header">
-
-      <h2 class="modal-title">
-        Editar ocorrência
-      </h2>
-
-      <button
-        id="closeModal"
-        class="close-modal"
-        type="button"
-      >
-        ✕
-      </button>
+      </main>
 
     </div>
 
-
-    <form id="editForm">
-
-      <input
-        id="editId"
-        type="hidden"
-      >
+  </section>
 
 
-      <div class="form-grid">
+  <!-- MODAL DE EDIÇÃO -->
 
+  <div id="modalEdicao" class="modal">
 
-        <div class="form-group">
+    <div class="modal-content">
 
-          <label for="editEstudante">
-            Estudante
-          </label>
+      <div class="modal-header">
 
-          <input
-            id="editEstudante"
-            type="text"
-            required
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label for="editSala">
-            Sala / Turma
-          </label>
-
-          <select
-            id="editSala"
-            required
-          ></select>
-
-        </div>
-
-
-        <!-- NOVO: PROFESSOR NA EDIÇÃO -->
-
-        <div class="form-group">
-
-          <label for="editProfessor">
-            Professor responsável
-          </label>
-
-          <input
-            id="editProfessor"
-            type="text"
-            placeholder="Nome do professor"
-            required
-          >
-
-        </div>
-
-
-        <!-- NOVO: HORÁRIO NA EDIÇÃO -->
-
-        <div class="form-group">
-
-          <label for="editHorario">
-            Horário da ocorrência
-          </label>
-
-          <input
-            id="editHorario"
-            type="time"
-            required
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label for="editTipo">
-            Tipo
-          </label>
-
-          <select
-            id="editTipo"
-            required
-          ></select>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label for="editStatus">
-            Status
-          </label>
-
-          <select id="editStatus">
-
-            <option value="Aberta">
-              Aberta
-            </option>
-
-            <option value="Em acompanhamento">
-              Em acompanhamento
-            </option>
-
-            <option value="Resolvida">
-              Resolvida
-            </option>
-
-            <option value="Cancelada">
-              Cancelada
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div class="form-group form-full">
-
-          <label for="editDescricao">
-            Descrição
-          </label>
-
-          <textarea
-            id="editDescricao"
-            required
-          ></textarea>
-
-        </div>
-
-
-        <div class="form-group form-full">
-
-          <label for="editObservacoes">
-            Observações
-          </label>
-
-          <textarea
-            id="editObservacoes"
-          ></textarea>
-
-        </div>
-
-
-        <div class="form-group form-full">
-
-          <label for="editProvidencia">
-            Providência adotada
-          </label>
-
-          <textarea
-            id="editProvidencia"
-          ></textarea>
-
-        </div>
-
-
-      </div>
-
-
-      <div class="form-actions">
+        <h3>
+          Editar ocorrência
+        </h3>
 
         <button
-          id="cancelEdit"
-          type="button"
-          class="btn btn-secondary"
-        >
-          Cancelar
-        </button>
-
-        <button
-          type="submit"
-          class="btn btn-primary"
-        >
-          Salvar alterações
+          class="fechar-modal"
+          id="btnFecharModal">
+          ×
         </button>
 
       </div>
 
-    </form>
+
+      <form id="formEdicao">
+
+        <input
+          type="hidden"
+          id="editId"
+        >
+
+
+        <div class="form-grid">
+
+          <!-- PROFESSOR NA EDIÇÃO -->
+          <div class="form-group">
+
+            <label for="editProfessor">
+              Professor responsável *
+            </label>
+
+            <input
+              type="text"
+              id="editProfessor"
+              required
+            >
+
+          </div>
+
+
+          <!-- HORÁRIO NA EDIÇÃO -->
+          <div class="form-group">
+
+            <label for="editHorario">
+              Horário da ocorrência *
+            </label>
+
+            <input
+              type="time"
+              id="editHorario"
+              step="60"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="editEstudante">
+              Estudante *
+            </label>
+
+            <input
+              type="text"
+              id="editEstudante"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="editSala">
+              Sala / Turma *
+            </label>
+
+            <select
+              id="editSala"
+              required>
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="editTipo">
+              Tipo *
+            </label>
+
+            <select
+              id="editTipo"
+              required>
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="editStatus">
+              Status *
+            </label>
+
+            <select
+              id="editStatus"
+              required>
+
+              <option value="Aberta">
+                Aberta
+              </option>
+
+              <option value="Em acompanhamento">
+                Em acompanhamento
+              </option>
+
+              <option value="Resolvida">
+                Resolvida
+              </option>
+
+              <option value="Cancelada">
+                Cancelada
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group campo-grande">
+
+            <label for="editDescricao">
+              Descrição *
+            </label>
+
+            <textarea
+              id="editDescricao"
+              required>
+            </textarea>
+
+          </div>
+
+
+          <div class="form-group campo-grande">
+
+            <label for="editObservacoes">
+              Observações
+            </label>
+
+            <textarea
+              id="editObservacoes">
+            </textarea>
+
+          </div>
+
+
+          <div class="form-group campo-grande">
+
+            <label for="editProvidencia">
+              Providência adotada
+            </label>
+
+            <textarea
+              id="editProvidencia">
+            </textarea>
+
+          </div>
+
+        </div>
+
+
+        <div class="botoes-form">
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            id="btnCancelarEdicao">
+            Cancelar
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary">
+            Salvar alterações
+          </button>
+
+        </div>
+
+      </form>
+
+      <div id="mensagemEdicao" class="mensagem"></div>
+
+    </div>
 
   </div>
 
-</div>
 
+  <!-- FIREBASE -->
 
-<!-- =========================
-     FIREBASE
-========================= -->
+  <script type="module">
 
-<script type="module">
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
-  /* =========================
-     IMPORTAÇÕES
-  ========================= */
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  import {
-    initializeApp
-  }
-  from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      getDocs,
+      getDoc,
+      doc,
+      updateDoc,
+      deleteDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  import {
-    getAuth,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut
-  }
-  from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+    /* =====================================================
+       CONFIGURAÇÃO FIREBASE
+       ===================================================== */
 
-  import {
-    getFirestore,
-    collection,
-    getDocs,
-    getDoc,
-    addDoc,
-    updateDoc,
-    deleteDoc,
-    doc,
-    serverTimestamp
-  }
-  from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    const firebaseConfig = {
 
+      apiKey: "AIzaSyBHmNkQXm9o43y--1kF45pk8ogNkxca2V4",
 
-  /* =========================
-     CONFIGURAÇÃO FIREBASE
-  ========================= */
+      authDomain: "acesso-a-ocorencias.firebaseapp.com",
 
-  const firebaseConfig = {
+      projectId: "acesso-a-ocorencias",
 
-    apiKey:
-      "AIzaSyBHmNkQXm9o43y--1kF45pk8ogNkxca2V4",
+      storageBucket: "acesso-a-ocorencias.firebasestorage.app",
 
-    authDomain:
-      "acesso-a-ocorencias.firebaseapp.com",
+      messagingSenderId: "264801701109",
 
-    projectId:
-      "acesso-a-ocorencias",
+      appId: "1:264801701109:web:8bd208706cf0643ffe49bc"
 
-    storageBucket:
-      "acesso-a-ocorencias.firebasestorage.app",
+    };
 
-    messagingSenderId:
-      "264801701109",
 
-    appId:
-      "1:264801701109:web:8bd208706cf0643ffe49bc"
+    const app = initializeApp(firebaseConfig);
 
-  };
+    const auth = getAuth(app);
 
+    const db = getFirestore(app);
 
-  /* =========================
-     INICIALIZAÇÃO
-  ========================= */
 
-  const app =
-    initializeApp(firebaseConfig);
+    /* =====================================================
+       SALAS
+       
+       ALTERE SOMENTE ESTA LISTA QUANDO QUISER MUDAR
+       OS NOMES DAS SALAS.
+       ===================================================== */
 
+    const SALAS = [
 
-  const auth =
-    getAuth(app);
+      "SALA 100",
+      "SALA 101",
+      "SALA 102",
+      "SALA 103",
 
+      "SALA 200 INT",
+      "SALA 201 INT",
 
-  const db =
-    getFirestore(app);
+      "SALA 200 ADM",
+      "SALA 201 ADM",
 
+      "SALA 300 INT",
+      "SALA 301 INT",
 
-  /* =========================
-     DADOS
-  ========================= */
+      "SALA 300 ADM",
+      "SALA 301 ADM"
 
-  const SALAS = [
-    "SALA 100",
-    "SALA 101",
-    "SALA 102",
-    "SALA 103",
-    "SALA 200 INT",
-    "SALA 201 INT",
-    "SALA 200 ADM",
-    "SALA 201 ADM",
-    "SALA 300 INT",
-    "SALA 301 INT",
-    "SALA 300 ADM",
-    "SALA 301 ADM"
-  ];
+    ];
 
 
-  const TIPOS = [
+    /* =====================================================
+       TIPOS DE OCORRÊNCIA
+       ===================================================== */
 
-    "Comportamento",
-    "Frequência",
-    "Atraso",
-    "Convivência",
-    "Desempenho",
-    "Uso inadequado de tecnologia",
-    "Descumprimento de regra",
-    "Outro"
+    const TIPOS = [
 
-  ];
+      "Comportamento",
+      "Frequência",
+      "Atraso",
+      "Convivência",
+      "Desempenho",
+      "Uso inadequado de tecnologia",
+      "Descumprimento de regra",
+      "Outro"
 
+    ];
 
-  const STATUS = [
 
-    "Aberta",
-    "Em acompanhamento",
-    "Resolvida",
-    "Cancelada"
+    /* =====================================================
+       VARIÁVEIS
+       ===================================================== */
 
-  ];
+    let usuarioAtual = null;
 
+    let dadosUsuario = null;
 
-  let usuarioAtual = null;
+    let todasOcorrencias = [];
 
-  let perfilAtual = null;
+    let ocorrenciaEditando = null;
 
-  let dadosUsuario = null;
 
-  let ocorrencias = [];
+    /* =====================================================
+       ELEMENTOS
+       ===================================================== */
 
+    const loginScreen =
+      document.getElementById("loginScreen");
 
-  /* =========================
-     ELEMENTOS
-  ========================= */
+    const appScreen =
+      document.getElementById("appScreen");
 
-  const loadingScreen =
-    document.getElementById(
-      "loadingScreen"
-    );
+    const formLogin =
+      document.getElementById("formLogin");
 
+    const formOcorrencia =
+      document.getElementById("formOcorrencia");
 
-  const loginScreen =
-    document.getElementById(
-      "loginScreen"
-    );
+    const formEdicao =
+      document.getElementById("formEdicao");
 
 
-  const appScreen =
-    document.getElementById(
-      "app"
-    );
+    /* =====================================================
+       LOGIN
+       ===================================================== */
 
-
-  const loginForm =
-    document.getElementById(
-      "loginForm"
-    );
-
-
-  const loginMessage =
-    document.getElementById(
-      "loginMessage"
-    );
-
-
-  const loginButton =
-    document.getElementById(
-      "loginButton"
-    );
-
-
-  const occurrenceForm =
-    document.getElementById(
-      "occurrenceForm"
-    );
-
-
-  const formMessage =
-    document.getElementById(
-      "formMessage"
-    );
-
-
-  const logoutButton =
-    document.getElementById(
-      "logoutButton"
-    );
-
-
-  /* =========================
-     UTILITÁRIOS
-  ========================= */
-
-  function mostrarLoading(
-    mostrar
-  ) {
-
-    if (mostrar) {
-
-      loadingScreen
-        .classList
-        .remove("hidden");
-
-    } else {
-
-      loadingScreen
-        .classList
-        .add("hidden");
-
-    }
-
-  }
-
-
-  function escapeHtml(
-    texto
-  ) {
-
-    if (
-      texto === null ||
-      texto === undefined
-    ) {
-
-      return "";
-
-    }
-
-
-    return String(texto)
-
-      .replaceAll(
-        "&",
-        "&amp;"
-      )
-
-      .replaceAll(
-        "<",
-        "&lt;"
-      )
-
-      .replaceAll(
-        ">",
-        "&gt;"
-      )
-
-      .replaceAll(
-        '"',
-        "&quot;"
-      )
-
-      .replaceAll(
-        "'",
-        "&#039;"
-      );
-
-  }
-
-
-  function mostrarLoginErro(
-    mensagem
-  ) {
-
-    loginMessage
-      .className =
-      "login-message message-error";
-
-    loginMessage
-      .textContent =
-      mensagem;
-
-  }
-
-
-  function limparLoginMensagem() {
-
-    loginMessage
-      .className =
-      "login-message hidden";
-
-    loginMessage
-      .textContent =
-      "";
-
-  }
-
-
-  function mostrarMensagem(
-    elemento,
-    mensagem,
-    tipo
-  ) {
-
-    elemento.innerHTML = `
-
-      <div
-        class="alert alert-${tipo}"
-      >
-
-        ${escapeHtml(mensagem)}
-
-      </div>
-
-    `;
-
-  }
-
-
-  function limparMensagem(
-    elemento
-  ) {
-
-    elemento.innerHTML =
-      "";
-
-  }
-
-
-  function formatarData(
-    data
-  ) {
-
-    if (!data) {
-
-      return "";
-
-    }
-
-
-    let objeto;
-
-
-    if (
-      data.toDate
-    ) {
-
-      objeto =
-        data.toDate();
-
-    } else {
-
-      objeto =
-        new Date(data);
-
-    }
-
-
-    if (
-      isNaN(
-        objeto.getTime()
-      )
-    ) {
-
-      return "";
-
-    }
-
-
-    return objeto
-      .toLocaleDateString(
-        "pt-BR"
-      );
-
-  }
-
-
-  function formatarDataInput(
-    data
-  ) {
-
-    if (!data) {
-
-      return "";
-
-    }
-
-
-    let objeto;
-
-
-    if (
-      data.toDate
-    ) {
-
-      objeto =
-        data.toDate();
-
-    } else {
-
-      objeto =
-        new Date(data);
-
-    }
-
-
-    if (
-      isNaN(
-        objeto.getTime()
-      )
-    ) {
-
-      return "";
-
-    }
-
-
-    const ano =
-      objeto.getFullYear();
-
-
-    const mes =
-      String(
-        objeto.getMonth() + 1
-      ).padStart(
-        2,
-        "0"
-      );
-
-
-    const dia =
-      String(
-        objeto.getDate()
-      ).padStart(
-        2,
-        "0"
-      );
-
-
-    return `${ano}-${mes}-${dia}`;
-
-  }
-
-
-  function statusClass(
-    status
-  ) {
-
-    switch(status) {
-
-      case "Aberta":
-        return "badge-aberta";
-
-      case "Em acompanhamento":
-        return "badge-acompanhamento";
-
-      case "Resolvida":
-        return "badge-resolvida";
-
-      case "Cancelada":
-        return "badge-cancelada";
-
-      default:
-        return "badge-aberta";
-
-    }
-
-  }
-
-
-  function resumirTexto(
-    texto,
-    limite
-  ) {
-
-    if (!texto) {
-
-      return "";
-
-    }
-
-
-    if (
-      texto.length <= limite
-    ) {
-
-      return texto;
-
-    }
-
-
-    return texto.substring(
-      0,
-      limite
-    ) + "...";
-
-  }
-
-
-  /* =========================
-     SELECTS
-  ========================= */
-
-  function preencherSelects() {
-
-    const sala =
-      document.getElementById(
-        "sala"
-      );
-
-
-    const tipo =
-      document.getElementById(
-        "tipo"
-      );
-
-
-    const filterSala =
-      document.getElementById(
-        "filterSala"
-      );
-
-
-    const filterTipo =
-      document.getElementById(
-        "filterTipo"
-      );
-
-
-    const editSala =
-      document.getElementById(
-        "editSala"
-      );
-
-
-    const editTipo =
-      document.getElementById(
-        "editTipo"
-      );
-
-
-    sala.innerHTML =
-      `<option value="">
-        Selecione...
-      </option>`;
-
-
-    filterSala.innerHTML =
-      `<option value="">
-        Todas
-      </option>`;
-
-
-    editSala.innerHTML =
-      `<option value="">
-        Selecione...
-      </option>`;
-
-
-    SALAS.forEach(
-      item => {
-
-        sala.innerHTML += `
-          <option value="${escapeHtml(item)}">
-            ${escapeHtml(item)}
-          </option>
-        `;
-
-
-        filterSala.innerHTML += `
-          <option value="${escapeHtml(item)}">
-            ${escapeHtml(item)}
-          </option>
-        `;
-
-
-        editSala.innerHTML += `
-          <option value="${escapeHtml(item)}">
-            ${escapeHtml(item)}
-          </option>
-        `;
-
-      }
-    );
-
-
-    tipo.innerHTML =
-      `<option value="">
-        Selecione...
-      </option>`;
-
-
-    filterTipo.innerHTML =
-      `<option value="">
-        Todos
-      </option>`;
-
-
-    editTipo.innerHTML =
-      `<option value="">
-        Selecione...
-      </option>`;
-
-
-    TIPOS.forEach(
-      item => {
-
-        tipo.innerHTML += `
-          <option value="${escapeHtml(item)}">
-            ${escapeHtml(item)}
-          </option>
-        `;
-
-
-        filterTipo.innerHTML += `
-          <option value="${escapeHtml(item)}">
-            ${escapeHtml(item)}
-          </option>
-        `;
-
-
-        editTipo.innerHTML += `
-          <option value="${escapeHtml(item)}">
-            ${escapeHtml(item)}
-          </option>
-        `;
-
-      }
-    );
-
-  }
-
-
-  /* =========================
-     LOGIN
-  ========================= */
-
-  loginForm.addEventListener(
-    "submit",
-    async event => {
+    formLogin.addEventListener("submit", async (event) => {
 
       event.preventDefault();
 
-      limparLoginMensagem();
-
       const email =
-        document.getElementById(
-          "loginEmail"
-        ).value.trim();
-
+        document.getElementById("loginEmail").value.trim();
 
       const senha =
-        document.getElementById(
-          "loginPassword"
-        ).value;
+        document.getElementById("loginSenha").value;
 
 
-      if (
-        !email ||
-        !senha
-      ) {
-
-        mostrarLoginErro(
-          "Informe o e-mail e a senha."
-        );
-
-        return;
-
-      }
-
-
-      loginButton.disabled =
-        true;
-
-
-      loginButton.textContent =
-        "Entrando...";
+      mostrarMensagem(
+        "mensagemLogin",
+        "Entrando...",
+        ""
+      );
 
 
       try {
@@ -2419,131 +1483,48 @@
           senha
         );
 
-      }
+      } catch (erro) {
 
-      catch(error) {
+        console.error(erro);
 
-        console.error(
-          "Erro completo no login:",
-          error
-        );
-
-
-        let mensagem =
-          "Não foi possível realizar o login.";
-
-
-        switch(
-          error.code
-        ) {
-
-          case "auth/invalid-credential":
-            mensagem =
-              "E-mail ou senha incorretos.";
-            break;
-
-          case "auth/user-not-found":
-            mensagem =
-              "Usuário não encontrado no Firebase Authentication.";
-            break;
-
-          case "auth/wrong-password":
-            mensagem =
-              "Senha incorreta.";
-            break;
-
-          case "auth/invalid-email":
-            mensagem =
-              "O e-mail informado é inválido.";
-            break;
-
-          case "auth/too-many-requests":
-            mensagem =
-              "Muitas tentativas. Aguarde alguns minutos e tente novamente.";
-            break;
-
-          case "auth/network-request-failed":
-            mensagem =
-              "Falha de conexão com o Firebase.";
-            break;
-
-          case "auth/operation-not-allowed":
-            mensagem =
-              "O login por e-mail e senha não está ativado no Firebase Authentication.";
-            break;
-
-          default:
-            mensagem =
-              `Erro: ${
-                error.code ||
-                error.message
-              }`;
-
-        }
-
-
-        mostrarLoginErro(
-          mensagem
+        mostrarMensagem(
+          "mensagemLogin",
+          "Não foi possível entrar. Verifique o e-mail e a senha.",
+          "erro"
         );
 
       }
 
-      finally {
-
-        loginButton.disabled =
-          false;
+    });
 
 
-        loginButton.textContent =
-          "Entrar";
+    /* =====================================================
+       OBSERVA USUÁRIO AUTENTICADO
+       ===================================================== */
+
+    onAuthStateChanged(auth, async (user) => {
+
+      if (!user) {
+
+        usuarioAtual = null;
+
+        dadosUsuario = null;
+
+        loginScreen.classList.remove("hidden");
+
+        appScreen.classList.add("hidden");
+
+        return;
 
       }
 
-    }
-  );
-
-
-  /* =========================
-     AUTENTICAÇÃO
-  ========================= */
-
-  onAuthStateChanged(
-    auth,
-    async user => {
 
       try {
 
-        if (!user) {
-
-          usuarioAtual = null;
-          perfilAtual = null;
-          dadosUsuario = null;
-
-          appScreen
-            .classList
-            .add("hidden");
+        usuarioAtual = user;
 
 
-          loginScreen
-            .classList
-            .remove("hidden");
-
-
-          mostrarLoading(
-            false
-          );
-
-
-          return;
-
-        }
-
-
-        usuarioAtual =
-          user;
-
-
-        const referencia =
+        const referenciaUsuario =
           doc(
             db,
             "usuarios",
@@ -2551,30 +1532,19 @@
           );
 
 
-        const snapshot =
-          await getDoc(
-            referencia
+        const documentoUsuario =
+          await getDoc(referenciaUsuario);
+
+
+        if (!documentoUsuario.exists()) {
+
+          await signOut(auth);
+
+          mostrarMensagem(
+            "mensagemLogin",
+            "Usuário sem cadastro de perfil no sistema.",
+            "erro"
           );
-
-
-        if (
-          !snapshot.exists()
-        ) {
-
-          mostrarLoading(
-            false
-          );
-
-
-          alert(
-            "Seu e-mail está autenticado, mas o perfil ainda não foi cadastrado na coleção usuarios."
-          );
-
-
-          await signOut(
-            auth
-          );
-
 
           return;
 
@@ -2582,1430 +1552,236 @@
 
 
         dadosUsuario =
-          snapshot.data();
+          documentoUsuario.data();
 
 
-        perfilAtual =
-          dadosUsuario.perfil;
+        const perfil =
+          String(
+            dadosUsuario.perfil || ""
+          ).trim().toLowerCase();
 
 
         if (
-          perfilAtual !==
-            "professor" &&
-          perfilAtual !==
-            "gestao"
+          perfil !== "professor" &&
+          perfil !== "gestao"
         ) {
 
-          mostrarLoading(
-            false
+          await signOut(auth);
+
+          mostrarMensagem(
+            "mensagemLogin",
+            "Perfil de usuário inválido.",
+            "erro"
           );
-
-
-          alert(
-            "O perfil deste usuário é inválido. O campo perfil deve ser exatamente 'professor' ou 'gestao'."
-          );
-
-
-          await signOut(
-            auth
-          );
-
 
           return;
 
         }
 
 
+        loginScreen.classList.add("hidden");
+
+        appScreen.classList.remove("hidden");
+
+
         document.getElementById(
-          "loggedUserName"
+          "nomeUsuarioTopo"
         ).textContent =
           dadosUsuario.nome ||
           user.email;
 
 
         document.getElementById(
-          "loggedUserProfile"
+          "perfilUsuarioTopo"
         ).textContent =
-          perfilAtual === "gestao"
-            ? "Perfil: Gestão"
-            : "Perfil: Professor";
+          perfil === "gestao"
+            ? "GESTÃO"
+            : "PROFESSOR";
 
 
-        loginScreen
-          .classList
-          .add("hidden");
+        preencherSelects();
 
+        preencherProfessorPadrao();
 
-        appScreen
-          .classList
-          .remove("hidden");
+        configurarInterfacePorPerfil(perfil);
 
+        configurarEventosNavegacao();
 
-        configurarInterfacePorPerfil();
 
-
-        mostrarLoading(
-          false
-        );
-
-      }
-
-      catch(error) {
-
-        console.error(
-          "Erro ao carregar usuário:",
-          error
-        );
-
-
-        mostrarLoading(
-          false
-        );
-
-
-        alert(
-          "Não foi possível carregar o perfil do usuário. Verifique as regras do Firestore."
-        );
-
-
-        await signOut(
-          auth
-        );
-
-      }
-
-    }
-  );
-
-
-  /* =========================
-     PERFIL
-  ========================= */
-
-  function configurarInterfacePorPerfil() {
-
-    const dashboard =
-      document.getElementById(
-        "menuDashboard"
-      );
-
-
-    const historico =
-      document.getElementById(
-        "menuHistorico"
-      );
-
-
-    if (
-      perfilAtual ===
-      "professor"
-    ) {
-
-      dashboard
-        .classList
-        .add("hidden");
-
-
-      historico
-        .classList
-        .add("hidden");
-
-
-      abrirPagina(
-        "novaOcorrencia"
-      );
-
-    }
-
-
-    if (
-      perfilAtual ===
-      "gestao"
-    ) {
-
-      dashboard
-        .classList
-        .remove("hidden");
-
-
-      historico
-        .classList
-        .remove("hidden");
-
-
-      abrirPagina(
-        "dashboard"
-      );
-
-
-      carregarOcorrencias();
-
-    }
-
-  }
-
-
-  /* =========================
-     NAVEGAÇÃO
-  ========================= */
-
-  document
-    .querySelectorAll(
-      ".menu-item"
-    )
-    .forEach(
-      botao => {
-
-        botao.addEventListener(
-          "click",
-          () => {
-
-            abrirPagina(
-              botao.dataset.page
-            );
-
-          }
-        );
-
-      }
-    );
-
-
-  function abrirPagina(
-    pagina
-  ) {
-
-    if (
-      perfilAtual ===
-        "professor" &&
-      (
-        pagina ===
-          "dashboard" ||
-        pagina ===
-          "historico"
-      )
-    ) {
-
-      pagina =
-        "novaOcorrencia";
-
-    }
-
-
-    document
-      .querySelectorAll(
-        ".page"
-      )
-      .forEach(
-        item => {
-
-          item
-            .classList
-            .add("hidden");
-
-        }
-      );
-
-
-    document
-      .querySelectorAll(
-        ".menu-item"
-      )
-      .forEach(
-        item => {
-
-          item
-            .classList
-            .remove("active");
-
-        }
-      );
-
-
-    const primeiraLetra =
-      pagina
-        .charAt(0)
-        .toUpperCase();
-
-
-    const id =
-      "page" +
-      primeiraLetra +
-      pagina.slice(1);
-
-
-    const paginaElemento =
-      document.getElementById(
-        id
-      );
-
-
-    if (
-      paginaElemento
-    ) {
-
-      paginaElemento
-        .classList
-        .remove("hidden");
-
-    }
-
-
-    const menu =
-      document.querySelector(
-        `.menu-item[data-page="${pagina}"]`
-      );
-
-
-    if (menu) {
-
-      menu
-        .classList
-        .add("active");
-
-    }
-
-  }
-
-
-  /* =========================
-     REGISTRAR OCORRÊNCIA
-  ========================= */
-
-  occurrenceForm.addEventListener(
-    "submit",
-    async event => {
-
-      event.preventDefault();
-
-
-      if (!usuarioAtual) {
-
-        mostrarMensagem(
-          formMessage,
-          "Usuário não autenticado.",
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      const estudante =
-        document.getElementById(
-          "estudante"
-        ).value.trim();
-
-
-      const sala =
-        document.getElementById(
-          "sala"
-        ).value;
-
-
-      const professor =
-        document.getElementById(
-          "professor"
-        ).value.trim();
-
-
-      const horario =
-        document.getElementById(
-          "horario"
-        ).value;
-
-
-      const tipo =
-        document.getElementById(
-          "tipo"
-        ).value;
-
-
-      const status =
-        document.getElementById(
-          "status"
-        ).value;
-
-
-      const descricao =
-        document.getElementById(
-          "descricao"
-        ).value.trim();
-
-
-      const observacoes =
-        document.getElementById(
-          "observacoes"
-        ).value.trim();
-
-
-      const providencia =
-        document.getElementById(
-          "providencia"
-        ).value.trim();
-
-
-      if (
-        !estudante ||
-        !sala ||
-        !professor ||
-        !horario ||
-        !tipo ||
-        !descricao
-      ) {
-
-        mostrarMensagem(
-          formMessage,
-          "Preencha todos os campos obrigatórios.",
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      const botao =
-        document.getElementById(
-          "saveOccurrenceButton"
-        );
-
-
-      botao.disabled =
-        true;
-
-
-      botao.textContent =
-        "Registrando...";
-
-
-      try {
-
-        await addDoc(
-          collection(
-            db,
-            "ocorrencias"
-          ),
-          {
-
-            estudante:
-              estudante,
-
-            sala:
-              sala,
-
-            professor:
-              professor,
-
-            horario:
-              horario,
-
-            tipo:
-              tipo,
-
-            status:
-              status,
-
-            descricao:
-              descricao,
-
-            observacoes:
-              observacoes,
-
-            providencia:
-              providencia,
-
-            data:
-              new Date(),
-
-            criadoEm:
-              serverTimestamp(),
-
-            criadoPor:
-              usuarioAtual.email,
-
-            criadoPorUid:
-              usuarioAtual.uid,
-
-            atualizadoEm:
-              serverTimestamp(),
-
-            atualizadoPor:
-              usuarioAtual.email
-
-          }
-        );
-
-
-        mostrarMensagem(
-          formMessage,
-          "Ocorrência registrada com sucesso!",
-          "success"
-        );
-
-
-        occurrenceForm.reset();
-
-
-        document.getElementById(
-          "status"
-        ).value =
-          "Aberta";
-
-
-        if (
-          perfilAtual ===
-          "gestao"
-        ) {
+        if (perfil === "gestao") {
 
           await carregarOcorrencias();
 
         }
 
-      }
 
-      catch(error) {
+      } catch (erro) {
 
         console.error(
-          "Erro ao registrar:",
-          error
+          "Erro ao carregar perfil:",
+          erro
         );
 
-
-        let mensagem =
-          "Não foi possível registrar a ocorrência.";
-
-
-        if (
-          error.code ===
-          "permission-denied"
-        ) {
-
-          mensagem =
-            "O Firebase bloqueou o registro. Verifique as regras do Firestore.";
-
-        }
-
+        await signOut(auth);
 
         mostrarMensagem(
-          formMessage,
-          mensagem,
-          "error"
+          "mensagemLogin",
+          "Erro ao carregar o perfil do usuário.",
+          "erro"
         );
 
       }
 
-      finally {
-
-        botao.disabled =
-          false;
+    });
 
 
-        botao.textContent =
-          "Registrar ocorrência";
+    /* =====================================================
+       PREENCHER PROFESSOR AUTOMATICAMENTE
+       ===================================================== */
 
-      }
+    function preencherProfessorPadrao() {
 
-    }
-  );
-
-
-  /* =========================
-     LIMPAR FORMULÁRIO
-  ========================= */
-
-  document
-    .getElementById(
-      "clearFormButton"
-    )
-    .addEventListener(
-      "click",
-      () => {
-
-        occurrenceForm.reset();
-
-
-        document.getElementById(
-          "status"
-        ).value =
-          "Aberta";
-
-
-        limparMensagem(
-          formMessage
-        );
-
-      }
-    );
-
-
-  /* =========================
-     CARREGAR OCORRÊNCIAS
-  ========================= */
-
-  async function carregarOcorrencias() {
-
-    if (
-      perfilAtual !==
-      "gestao"
-    ) {
-
-      return;
-
-    }
-
-
-    try {
-
-      const snapshot =
-        await getDocs(
-          collection(
-            db,
-            "ocorrencias"
-          )
-        );
-
-
-      ocorrencias = [];
-
-
-      snapshot.forEach(
-        documento => {
-
-          ocorrencias.push({
-
-            id:
-              documento.id,
-
-            ...documento.data()
-
-          });
-
-        }
-      );
-
-
-      ocorrencias.sort(
-        (a,b) => {
-
-          const dataA =
-            a.data?.toDate
-              ? a.data.toDate()
-              : new Date(
-                  a.data || 0
-                );
-
-
-          const dataB =
-            b.data?.toDate
-              ? b.data.toDate()
-              : new Date(
-                  b.data || 0
-                );
-
-
-          return dataB - dataA;
-
-        }
-      );
-
-
-      atualizarDashboard();
-
-
-      renderizarHistorico(
-        ocorrencias
-      );
-
-    }
-
-    catch(error) {
-
-      console.error(
-        "Erro ao carregar ocorrências:",
-        error
-      );
+      const campo =
+        document.getElementById("professor");
 
 
       if (
-        error.code ===
-        "permission-denied"
+        campo &&
+        dadosUsuario &&
+        dadosUsuario.nome &&
+        !campo.value
       ) {
 
-        alert(
-          "Acesso às ocorrências negado pelas regras do Firestore."
-        );
+        campo.value =
+          dadosUsuario.nome;
 
       }
 
     }
 
-  }
+
+    /* =====================================================
+       CONFIGURAR INTERFACE
+       ===================================================== */
+
+    function configurarInterfacePorPerfil(perfil) {
+
+      const menuDashboard =
+        document.getElementById("menuDashboard");
+
+      const menuHistorico =
+        document.getElementById("menuHistorico");
 
 
-  /* =========================
-     DASHBOARD
-  ========================= */
+      if (perfil === "professor") {
 
-  function atualizarDashboard() {
+        menuDashboard.classList.add("hidden");
 
-    const total =
-      ocorrencias.length;
+        menuHistorico.classList.add("hidden");
 
+      } else {
 
-    const abertas =
-      ocorrencias.filter(
-        item =>
-          item.status ===
-          "Aberta"
-      ).length;
+        menuDashboard.classList.remove("hidden");
 
-
-    const acompanhamento =
-      ocorrencias.filter(
-        item =>
-          item.status ===
-          "Em acompanhamento"
-      ).length;
-
-
-    const resolvidas =
-      ocorrencias.filter(
-        item =>
-          item.status ===
-          "Resolvida"
-      ).length;
-
-
-    document.getElementById(
-      "statTotal"
-    ).textContent =
-      total;
-
-
-    document.getElementById(
-      "statAbertas"
-    ).textContent =
-      abertas;
-
-
-    document.getElementById(
-      "statAcompanhamento"
-    ).textContent =
-      acompanhamento;
-
-
-    document.getElementById(
-      "statResolvidas"
-    ).textContent =
-      resolvidas;
-
-
-    gerarResumoSalas();
-
-  }
-
-
-  function gerarResumoSalas() {
-
-    const container =
-      document.getElementById(
-        "roomSummary"
-      );
-
-
-    if (
-      !ocorrencias.length
-    ) {
-
-      container.innerHTML = `
-
-        <div class="empty-state">
-
-          <div class="empty-icon">
-            📊
-          </div>
-
-          <div class="empty-title">
-            Nenhuma ocorrência registrada
-          </div>
-
-          <div>
-            O panorama aparecerá aqui.
-          </div>
-
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    const resumo = {};
-
-
-    ocorrencias.forEach(
-      ocorrencia => {
-
-        const sala =
-          ocorrencia.sala ||
-          "Sem sala";
-
-
-        if (
-          !resumo[sala]
-        ) {
-
-          resumo[sala] =
-            0;
-
-        }
-
-
-        resumo[sala]++;
+        menuHistorico.classList.remove("hidden");
 
       }
-    );
-
-
-    const salas =
-      Object.entries(
-        resumo
-      ).sort(
-        (a,b) =>
-          b[1] - a[1]
-      );
-
-
-    let html = `
-
-      <div style="
-        display:grid;
-        grid-template-columns:
-          repeat(
-            auto-fit,
-            minmax(180px,1fr)
-          );
-        gap:12px;
-      ">
-
-    `;
-
-
-    salas.forEach(
-      ([sala, quantidade]) => {
-
-        html += `
-
-          <div style="
-            border:1px solid #e2e8f0;
-            border-radius:12px;
-            padding:16px;
-            background:#f8fafc;
-          ">
-
-            <div style="
-              font-weight:700;
-              margin-bottom:7px;
-            ">
-
-              ${escapeHtml(
-                sala
-              )}
-
-            </div>
-
-            <div style="
-              font-size:25px;
-              font-weight:800;
-              color:#2563eb;
-            ">
-
-              ${quantidade}
-
-            </div>
-
-            <div style="
-              font-size:12px;
-              color:#64748b;
-            ">
-
-              ocorrência(s)
-
-            </div>
-
-          </div>
-
-        `;
-
-      }
-    );
-
-
-    html +=
-      "</div>";
-
-
-    container.innerHTML =
-      html;
-
-  }
-
-
-  /* =========================
-     HISTÓRICO
-  ========================= */
-
-  function renderizarHistorico(
-    lista
-  ) {
-
-    const tbody =
-      document.getElementById(
-        "occurrencesTableBody"
-      );
-
-
-    const contador =
-      document.getElementById(
-        "historyCount"
-      );
-
-
-    contador.textContent =
-      lista.length;
-
-
-    if (
-      !lista.length
-    ) {
-
-      tbody.innerHTML = `
-
-        <tr>
-
-          <td
-            colspan="9"
-            style="
-              text-align:center;
-              padding:45px;
-            "
-          >
-
-            <div class="empty-state">
-
-              <div class="empty-icon">
-                🔎
-              </div>
-
-              <div class="empty-title">
-                Nenhuma ocorrência encontrada
-              </div>
-
-              <div>
-                Tente alterar os filtros.
-              </div>
-
-            </div>
-
-          </td>
-
-        </tr>
-
-      `;
-
-      return;
 
     }
 
 
-    tbody.innerHTML =
-      "";
+    /* =====================================================
+       SELECTS
+       ===================================================== */
 
+    function preencherSelects() {
 
-    lista.forEach(
-      ocorrencia => {
+      const sala =
+        document.getElementById("sala");
 
-        const linha =
-          document.createElement(
-            "tr"
-          );
+      const tipo =
+        document.getElementById("tipo");
 
+      const filtroSala =
+        document.getElementById("filtroSala");
 
-        linha.innerHTML = `
+      const filtroTipo =
+        document.getElementById("filtroTipo");
 
-          <td>
+      const editSala =
+        document.getElementById("editSala");
 
-            ${escapeHtml(
-              formatarData(
-                ocorrencia.data
-              )
-            )}
+      const editTipo =
+        document.getElementById("editTipo");
 
-          </td>
 
+      sala.innerHTML =
+        '<option value="">Selecione...</option>';
 
-          <td>
+      filtroSala.innerHTML =
+        '<option value="">Todas</option>';
 
-            ${escapeHtml(
-              ocorrencia.horario ||
-              "—"
-            )}
+      editSala.innerHTML =
+        '<option value="">Selecione...</option>';
 
-          </td>
 
+      SALAS.forEach((nomeSala) => {
 
-          <td>
+        sala.innerHTML +=
+          `<option value="${escapeHtml(nomeSala)}">${escapeHtml(nomeSala)}</option>`;
 
-            ${escapeHtml(
-              ocorrencia.professor ||
-              "—"
-            )}
+        filtroSala.innerHTML +=
+          `<option value="${escapeHtml(nomeSala)}">${escapeHtml(nomeSala)}</option>`;
 
-          </td>
+        editSala.innerHTML +=
+          `<option value="${escapeHtml(nomeSala)}">${escapeHtml(nomeSala)}</option>`;
 
+      });
 
-          <td>
 
-            <strong>
+      tipo.innerHTML =
+        '<option value="">Selecione...</option>';
 
-              ${escapeHtml(
-                ocorrencia.estudante
-              )}
+      filtroTipo.innerHTML =
+        '<option value="">Todos</option>';
 
-            </strong>
+      editTipo.innerHTML =
+        '<option value="">Selecione...</option>';
 
-          </td>
 
+      TIPOS.forEach((nomeTipo) => {
 
-          <td>
+        tipo.innerHTML +=
+          `<option value="${escapeHtml(nomeTipo)}">${escapeHtml(nomeTipo)}</option>`;
 
-            ${escapeHtml(
-              ocorrencia.sala
-            )}
+        filtroTipo.innerHTML +=
+          `<option value="${escapeHtml(nomeTipo)}">${escapeHtml(nomeTipo)}</option>`;
 
-          </td>
+        editTipo.innerHTML +=
+          `<option value="${escapeHtml(nomeTipo)}">${escapeHtml(nomeTipo)}</option>`;
 
-
-          <td>
-
-            ${escapeHtml(
-              ocorrencia.tipo
-            )}
-
-          </td>
-
-
-          <td>
-
-            <span
-              class="badge
-              ${statusClass(
-                ocorrencia.status
-              )}"
-            >
-
-              ${escapeHtml(
-                ocorrencia.status
-              )}
-
-            </span>
-
-          </td>
-
-
-          <td>
-
-            ${escapeHtml(
-              resumirTexto(
-                ocorrencia.descricao,
-                100
-              )
-            )}
-
-          </td>
-
-
-          <td>
-
-            <div class="action-buttons">
-
-              <button
-                class="small-btn edit-btn"
-                data-action="edit"
-                data-id="${escapeHtml(
-                  ocorrencia.id
-                )}"
-              >
-                ✏️ Editar
-              </button>
-
-
-              <button
-                class="small-btn delete-btn"
-                data-action="delete"
-                data-id="${escapeHtml(
-                  ocorrencia.id
-                )}"
-              >
-                🗑️ Excluir
-              </button>
-
-            </div>
-
-          </td>
-
-        `;
-
-
-        tbody.appendChild(
-          linha
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =========================
-     FILTROS
-  ========================= */
-
-  document
-    .getElementById(
-      "applyFilters"
-    )
-    .addEventListener(
-      "click",
-      aplicarFiltros
-    );
-
-
-  document
-    .getElementById(
-      "clearFilters"
-    )
-    .addEventListener(
-      "click",
-      limparFiltros
-    );
-
-
-  function aplicarFiltros() {
-
-    const sala =
-      document.getElementById(
-        "filterSala"
-      ).value;
-
-
-    const tipo =
-      document.getElementById(
-        "filterTipo"
-      ).value;
-
-
-    const estudante =
-      document.getElementById(
-        "filterEstudante"
-      ).value
-        .trim()
-        .toLowerCase();
-
-
-    const data =
-      document.getElementById(
-        "filterData"
-      ).value;
-
-
-    let resultado =
-      [...ocorrencias];
-
-
-    if (sala) {
-
-      resultado =
-        resultado.filter(
-          item =>
-            item.sala ===
-            sala
-        );
+      });
 
     }
 
 
-    if (tipo) {
-
-      resultado =
-        resultado.filter(
-          item =>
-            item.tipo ===
-            tipo
-        );
-
-    }
-
-
-    if (estudante) {
-
-      resultado =
-        resultado.filter(
-          item =>
-            (
-              item.estudante ||
-              ""
-            )
-            .toLowerCase()
-            .includes(
-              estudante
-            )
-        );
-
-    }
-
-
-    if (data) {
-
-      resultado =
-        resultado.filter(
-          item =>
-            formatarDataInput(
-              item.data
-            ) ===
-            data
-        );
-
-    }
-
-
-    renderizarHistorico(
-      resultado
-    );
-
-  }
-
-
-  function limparFiltros() {
-
-    document.getElementById(
-      "filterSala"
-    ).value =
-      "";
-
-
-    document.getElementById(
-      "filterTipo"
-    ).value =
-      "";
-
-
-    document.getElementById(
-      "filterEstudante"
-    ).value =
-      "";
-
-
-    document.getElementById(
-      "filterData"
-    ).value =
-      "";
-
-
-    renderizarHistorico(
-      ocorrencias
-    );
-
-  }
-
-
-  /* =========================
-     AÇÕES DA TABELA
-  ========================= */
-
-  document
-    .getElementById(
-      "occurrencesTableBody"
-    )
-    .addEventListener(
-      "click",
-      event => {
-
-        const botao =
-          event.target.closest(
-            "button"
-          );
-
-
-        if (!botao) {
-
-          return;
-
-        }
-
-
-        const id =
-          botao.dataset.id;
-
-
-        const acao =
-          botao.dataset.action;
-
-
-        if (
-          acao ===
-          "edit"
-        ) {
-
-          abrirEdicao(
-            id
-          );
-
-        }
-
-
-        if (
-          acao ===
-          "delete"
-        ) {
-
-          excluirOcorrencia(
-            id
-          );
-
-        }
-
-      }
-    );
-
-
-  /* =========================
-     EDITAR
-  ========================= */
-
-  function abrirEdicao(
-    id
-  ) {
-
-    const ocorrencia =
-      ocorrencias.find(
-        item =>
-          item.id ===
-          id
-      );
-
-
-    if (!ocorrencia) {
-
-      return;
-
-    }
-
-
-    document.getElementById(
-      "editId"
-    ).value =
-      ocorrencia.id;
-
-
-    document.getElementById(
-      "editEstudante"
-    ).value =
-      ocorrencia.estudante ||
-      "";
-
-
-    document.getElementById(
-      "editSala"
-    ).value =
-      ocorrencia.sala ||
-      "";
-
-
-    document.getElementById(
-      "editProfessor"
-    ).value =
-      ocorrencia.professor ||
-      "";
-
-
-    document.getElementById(
-      "editHorario"
-    ).value =
-      ocorrencia.horario ||
-      "";
-
-
-    document.getElementById(
-      "editTipo"
-    ).value =
-      ocorrencia.tipo ||
-      "";
-
-
-    document.getElementById(
-      "editStatus"
-    ).value =
-      ocorrencia.status ||
-      "Aberta";
-
-
-    document.getElementById(
-      "editDescricao"
-    ).value =
-      ocorrencia.descricao ||
-      "";
-
-
-    document.getElementById(
-      "editObservacoes"
-    ).value =
-      ocorrencia.observacoes ||
-      "";
-
-
-    document.getElementById(
-      "editProvidencia"
-    ).value =
-      ocorrencia.providencia ||
-      "";
-
-
-    document.getElementById(
-      "editModal"
-    )
-    .classList
-    .remove("hidden");
-
-  }
-
-
-  /* =========================
-     SALVAR EDIÇÃO
-  ========================= */
-
-  document
-    .getElementById(
-      "editForm"
-    )
-    .addEventListener(
+    /* =====================================================
+       REGISTRAR OCORRÊNCIA
+       ===================================================== */
+
+    formOcorrencia.addEventListener(
       "submit",
-      async event => {
+      async (event) => {
 
         event.preventDefault();
 
 
-        if (
-          perfilAtual !==
-          "gestao"
-        ) {
+        if (!usuarioAtual) {
 
-          alert(
-            "Somente usuários da Gestão podem editar ocorrências."
+          mostrarMensagem(
+            "mensagemOcorrencia",
+            "Usuário não autenticado.",
+            "erro"
           );
 
           return;
@@ -4013,13 +1789,959 @@
         }
 
 
-        const id =
-          document.getElementById(
-            "editId"
-          ).value;
+        const professor =
+          document
+            .getElementById("professor")
+            .value
+            .trim();
 
 
-        if (!id) {
+        const horario =
+          document
+            .getElementById("horario")
+            .value;
+
+
+        const estudante =
+          document
+            .getElementById("estudante")
+            .value
+            .trim();
+
+
+        const sala =
+          document
+            .getElementById("sala")
+            .value;
+
+
+        const tipo =
+          document
+            .getElementById("tipo")
+            .value;
+
+
+        const status =
+          document
+            .getElementById("status")
+            .value;
+
+
+        const descricao =
+          document
+            .getElementById("descricao")
+            .value
+            .trim();
+
+
+        const observacoes =
+          document
+            .getElementById("observacoes")
+            .value
+            .trim();
+
+
+        const providencia =
+          document
+            .getElementById("providencia")
+            .value
+            .trim();
+
+
+        if (
+          !professor ||
+          !horario ||
+          !estudante ||
+          !sala ||
+          !tipo ||
+          !status ||
+          !descricao
+        ) {
+
+          mostrarMensagem(
+            "mensagemOcorrencia",
+            "Preencha todos os campos obrigatórios.",
+            "erro"
+          );
+
+          return;
+
+        }
+
+
+        const botao =
+          formOcorrencia.querySelector(
+            'button[type="submit"]'
+          );
+
+
+        botao.disabled = true;
+
+        botao.textContent =
+          "Salvando...";
+
+
+        try {
+
+          /*
+            AQUI ESTÁ A PARTE IMPORTANTE.
+
+            Os campos professor e horario são
+            gravados diretamente no Firestore.
+          */
+
+          const novaOcorrencia = {
+
+            professor: professor,
+
+            horario: horario,
+
+            estudante: estudante,
+
+            sala: sala,
+
+            tipo: tipo,
+
+            status: status,
+
+            descricao: descricao,
+
+            observacoes: observacoes,
+
+            providencia: providencia,
+
+            data: new Date(),
+
+            criadoEm: serverTimestamp(),
+
+            criadoPor: usuarioAtual.email,
+
+            criadoPorUid: usuarioAtual.uid,
+
+            atualizadoEm: serverTimestamp(),
+
+            atualizadoPor: usuarioAtual.email
+
+          };
+
+
+          const referencia =
+            await addDoc(
+              collection(
+                db,
+                "ocorrencias"
+              ),
+              novaOcorrencia
+            );
+
+
+          console.log(
+            "Ocorrência registrada com ID:",
+            referencia.id
+          );
+
+
+          mostrarMensagem(
+            "mensagemOcorrencia",
+            "Ocorrência registrada com sucesso!",
+            "sucesso"
+          );
+
+
+          formOcorrencia.reset();
+
+
+          /*
+            Como o reset limpa o campo professor,
+            colocamos novamente o nome do professor.
+          */
+
+          preencherProfessorPadrao();
+
+
+          /*
+            Se a Gestão estiver utilizando o sistema,
+            atualizamos os dados.
+          */
+
+          if (
+            dadosUsuario &&
+            dadosUsuario.perfil === "gestao"
+          ) {
+
+            await carregarOcorrencias();
+
+          }
+
+
+        } catch (erro) {
+
+          console.error(
+            "Erro ao registrar ocorrência:",
+            erro
+          );
+
+
+          mostrarMensagem(
+            "mensagemOcorrencia",
+            "Erro ao registrar a ocorrência: " +
+            erro.message,
+            "erro"
+          );
+
+        } finally {
+
+          botao.disabled = false;
+
+          botao.textContent =
+            "Registrar ocorrência";
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       CARREGAR OCORRÊNCIAS
+       ===================================================== */
+
+    async function carregarOcorrencias() {
+
+      try {
+
+        const consulta =
+          await getDocs(
+            collection(
+              db,
+              "ocorrencias"
+            )
+          );
+
+
+        todasOcorrencias =
+          consulta.docs.map((documento) => {
+
+            return {
+
+              id: documento.id,
+
+              ...documento.data()
+
+            };
+
+          });
+
+
+        /*
+          Ordena da ocorrência mais recente
+          para a mais antiga.
+        */
+
+        todasOcorrencias.sort(
+          (a, b) => {
+
+            const dataA =
+              obterDataOrdenacao(a);
+
+            const dataB =
+              obterDataOrdenacao(b);
+
+            return dataB - dataA;
+
+          }
+        );
+
+
+        atualizarDashboard();
+
+        aplicarFiltros();
+
+
+      } catch (erro) {
+
+        console.error(
+          "Erro ao carregar ocorrências:",
+          erro
+        );
+
+
+        document.getElementById(
+          "tabelaHistorico"
+        ).innerHTML = `
+
+          <tr>
+
+            <td colspan="9">
+
+              <div class="sem-registros">
+
+                Erro ao carregar as ocorrências.
+
+                <br><br>
+
+                ${escapeHtml(erro.message)}
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        `;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       DASHBOARD
+       ===================================================== */
+
+    function atualizarDashboard() {
+
+      const total =
+        todasOcorrencias.length;
+
+
+      const abertas =
+        todasOcorrencias.filter(
+          item =>
+            item.status === "Aberta"
+        ).length;
+
+
+      const acompanhamento =
+        todasOcorrencias.filter(
+          item =>
+            item.status === "Em acompanhamento"
+        ).length;
+
+
+      const resolvidas =
+        todasOcorrencias.filter(
+          item =>
+            item.status === "Resolvida"
+        ).length;
+
+
+      document.getElementById(
+        "totalOcorrencias"
+      ).textContent = total;
+
+
+      document.getElementById(
+        "totalAbertas"
+      ).textContent = abertas;
+
+
+      document.getElementById(
+        "totalAcompanhamento"
+      ).textContent = acompanhamento;
+
+
+      document.getElementById(
+        "totalResolvidas"
+      ).textContent = resolvidas;
+
+
+      const porSala = {};
+
+
+      todasOcorrencias.forEach(
+        (ocorrencia) => {
+
+          const sala =
+            ocorrencia.sala ||
+            "Sem sala";
+
+          if (!porSala[sala]) {
+
+            porSala[sala] = 0;
+
+          }
+
+          porSala[sala]++;
+
+        }
+      );
+
+
+      const panorama =
+        document.getElementById(
+          "panoramaSalas"
+        );
+
+
+      const salas =
+        Object.entries(porSala)
+          .sort(
+            (a, b) =>
+              b[1] - a[1]
+          );
+
+
+      if (salas.length === 0) {
+
+        panorama.innerHTML =
+          `<div class="sem-registros">
+             Nenhuma ocorrência registrada.
+           </div>`;
+
+        return;
+
+      }
+
+
+      panorama.innerHTML = salas
+        .map(([sala, quantidade]) => `
+
+          <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:12px;
+            border-bottom:1px solid #e2e8f0;
+          ">
+
+            <strong>
+              ${escapeHtml(sala)}
+            </strong>
+
+            <span style="
+              background:#dbeafe;
+              color:#1d4ed8;
+              padding:5px 10px;
+              border-radius:20px;
+              font-weight:bold;
+            ">
+              ${quantidade}
+            </span>
+
+          </div>
+
+        `)
+        .join("");
+
+    }
+
+
+    /* =====================================================
+       FILTROS
+       ===================================================== */
+
+    document
+      .getElementById("filtroSala")
+      .addEventListener(
+        "change",
+        aplicarFiltros
+      );
+
+
+    document
+      .getElementById("filtroTipo")
+      .addEventListener(
+        "change",
+        aplicarFiltros
+      );
+
+
+    document
+      .getElementById("filtroStatus")
+      .addEventListener(
+        "change",
+        aplicarFiltros
+      );
+
+
+    document
+      .getElementById("filtroData")
+      .addEventListener(
+        "change",
+        aplicarFiltros
+      );
+
+
+    function aplicarFiltros() {
+
+      const sala =
+        document
+          .getElementById("filtroSala")
+          .value;
+
+
+      const tipo =
+        document
+          .getElementById("filtroTipo")
+          .value;
+
+
+      const status =
+        document
+          .getElementById("filtroStatus")
+          .value;
+
+
+      const data =
+        document
+          .getElementById("filtroData")
+          .value;
+
+
+      let resultado =
+        todasOcorrencias.filter(
+          (ocorrencia) => {
+
+            if (
+              sala &&
+              ocorrencia.sala !== sala
+            ) {
+
+              return false;
+
+            }
+
+
+            if (
+              tipo &&
+              ocorrencia.tipo !== tipo
+            ) {
+
+              return false;
+
+            }
+
+
+            if (
+              status &&
+              ocorrencia.status !== status
+            ) {
+
+              return false;
+
+            }
+
+
+            if (data) {
+
+              const dataOcorrencia =
+                obterData(ocorrencia);
+
+
+              if (!dataOcorrencia) {
+
+                return false;
+
+              }
+
+
+              const ano =
+                dataOcorrencia.getFullYear();
+
+
+              const mes =
+                String(
+                  dataOcorrencia.getMonth() + 1
+                ).padStart(2, "0");
+
+
+              const dia =
+                String(
+                  dataOcorrencia.getDate()
+                ).padStart(2, "0");
+
+
+              const dataFormatada =
+                `${ano}-${mes}-${dia}`;
+
+
+              if (
+                dataFormatada !== data
+              ) {
+
+                return false;
+
+              }
+
+            }
+
+
+            return true;
+
+          }
+        );
+
+
+      renderizarHistorico(resultado);
+
+    }
+
+
+    /* =====================================================
+       HISTÓRICO
+       ===================================================== */
+
+    function renderizarHistorico(lista) {
+
+      const tabela =
+        document.getElementById(
+          "tabelaHistorico"
+        );
+
+
+      if (
+        !lista ||
+        lista.length === 0
+      ) {
+
+        tabela.innerHTML = `
+
+          <tr>
+
+            <td colspan="9">
+
+              <div class="sem-registros">
+
+                Nenhuma ocorrência encontrada.
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        `;
+
+        return;
+
+      }
+
+
+      tabela.innerHTML =
+        lista.map(
+          (ocorrencia) => {
+
+            const statusClasse =
+              classeStatus(
+                ocorrencia.status
+              );
+
+
+            /*
+              Registros antigos podem não possuir
+              professor ou horário.
+              Nesse caso mostramos "—".
+            */
+
+            const professor =
+              ocorrencia.professor ||
+              "—";
+
+
+            const horario =
+              ocorrencia.horario ||
+              "—";
+
+
+            return `
+
+              <tr>
+
+                <td>
+                  ${formatarData(ocorrencia)}
+                </td>
+
+
+                <td>
+                  <strong>
+                    ${escapeHtml(horario)}
+                  </strong>
+                </td>
+
+
+                <td>
+                  ${escapeHtml(professor)}
+                </td>
+
+
+                <td>
+                  ${escapeHtml(
+                    ocorrencia.estudante || "—"
+                  )}
+                </td>
+
+
+                <td>
+                  ${escapeHtml(
+                    ocorrencia.sala || "—"
+                  )}
+                </td>
+
+
+                <td>
+                  ${escapeHtml(
+                    ocorrencia.tipo || "—"
+                  )}
+                </td>
+
+
+                <td>
+
+                  <span class="status ${statusClasse}">
+
+                    ${escapeHtml(
+                      ocorrencia.status || "—"
+                    )}
+
+                  </span>
+
+                </td>
+
+
+                <td>
+
+                  ${escapeHtml(
+                    resumirTexto(
+                      ocorrencia.descricao || "—",
+                      100
+                    )
+                  )}
+
+                </td>
+
+
+                <td>
+
+                  <div class="acoes">
+
+                    <button
+                      class="btn-mini btn-editar"
+                      onclick="abrirEdicao('${ocorrencia.id}')">
+
+                      Editar
+
+                    </button>
+
+
+                    <button
+                      class="btn-mini btn-excluir"
+                      onclick="excluirOcorrencia('${ocorrencia.id}')">
+
+                      Excluir
+
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            `;
+
+          }
+        ).join("");
+
+    }
+
+
+    /* =====================================================
+       ABRIR EDIÇÃO
+       ===================================================== */
+
+    window.abrirEdicao =
+      function(id) {
+
+        const ocorrencia =
+          todasOcorrencias.find(
+            item =>
+              item.id === id
+          );
+
+
+        if (!ocorrencia) {
+
+          alert(
+            "Ocorrência não encontrada."
+          );
+
+          return;
+
+        }
+
+
+        ocorrenciaEditando =
+          ocorrencia;
+
+
+        document.getElementById(
+          "editId"
+        ).value =
+          ocorrencia.id;
+
+
+        /*
+          NOVO CAMPO
+        */
+
+        document.getElementById(
+          "editProfessor"
+        ).value =
+          ocorrencia.professor || "";
+
+
+        /*
+          NOVO CAMPO
+        */
+
+        document.getElementById(
+          "editHorario"
+        ).value =
+          ocorrencia.horario || "";
+
+
+        document.getElementById(
+          "editEstudante"
+        ).value =
+          ocorrencia.estudante || "";
+
+
+        document.getElementById(
+          "editSala"
+        ).value =
+          ocorrencia.sala || "";
+
+
+        document.getElementById(
+          "editTipo"
+        ).value =
+          ocorrencia.tipo || "";
+
+
+        document.getElementById(
+          "editStatus"
+        ).value =
+          ocorrencia.status || "Aberta";
+
+
+        document.getElementById(
+          "editDescricao"
+        ).value =
+          ocorrencia.descricao || "";
+
+
+        document.getElementById(
+          "editObservacoes"
+        ).value =
+          ocorrencia.observacoes || "";
+
+
+        document.getElementById(
+          "editProvidencia"
+        ).value =
+          ocorrencia.providencia || "";
+
+
+        document.getElementById(
+          "modalEdicao"
+        ).classList.add("ativo");
+
+      };
+
+
+    /* =====================================================
+       SALVAR EDIÇÃO
+       ===================================================== */
+
+    formEdicao.addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+
+        if (!ocorrenciaEditando) {
+
+          return;
+
+        }
+
+
+        const professor =
+          document
+            .getElementById("editProfessor")
+            .value
+            .trim();
+
+
+        const horario =
+          document
+            .getElementById("editHorario")
+            .value;
+
+
+        const estudante =
+          document
+            .getElementById("editEstudante")
+            .value
+            .trim();
+
+
+        const sala =
+          document
+            .getElementById("editSala")
+            .value;
+
+
+        const tipo =
+          document
+            .getElementById("editTipo")
+            .value;
+
+
+        const status =
+          document
+            .getElementById("editStatus")
+            .value;
+
+
+        const descricao =
+          document
+            .getElementById("editDescricao")
+            .value
+            .trim();
+
+
+        const observacoes =
+          document
+            .getElementById("editObservacoes")
+            .value
+            .trim();
+
+
+        const providencia =
+          document
+            .getElementById("editProvidencia")
+            .value
+            .trim();
+
+
+        if (
+          !professor ||
+          !horario ||
+          !estudante ||
+          !sala ||
+          !tipo ||
+          !status ||
+          !descricao
+        ) {
+
+          mostrarMensagem(
+            "mensagemEdicao",
+            "Preencha todos os campos obrigatórios.",
+            "erro"
+          );
 
           return;
 
@@ -4028,81 +2750,40 @@
 
         try {
 
-          await updateDoc(
+          const referencia =
             doc(
               db,
               "ocorrencias",
-              id
-            ),
+              ocorrenciaEditando.id
+            );
+
+
+          /*
+            PROFESSOR E HORÁRIO TAMBÉM SÃO
+            ATUALIZADOS NO FIRESTORE.
+          */
+
+          await updateDoc(
+            referencia,
             {
 
-              estudante:
-                document
-                  .getElementById(
-                    "editEstudante"
-                  )
-                  .value
-                  .trim(),
+              professor: professor,
 
-              sala:
-                document
-                  .getElementById(
-                    "editSala"
-                  )
-                  .value,
+              horario: horario,
 
-              professor:
-                document
-                  .getElementById(
-                    "editProfessor"
-                  )
-                  .value
-                  .trim(),
+              estudante: estudante,
 
-              horario:
-                document
-                  .getElementById(
-                    "editHorario"
-                  )
-                  .value,
+              sala: sala,
 
-              tipo:
-                document
-                  .getElementById(
-                    "editTipo"
-                  )
-                  .value,
+              tipo: tipo,
 
-              status:
-                document
-                  .getElementById(
-                    "editStatus"
-                  )
-                  .value,
+              status: status,
 
-              descricao:
-                document
-                  .getElementById(
-                    "editDescricao"
-                  )
-                  .value
-                  .trim(),
+              descricao: descricao,
 
-              observacoes:
-                document
-                  .getElementById(
-                    "editObservacoes"
-                  )
-                  .value
-                  .trim(),
+              observacoes: observacoes,
 
-              providencia:
-                document
-                  .getElementById(
-                    "editProvidencia"
-                  )
-                  .value
-                  .trim(),
+              providencia: providencia,
 
               atualizadoEm:
                 serverTimestamp(),
@@ -4114,202 +2795,494 @@
           );
 
 
-          fecharModal();
+          mostrarMensagem(
+            "mensagemEdicao",
+            "Ocorrência atualizada com sucesso!",
+            "sucesso"
+          );
+
+
+          await carregarOcorrencias();
+
+
+          setTimeout(
+            fecharModal,
+            700
+          );
+
+
+        } catch (erro) {
+
+          console.error(
+            "Erro ao atualizar:",
+            erro
+          );
+
+
+          mostrarMensagem(
+            "mensagemEdicao",
+            "Erro ao atualizar: " +
+            erro.message,
+            "erro"
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       EXCLUIR OCORRÊNCIA
+       ===================================================== */
+
+    window.excluirOcorrencia =
+      async function(id) {
+
+        const confirmar =
+          confirm(
+            "Tem certeza que deseja excluir esta ocorrência?\n\nEssa ação não poderá ser desfeita."
+          );
+
+
+        if (!confirmar) {
+
+          return;
+
+        }
+
+
+        try {
+
+          await deleteDoc(
+            doc(
+              db,
+              "ocorrencias",
+              id
+            )
+          );
 
 
           await carregarOcorrencias();
 
 
           alert(
-            "Ocorrência atualizada com sucesso!"
+            "Ocorrência excluída com sucesso."
           );
 
-        }
 
-        catch(error) {
+        } catch (erro) {
 
           console.error(
-            "Erro ao atualizar:",
-            error
+            "Erro ao excluir:",
+            erro
           );
 
 
           alert(
-            "Não foi possível atualizar a ocorrência."
+            "Erro ao excluir a ocorrência:\n" +
+            erro.message
           );
 
         }
 
-      }
-    );
+      };
 
 
-  /* =========================
-     EXCLUIR
-  ========================= */
+    /* =====================================================
+       MODAL
+       ===================================================== */
 
-  async function excluirOcorrencia(
-    id
-  ) {
+    function fecharModal() {
 
-    if (
-      perfilAtual !==
-      "gestao"
-    ) {
-
-      alert(
-        "Somente usuários da Gestão podem excluir ocorrências."
-      );
-
-      return;
-
-    }
+      document
+        .getElementById("modalEdicao")
+        .classList.remove("ativo");
 
 
-    const confirmacao =
-      confirm(
-        "Tem certeza que deseja excluir esta ocorrência?\n\nEssa ação não poderá ser desfeita."
-      );
+      ocorrenciaEditando = null;
+
+      document
+        .getElementById("mensagemEdicao")
+        .className = "mensagem";
 
 
-    if (!confirmacao) {
-
-      return;
+      document
+        .getElementById("mensagemEdicao")
+        .textContent = "";
 
     }
 
 
-    try {
-
-      await deleteDoc(
-        doc(
-          db,
-          "ocorrencias",
-          id
-        )
+    document
+      .getElementById("btnFecharModal")
+      .addEventListener(
+        "click",
+        fecharModal
       );
 
 
-      await carregarOcorrencias();
-
-
-      alert(
-        "Ocorrência excluída com sucesso."
+    document
+      .getElementById("btnCancelarEdicao")
+      .addEventListener(
+        "click",
+        fecharModal
       );
+
+
+    /* =====================================================
+       NAVEGAÇÃO
+       ===================================================== */
+
+    function configurarEventosNavegacao() {
+
+      document
+        .querySelectorAll(".menu-btn")
+        .forEach(
+          (botao) => {
+
+            botao.addEventListener(
+              "click",
+              async () => {
+
+                const pagina =
+                  botao.dataset.pagina;
+
+
+                document
+                  .querySelectorAll(".menu-btn")
+                  .forEach(
+                    item =>
+                      item.classList.remove(
+                        "ativo"
+                      )
+                  );
+
+
+                botao.classList.add(
+                  "ativo"
+                );
+
+
+                document
+                  .querySelectorAll(".pagina")
+                  .forEach(
+                    item =>
+                      item.classList.remove(
+                        "ativa"
+                      )
+                  );
+
+
+                const paginaElemento =
+                  document.getElementById(
+                    "pagina-" + pagina
+                  );
+
+
+                if (paginaElemento) {
+
+                  paginaElemento.classList.add(
+                    "ativa"
+                  );
+
+                }
+
+
+                /*
+                  Sempre que a Gestão entrar no
+                  histórico ou dashboard, fazemos
+                  nova leitura do Firestore.
+                */
+
+                if (
+                  dadosUsuario &&
+                  dadosUsuario.perfil === "gestao"
+                ) {
+
+                  if (
+                    pagina === "historico" ||
+                    pagina === "dashboard"
+                  ) {
+
+                    await carregarOcorrencias();
+
+                  }
+
+                }
+
+              }
+            );
+
+          }
+        );
 
     }
 
-    catch(error) {
 
-      console.error(
-        "Erro ao excluir:",
-        error
-      );
+    /* =====================================================
+       BOTÃO LIMPAR
+       ===================================================== */
 
+    document
+      .getElementById("btnLimpar")
+      .addEventListener(
+        "click",
+        () => {
 
-      alert(
-        "Não foi possível excluir a ocorrência."
-      );
+          formOcorrencia.reset();
 
-    }
+          preencherProfessorPadrao();
 
-  }
-
-
-  /* =========================
-     MODAL
-  ========================= */
-
-  function fecharModal() {
-
-    document.getElementById(
-      "editModal"
-    )
-    .classList
-    .add("hidden");
-
-  }
-
-
-  document
-    .getElementById(
-      "closeModal"
-    )
-    .addEventListener(
-      "click",
-      fecharModal
-    );
-
-
-  document
-    .getElementById(
-      "cancelEdit"
-    )
-    .addEventListener(
-      "click",
-      fecharModal
-    );
-
-
-  document
-    .getElementById(
-      "editModal"
-    )
-    .addEventListener(
-      "click",
-      event => {
-
-        if (
-          event.target.id ===
-          "editModal"
-        ) {
-
-          fecharModal();
+          document
+            .getElementById(
+              "mensagemOcorrencia"
+            )
+            .className = "mensagem";
 
         }
-
-      }
-    );
+      );
 
 
-  /* =========================
-     SAIR
-  ========================= */
+    /* =====================================================
+       SAIR
+       ===================================================== */
 
-  logoutButton.addEventListener(
-    "click",
-    async () => {
+    document
+      .getElementById("btnSair")
+      .addEventListener(
+        "click",
+        async () => {
 
-      try {
+          await signOut(auth);
 
-        await signOut(
-          auth
-        );
+        }
+      );
 
-      }
 
-      catch(error) {
+    /* =====================================================
+       FUNÇÕES AUXILIARES
+       ===================================================== */
 
-        console.error(
-          "Erro ao sair:",
-          error
+    function mostrarMensagem(
+      id,
+      texto,
+      tipo
+    ) {
+
+      const elemento =
+        document.getElementById(id);
+
+
+      elemento.textContent =
+        texto;
+
+
+      elemento.className =
+        "mensagem";
+
+
+      if (tipo) {
+
+        elemento.classList.add(
+          tipo
         );
 
       }
 
     }
-  );
 
 
-  /* =========================
-     INÍCIO
-  ========================= */
+    function obterData(ocorrencia) {
 
-  preencherSelects();
+      if (!ocorrencia) {
 
-</script>
+        return null;
+
+      }
+
+
+      if (
+        ocorrencia.data &&
+        typeof ocorrencia.data.toDate === "function"
+      ) {
+
+        return ocorrencia.data.toDate();
+
+      }
+
+
+      if (
+        ocorrencia.data instanceof Date
+      ) {
+
+        return ocorrencia.data;
+
+      }
+
+
+      if (
+        ocorrencia.criadoEm &&
+        typeof ocorrencia.criadoEm.toDate === "function"
+      ) {
+
+        return ocorrencia.criadoEm.toDate();
+
+      }
+
+
+      return null;
+
+    }
+
+
+    function obterDataOrdenacao(ocorrencia) {
+
+      const data =
+        obterData(ocorrencia);
+
+
+      if (!data) {
+
+        return 0;
+
+      }
+
+
+      return data.getTime();
+
+    }
+
+
+    function formatarData(ocorrencia) {
+
+      const data =
+        obterData(ocorrencia);
+
+
+      if (!data) {
+
+        return "—";
+
+      }
+
+
+      return data.toLocaleDateString(
+        "pt-BR"
+      );
+
+    }
+
+
+    function classeStatus(status) {
+
+      if (
+        status === "Aberta"
+      ) {
+
+        return "status-aberta";
+
+      }
+
+
+      if (
+        status === "Em acompanhamento"
+      ) {
+
+        return "status-acompanhamento";
+
+      }
+
+
+      if (
+        status === "Resolvida"
+      ) {
+
+        return "status-resolvida";
+
+      }
+
+
+      if (
+        status === "Cancelada"
+      ) {
+
+        return "status-cancelada";
+
+      }
+
+
+      return "";
+
+    }
+
+
+    function resumirTexto(
+      texto,
+      limite
+    ) {
+
+      if (!texto) {
+
+        return "";
+
+      }
+
+
+      if (
+        texto.length <= limite
+      ) {
+
+        return texto;
+
+      }
+
+
+      return (
+        texto.substring(0, limite) +
+        "..."
+      );
+
+    }
+
+
+    function escapeHtml(valor) {
+
+      if (
+        valor === null ||
+        valor === undefined
+      ) {
+
+        return "";
+
+      }
+
+
+      return String(valor)
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+  </script>
 
 </body>
-
 </html>
-```
